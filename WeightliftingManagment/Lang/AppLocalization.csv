@@ -1,0 +1,27 @@
+﻿key,en-US,pl-PL
+MenuFileHeader,File,Plik
+MenuSettingsHeader,Settings,Ustawienia
+MenuViewHeader,View,Widok
+MenuStartHeader,Start View,Strona startowa
+MenuBodyWeightHeader,Weighing of players, Ważenie zawodników
+MenuExitHeader,Exit,Wyjście
+SettingsTitle,Settings,Ustawienia
+SettingsThemeTitle,Themes,Szata Graficzna
+SettingsThemeLightTheme,Light,Jasny
+SettingsThemeDarkTheme,Dark,Ciemny
+SettingsThemeDefaultTheme,Default,Domyślny
+SettingsAccentTitle,Color Accent,Kolor Akcentu
+SettingsLocalizationChoose,Language,Język aplikacji
+LastName,Last Name,Nazwisko
+FirstName, First Name,Imię
+Gender,Gender,Płeć
+Team,Team,Państwo/Klub
+YearOfBirth,Year of Birth,Rok Urodzenia
+Group,Group,Grupa
+BodyWeight,Body Weight,Ciężar Ciała
+Snatch,Snatch Decl.,Rwanie Dekl.
+CleanJerk,C&J Decl.,Podrzut Dekl.
+EntryTotal, Entry Total, Dwubój Wpisowy
+Category,Category,Kategoria
+LicenseNumber,License Number, Numer Licencji
+MenuAddParticipantHeader,MenuAddParticipantHeader,MenuAddParticipantHeader

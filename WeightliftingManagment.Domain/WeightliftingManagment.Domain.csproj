@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\WeightliftingManagment.MvvmSupport\WeightliftingManagment.MvvmSupport.csproj" />
+  </ItemGroup>
+
+</Project>

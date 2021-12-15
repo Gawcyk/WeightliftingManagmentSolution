@@ -1,0 +1,96 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31919.166
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment", "WeightliftingManagment\WeightliftingManagment.csproj", "{700AB523-2E6A-4F4B-BE02-E4BE5940CBB2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Core", "WeightliftingManagment.Core\WeightliftingManagment.Core.csproj", "{ABE9C3C6-EA63-4575-855B-8A575763042A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{25AD2B22-4A77-4070-83AB-271F760BD2CE}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Domain", "WeightliftingManagment.Domain\WeightliftingManagment.Domain.csproj", "{A6CA73CA-8B54-49F1-AE01-E6B614326885}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3E23D77F-C48E-40BF-BA60-7A84F0693013}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Domain.Test", "Test\WeightliftingManagment.Domain.Test\WeightliftingManagment.Domain.Test.csproj", "{D118E3BB-A613-415C-A2B3-40CBEC827449}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Moduls", "Moduls", "{27B23F9F-727A-4F64-960F-4E63ED3D854F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Moduls.Settings", "Moduls\WeightliftingManagment.Moduls.Settings\WeightliftingManagment.Moduls.Settings.csproj", "{3E8DE12D-7D53-4198-8A4D-7F11170B9C89}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Localization", "WeightliftingManagment.Localization\WeightliftingManagment.Localization.csproj", "{D1E59F4C-A0AE-4613-A199-7179395757F1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.MvvmSupport", "WeightliftingManagment.MvvmSupport\WeightliftingManagment.MvvmSupport.csproj", "{AF9B30CE-F7EC-4AA7-9319-374820365C21}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Moduls.Judge", "Moduls\WeightliftingManagment.Moduls.Judge\WeightliftingManagment.Moduls.Judge.csproj", "{3ACD94C7-DCF3-4844-945D-1D4C767BDEAD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Moduls.ParticipantBodyWeight", "Moduls\WeightliftingManagment.Moduls.ParticipantBodyWeight\WeightliftingManagment.Moduls.ParticipantBodyWeight.csproj", "{BF1D8E45-D350-4AD2-ABDD-B5B531DDF9C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeightliftingManagment.Moduls.Dialogs", "Moduls\WeightliftingManagment.Moduls.Dialogs\WeightliftingManagment.Moduls.Dialogs.csproj", "{E544853D-CF64-4EB7-A075-CDE050E836DB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{700AB523-2E6A-4F4B-BE02-E4BE5940CBB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{700AB523-2E6A-4F4B-BE02-E4BE5940CBB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{700AB523-2E6A-4F4B-BE02-E4BE5940CBB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{700AB523-2E6A-4F4B-BE02-E4BE5940CBB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ABE9C3C6-EA63-4575-855B-8A575763042A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ABE9C3C6-EA63-4575-855B-8A575763042A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ABE9C3C6-EA63-4575-855B-8A575763042A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ABE9C3C6-EA63-4575-855B-8A575763042A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6CA73CA-8B54-49F1-AE01-E6B614326885}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6CA73CA-8B54-49F1-AE01-E6B614326885}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6CA73CA-8B54-49F1-AE01-E6B614326885}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6CA73CA-8B54-49F1-AE01-E6B614326885}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D118E3BB-A613-415C-A2B3-40CBEC827449}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D118E3BB-A613-415C-A2B3-40CBEC827449}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D118E3BB-A613-415C-A2B3-40CBEC827449}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D118E3BB-A613-415C-A2B3-40CBEC827449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E8DE12D-7D53-4198-8A4D-7F11170B9C89}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E8DE12D-7D53-4198-8A4D-7F11170B9C89}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E8DE12D-7D53-4198-8A4D-7F11170B9C89}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E8DE12D-7D53-4198-8A4D-7F11170B9C89}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E59F4C-A0AE-4613-A199-7179395757F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E59F4C-A0AE-4613-A199-7179395757F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E59F4C-A0AE-4613-A199-7179395757F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E59F4C-A0AE-4613-A199-7179395757F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF9B30CE-F7EC-4AA7-9319-374820365C21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF9B30CE-F7EC-4AA7-9319-374820365C21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF9B30CE-F7EC-4AA7-9319-374820365C21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF9B30CE-F7EC-4AA7-9319-374820365C21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ACD94C7-DCF3-4844-945D-1D4C767BDEAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ACD94C7-DCF3-4844-945D-1D4C767BDEAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ACD94C7-DCF3-4844-945D-1D4C767BDEAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ACD94C7-DCF3-4844-945D-1D4C767BDEAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1D8E45-D350-4AD2-ABDD-B5B531DDF9C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF1D8E45-D350-4AD2-ABDD-B5B531DDF9C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF1D8E45-D350-4AD2-ABDD-B5B531DDF9C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF1D8E45-D350-4AD2-ABDD-B5B531DDF9C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E544853D-CF64-4EB7-A075-CDE050E836DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E544853D-CF64-4EB7-A075-CDE050E836DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E544853D-CF64-4EB7-A075-CDE050E836DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E544853D-CF64-4EB7-A075-CDE050E836DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D118E3BB-A613-415C-A2B3-40CBEC827449} = {3E23D77F-C48E-40BF-BA60-7A84F0693013}
+		{3E8DE12D-7D53-4198-8A4D-7F11170B9C89} = {27B23F9F-727A-4F64-960F-4E63ED3D854F}
+		{3ACD94C7-DCF3-4844-945D-1D4C767BDEAD} = {27B23F9F-727A-4F64-960F-4E63ED3D854F}
+		{BF1D8E45-D350-4AD2-ABDD-B5B531DDF9C8} = {27B23F9F-727A-4F64-960F-4E63ED3D854F}
+		{E544853D-CF64-4EB7-A075-CDE050E836DB} = {27B23F9F-727A-4F64-960F-4E63ED3D854F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {39450B48-8A97-4AC4-9248-5CCBA0A2A465}
+	EndGlobalSection
+EndGlobal

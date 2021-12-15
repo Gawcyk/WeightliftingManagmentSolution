@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+	<UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+	<PackageReference Include="Prism.Core" Version="8.1.97" />
+	<PackageReference Include="Prism.Wpf" Version="8.1.97" />
+	<PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+	<ProjectReference Include="..\WeightliftingManagment.MvvmSupport\WeightliftingManagment.MvvmSupport.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+		<AssemblyName>WeightliftingManagment</AssemblyName>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Remove="Lang\AppLocalization.csv" />
+		<None Remove="Lang\en-US.txt" />
+		<None Remove="Lang\pl-PL.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<Content Include="Lang\AppLocalization.csv">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
+		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.Judge\WeightliftingManagment.Moduls.Judge.csproj" />
+		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.ParticipantBodyWeight\WeightliftingManagment.Moduls.ParticipantBodyWeight.csproj" />
+		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.Settings\WeightliftingManagment.Moduls.Settings.csproj" />
+		<ProjectReference Include="..\WeightliftingManagment.Core\WeightliftingManagment.Core.csproj" />
+		<ProjectReference Include="..\WeightliftingManagment.Localization\WeightliftingManagment.Localization.csproj" />
+	</ItemGroup>
+</Project>

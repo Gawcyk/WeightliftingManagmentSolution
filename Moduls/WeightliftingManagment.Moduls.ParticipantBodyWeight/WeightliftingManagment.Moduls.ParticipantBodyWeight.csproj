@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\WeightliftingManagment.Core\WeightliftingManagment.Core.csproj" />
+    <ProjectReference Include="..\..\WeightliftingManagment.Domain\WeightliftingManagment.Domain.csproj" />
+    <ProjectReference Include="..\..\WeightliftingManagment.Localization\WeightliftingManagment.Localization.csproj" />
+  </ItemGroup>
+
+</Project>
