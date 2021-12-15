@@ -67,46 +67,35 @@ namespace WeightliftingManagment.Services
             return colorName;
         }
 
-        public void SetAccent(string accent)
+        public void SetAccent(string accent) => SetThemeAndAccent(_theme, accent);
+
+        public void SetTheme(AppTheme theme) => SetThemeAndAccent(theme, _accent);
+
+        private void SetThemeAndAccent(AppTheme theme, string accent)
         {
-            if (_theme == AppTheme.Default)
-            {
-                ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncAll;
-                ThemeManager.Current.SyncTheme();
-            }
-            else
-            {
-                ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithHighContrast;
-                ThemeManager.Current.SyncTheme();
-                ThemeManager.Current.ChangeTheme(Application.Current, $"{_theme}.{GetNameOfAccent(accent)}", SystemParameters.HighContrast);
-            }
 
-            Application.Current.Properties["Theme"] = _theme.ToString();
-            Application.Current.Properties["Accent"] = accent;
-
-            _accent = accent;
-        }
-
-        public void SetTheme(AppTheme theme)
-        {
-            _theme = theme;
             if (theme == AppTheme.Default)
             {
                 ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncAll;
                 ThemeManager.Current.SyncTheme();
+                var acc = ToHex(ThemeManager.Current.DetectTheme(Application.Current)?.PrimaryAccentColor);
+                if (GetAccents().Contains(acc))
+                    accent = acc;
             }
             else
             {
                 ThemeManager.Current.ThemeSyncMode = ThemeSyncMode.SyncWithHighContrast;
                 ThemeManager.Current.SyncTheme();
-                ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{GetNameOfAccent(_accent)}", SystemParameters.HighContrast);
+                ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{GetNameOfAccent(accent)}", SystemParameters.HighContrast);
             }
 
             Application.Current.Properties["Theme"] = theme.ToString();
-            Application.Current.Properties["Accent"] = _accent;
-
+            Application.Current.Properties["Accent"] = accent;
+            _theme = theme;
+            _accent = accent;
         }
 
+        private string ToHex(Color? color) => new ColorConverter().ConvertToString(color);
         public IEnumerable<string> GetAccents()
         {
             var accents = ThemeManager.Current.Themes.Where(item => item.Name.StartsWith("Dark.")).Select(x => x.PrimaryAccentColor.ToString()).ToList();
