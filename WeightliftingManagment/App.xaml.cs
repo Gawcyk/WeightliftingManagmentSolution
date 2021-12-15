@@ -11,6 +11,7 @@ using WeightliftingManagment.FlyoutControlManager;
 using WeightliftingManagment.Helpers;
 using WeightliftingManagment.Localization.LocalizationModel;
 using WeightliftingManagment.Localization.Readers;
+using WeightliftingManagment.Moduls.Dialogs;
 using WeightliftingManagment.Moduls.Judge;
 using WeightliftingManagment.Moduls.ParticipantBodyWeight;
 using WeightliftingManagment.Moduls.Settings;
@@ -42,6 +43,7 @@ namespace WeightliftingManagment
         {
             base.ConfigureModuleCatalog(moduleCatalog);
             moduleCatalog.AddModule<SettingsModule>();
+            moduleCatalog.AddModule<DialogsModule>();
             moduleCatalog.AddModule<ParticipantBodyWeightModule>();
             moduleCatalog.AddModule<JudgeModule>();
         }

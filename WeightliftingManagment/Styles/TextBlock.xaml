@@ -16,6 +16,14 @@
         <Setter Property="TextAlignment" Value="Center" />
     </Style>
 
+    <Style x:Key="WLM.TextBlock.BaseIconFontello" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontFamily" Value="{StaticResource WLM.FontFamily.Fontello}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+
     <Style x:Key="WLM.TextBlock.PageTitle" TargetType="{x:Type TextBlock}" BasedOn="{StaticResource WLM.TextBlock.Base}">
         <Setter Property="FontSize" Value="{StaticResource WLM.FontSize.XLarge}" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -48,6 +56,18 @@
     </Style>
 
     <Style x:Key="WLM.TextBlock.BigIcon" TargetType="TextBlock" BasedOn="{StaticResource WLM.TextBlock.BaseIcon}">
+        <Setter Property="FontSize" Value="48" />
+    </Style>
+
+    <Style x:Key="WLM.TextBlock.SmallIconFontello" BasedOn="{StaticResource WLM.TextBlock.BaseIconFontello}" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+
+    <Style x:Key="WLM.TextBlock.MediumIconFontello" BasedOn="{StaticResource WLM.TextBlock.BaseIconFontello}" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontSize" Value="24" />
+    </Style>
+
+    <Style x:Key="WLM.TextBlock.BigIconFontello" BasedOn="{StaticResource WLM.TextBlock.BaseIconFontello}" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="48" />
     </Style>
 
