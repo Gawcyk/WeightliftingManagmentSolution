@@ -9,12 +9,12 @@ namespace WeightliftingManagment.Core.Converters
     public class DialogTypeToSolidColorBrushValueConverter : BaseMarkupValueConverter
     {
         /// <summary>
-        /// Wartość domyślna Green
+        /// Wartość domyślna Red
         /// </summary>
         public SolidColorBrush AlertBrush { get; set; } = new SolidColorBrush(Colors.Red);
 
         /// <summary>
-        /// Wartość domyślna Red
+        /// Wartość domyślna Green
         /// </summary>
         public SolidColorBrush InfoBrush { get; set; } = new SolidColorBrush(Colors.Green);
 

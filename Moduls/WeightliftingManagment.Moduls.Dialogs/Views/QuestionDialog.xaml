@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:local="clr-namespace:WeightliftingManagment.Moduls.Dialogs.Views"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -10,8 +11,13 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <prism:Dialog.WindowStyle>
-        <Style TargetType="Window">
+        <Style TargetType="{x:Type mah:MetroWindow}">
+            <Setter Property="WindowTitleBrush" Value="{DynamicResource MahApps.Brushes.Accent3}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}"/>
+            <Setter Property="BorderThickness" Value="2" />
             <Setter Property="ResizeMode" Value="NoResize" />
+            <Setter Property="MinWidth" Value="800"/>
+            <Setter Property="MinHeight" Value="200"/>
             <Setter Property="SizeToContent" Value="WidthAndHeight" />
         </Style>
     </prism:Dialog.WindowStyle>

@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:enums="clr-namespace:WeightliftingManagment.Core.Dialogs;assembly=WeightliftingManagment.Core"
              xmlns:local="clr-namespace:WeightliftingManagment.Moduls.Dialogs.Views"
              xmlns:convert="clr-namespace:WeightliftingManagment.Core.Converters;assembly=WeightliftingManagment.Core"
              xmlns:prism="http://prismlibrary.com/"
@@ -11,9 +13,20 @@
              Style="{DynamicResource WLM.UserControl.Base}"
              d:DesignHeight="450" d:DesignWidth="800">
     <prism:Dialog.WindowStyle>
-        <Style TargetType="Window">
+        <Style TargetType="{x:Type mah:MetroWindow}">
+            <Setter Property="WindowTitleBrush" Value="{DynamicResource MahApps.Brushes.Accent2}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.AccentBase}"/>
+            <Setter Property="BorderThickness" Value="2" />
             <Setter Property="ResizeMode" Value="NoResize" />
+            <Setter Property="MinWidth" Value="800"/>
+            <Setter Property="MinHeight" Value="200"/>
             <Setter Property="SizeToContent" Value="WidthAndHeight" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding DialogType}" Value="Alert">
+                    <Setter Property="WindowTitleBrush" Value="Red"/>
+                    <Setter Property="BorderBrush" Value="IndianRed"/>
+                </DataTrigger>
+            </Style.Triggers>
         </Style>
     </prism:Dialog.WindowStyle>
     <Border>
