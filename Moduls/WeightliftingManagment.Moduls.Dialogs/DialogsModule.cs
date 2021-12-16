@@ -23,8 +23,8 @@ namespace WeightliftingManagment.Moduls.Dialogs
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialogWindow<DialogWindow>();
-            containerRegistry.RegisterDialog<NotificationDialog>(DialogName.NotificationDialog);
-            containerRegistry.RegisterDialog<QuestionDialog>(DialogName.QuestionDialog);
+            containerRegistry.RegisterDialog<NotificationDialog>(DialogName.Notification);
+            containerRegistry.RegisterDialog<QuestionDialog>(DialogName.Question);
             //containerRegistry.RegisterDialog<ColorDialog>(DialogName.ColorDialog);
             //containerRegistry.RegisterDialog<PrintDialog>(DialogName.PrintPreviewDialog);
         }

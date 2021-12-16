@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:ext="clr-namespace:WeightliftingManagment.Core.AttachedProperties;assembly=WeightliftingManagment.Core"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:prism="http://prismlibrary.com/"
              prism:ViewModelLocator.AutoWireViewModel="True"
@@ -27,15 +28,12 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <!--#region Row 0-->
         <controls:MetroHeader Grid.Column="0" Grid.Row="0" Header="{lex:Localize Key=LastName}">
             <TextBox Text="{Binding LastName}"/>
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="0" Header="{lex:Localize Key=First}">
+        <controls:MetroHeader Grid.Column="1" Grid.Row="0" Header="{lex:Localize Key=FirstName}">
             <TextBox Text="{Binding FirstName}"/>
         </controls:MetroHeader>
         <!--#endregion-->        
@@ -79,5 +77,10 @@
             <TextBox Text="{Binding LicenseNumber}"/>
         </controls:MetroHeader>
         <!--#endregion-->
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" LastChildFill="False">
+            <Button DockPanel.Dock="Right" Content="Atlete Card" ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
+            <Button DockPanel.Dock="Right" Content="Add" ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
+            <Button DockPanel.Dock="Right" Content="Close" ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
+        </DockPanel>
     </Grid>
 </UserControl>

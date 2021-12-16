@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using Prism.Services.Dialogs;
 
 using WeightliftingManagment.Core.MvvmSupport.ViewModelsTypeBase;
 using WeightliftingManagment.Domain.Model;
 
 namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
 {
-    public  class AddParticipantViewModel : ViewModelBase
+    public class AddParticipantViewModel : DialogViewModelBase
     {
         public AddParticipantViewModel()
         {
@@ -117,5 +114,8 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         }
 
         #endregion Property
+
+
+        public override void OnDialogOpened(IDialogParameters parameters) => Title = parameters.GetValue<string>("Title");
     }
 }

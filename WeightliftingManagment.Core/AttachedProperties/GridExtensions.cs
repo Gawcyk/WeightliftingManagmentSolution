@@ -78,6 +78,7 @@ namespace WeightliftingManagment.Core.AttachedProperties
                 }
             }
         }
+
         public static string GetRowHeights(DependencyObject obj) => (string)obj.GetValue(RowHeightsProperty);
         public static void SetRowHeights(DependencyObject obj, string value) => obj.SetValue(RowHeightsProperty, value);
         // Using a DependencyProperty as the backing store for RowHeights.  This enables animation, styling, binding, etc...

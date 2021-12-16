@@ -15,8 +15,8 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <controls:Tile Title="Add"/>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <controls:Tile Title="Add" Command="{Binding OpenAddParticipantCommand}"/>
             <controls:Tile Title="Notification" Command="{Binding NotificationCommand}"/>
             <controls:Tile Title="Alert" Command="{Binding AlertCommand}"/>
             <controls:Tile Title="Questions" Command="{Binding QuestionCommand}"/>

@@ -12,14 +12,12 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight
     {
         public void OnInitialized(IContainerProvider containerProvider)
         {
-            //var regionmanager = containerProvider.Resolve<IRegionManager>();
-            //regionmanager.RequestNavigate(Regions.AddParticipantRegion, PageKeys.AddParticipant);
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<BodyWeight, BodyWeightViewModel>(PageKeys.BodyWeight);
-            containerRegistry.RegisterForNavigation<AddParticipant, AddParticipantViewModel>(PageKeys.AddParticipant);
+            containerRegistry.RegisterDialog<AddParticipant>(DialogName.AddParticipant);
         }
     }
 }

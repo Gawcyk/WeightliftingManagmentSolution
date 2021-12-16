@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
-
+﻿
 using Prism.Commands;
 using Prism.Regions;
 using Prism.Services.Dialogs;
 
+using WeightliftingManagment.Core.Constans;
 using WeightliftingManagment.Core.Dialogs;
 using WeightliftingManagment.Core.MvvmSupport.ViewModelsTypeBase;
 
@@ -37,5 +32,9 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         public DelegateCommand QuestionCommand => _questionCommand ??= new DelegateCommand(ExecuteQuestion);
 
         private void ExecuteQuestion() => _dialogService.ShowQuestion("Title", "messege");
+
+        private DelegateCommand _openAddParticipantCommand;
+        public DelegateCommand OpenAddParticipantCommand => _openAddParticipantCommand ??= new DelegateCommand(ExecuteOpenAddParticipant);
+        private void ExecuteOpenAddParticipant() => _dialogService.ShowAddParticipant("Add Participant");
     }
 }
