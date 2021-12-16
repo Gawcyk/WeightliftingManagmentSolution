@@ -17,6 +17,9 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
             <controls:Tile Title="Add"/>
+            <controls:Tile Title="Notification" Command="{Binding NotificationCommand}"/>
+            <controls:Tile Title="Alert" Command="{Binding AlertCommand}"/>
+            <controls:Tile Title="Questions" Command="{Binding QuestionCommand}"/>
         </StackPanel>
         <ContentControl prism:RegionManager.RegionName="{x:Static const:Regions.AddParticipantRegion}"/>
     </Grid>

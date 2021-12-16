@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Prism.Ioc;
 using Prism.Modularity;
 
+using WeightliftingManagment.Core.Constans;
+using WeightliftingManagment.Moduls.Dialogs.Views;
 using WeightliftingManagment.Moduls.Dialogs.Window;
 
 namespace WeightliftingManagment.Moduls.Dialogs
@@ -21,8 +23,8 @@ namespace WeightliftingManagment.Moduls.Dialogs
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterDialogWindow<DialogWindow>();
-            //containerRegistry.RegisterDialog<NotificationDialog>(DialogName.NotificationDialog);
-            //containerRegistry.RegisterDialog<QuestionDialog>(DialogName.QuestionDialog);
+            containerRegistry.RegisterDialog<NotificationDialog>(DialogName.NotificationDialog);
+            containerRegistry.RegisterDialog<QuestionDialog>(DialogName.QuestionDialog);
             //containerRegistry.RegisterDialog<ColorDialog>(DialogName.ColorDialog);
             //containerRegistry.RegisterDialog<PrintDialog>(DialogName.PrintPreviewDialog);
         }
