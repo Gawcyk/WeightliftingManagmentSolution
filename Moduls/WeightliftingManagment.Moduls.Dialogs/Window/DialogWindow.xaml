@@ -6,5 +6,5 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
         Title="{Binding Title}"
-        Style="{DynamicResource CalcPC.Styles.MetroWindow.Dialog}"
+        Style="{DynamicResource WLM.MetroWindow.Dialog}"
         WindowStartupLocation="CenterScreen" />
