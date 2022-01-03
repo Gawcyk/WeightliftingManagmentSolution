@@ -16,4 +16,8 @@
     <ProjectReference Include="..\..\WeightliftingManagment.Localization\WeightliftingManagment.Localization.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controls\" />
+  </ItemGroup>
+
 </Project>

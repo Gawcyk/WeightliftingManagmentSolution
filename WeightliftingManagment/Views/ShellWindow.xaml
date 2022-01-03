@@ -19,22 +19,22 @@
         <mycontrols:FlyoutContainer prism:RegionManager.RegionName="{x:Static const:Regions.FlyoutRegion}" />
     </controls:MetroWindow.Flyouts>
     <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Menu Grid.Row="0" Focusable="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu Grid.Row="0" Focusable="False">
             <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Header="{lex:Localize Key=MenuFileHeader}">
                 <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding OpenFlyoutCommand}" CommandParameter="{x:Static const:FlyoutKeys.ThemeFlyout}" Header="{lex:Localize Key=MenuSettingsHeader}" />
-                    <Separator />
-                    <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuFileExitCommand}" Header="{lex:Localize Key=MenuExitHeader}" />
-                </MenuItem>
-                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Header="{lex:Localize Key=MenuViewHeader}">
-                    <!--  TODO WTS: Review the MenuItem headers in Resources.resx file for all of your views and place '_' before the letter that you want to use for menu keyboard usage  -->
-                    <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuViewsMainCommand}" Header="{lex:Localize Key=MenuStartHeader}" />
+                <Separator />
+                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuFileExitCommand}" Header="{lex:Localize Key=MenuExitHeader}" />
+            </MenuItem>
+            <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Header="{lex:Localize Key=MenuViewHeader}">
+                <!--  TODO WTS: Review the MenuItem headers in Resources.resx file for all of your views and place '_' before the letter that you want to use for menu keyboard usage  -->
+                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuViewsMainCommand}" Header="{lex:Localize Key=MenuStartHeader}" />
                 <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding NavigationCommand}" CommandParameter="{x:Static const:PageKeys.BodyWeight}" Header="{lex:Localize Key=MenuBodyWeightHeader}" />
             </MenuItem>
-            </Menu>
-            <ContentControl x:Name="menuContentControl" Grid.Row="1" prism:RegionManager.RegionName="{x:Static const:Regions.MainRegion}" />
-        </Grid>
+        </Menu>
+        <ContentControl x:Name="menuContentControl" Grid.Row="1" prism:RegionManager.RegionName="{x:Static const:Regions.MainRegion}" />
+    </Grid>
 </controls:MetroWindow>

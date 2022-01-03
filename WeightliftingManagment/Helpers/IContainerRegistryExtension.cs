@@ -1,4 +1,7 @@
 ﻿
+using System.Configuration;
+using System.Reflection;
+
 using Prism.Ioc;
 
 using WeightliftingManagment.Core.Constans;
@@ -13,6 +16,12 @@ namespace WeightliftingManagment.Helpers
 {
     public static class IContainerRegistryExtension
     {
+        public static IContainerRegistry RegisterAllType(this IContainerRegistry containerRegistry) 
+            => containerRegistry
+            .RegisterCoreServices()
+            .RegisterAppServices()
+            .RegisterViewAndViewModel();
+
         public static IContainerRegistry RegisterCoreServices(this IContainerRegistry containerRegistry)
         {
             containerRegistry.Register<IFileService, FileService>();
@@ -23,9 +32,12 @@ namespace WeightliftingManagment.Helpers
         {
             //containerRegistry.Register<IApplicationInfoService, ApplicationInfoService>();
             //containerRegistry.Register<ISystemService, SystemService>();
-            //containerRegistry.Register<IPersistAndRestoreService, PersistAndRestoreService>();
+            containerRegistry.Register<IPersistAndRestoreService, PersistAndRestoreService>();
+            containerRegistry.Register<IPersistAndRestoreThemeService, PersistAndRestoreThemeService>();
+            containerRegistry.Register<IPersistAndRestoreSinclaireCoefficientService, PersistAndRestoreSinclaireCoefficientService>();
             containerRegistry.RegisterSingleton<IThemeSelectorService, ThemeSelectorService>();
             containerRegistry.RegisterSingleton<IFlyoutService, FlyoutService>();
+            containerRegistry.RegisterSingleton<ISinclaireCoefficientService, SinclaireCoefficientService>();
             containerRegistry.RegisterInstance(typeof(LocalizationService), LocalizationService.Instance);
             return containerRegistry;
         }

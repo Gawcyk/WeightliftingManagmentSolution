@@ -2,7 +2,9 @@
                         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                         xmlns:local="clr-namespace:WeightliftingManagment"
-                        xmlns:prism="http://prismlibrary.com/">
+                        xmlns:prism="http://prismlibrary.com/"
+                        DispatcherUnhandledException="OnDispatcherUnhandledException"
+                        Exit="OnExitAsync">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -23,6 +25,8 @@
                 <ResourceDictionary Source="/Styles/_IconSegoeMDL2.xaml" />
                 <ResourceDictionary Source="/Styles/MetroWindow.xaml" />
                 <ResourceDictionary Source="/Styles/Button.xaml" />
+                <ResourceDictionary Source="/Styles/DataGrid.xaml" />
+                <ResourceDictionary Source="/Styles/Tile.xaml" />
                 <ResourceDictionary Source="/Styles/TextBlock.xaml" />
                 <ResourceDictionary Source="/Styles/Label.xaml" />
                 <ResourceDictionary Source="/Styles/UserControl.xaml" />

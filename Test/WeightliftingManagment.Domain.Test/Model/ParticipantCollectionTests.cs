@@ -18,7 +18,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.Should().BeEmpty();
         }
 
-        [Theory, AutoData]
+        [Theory, AutoParticipantData]
         public void AddNewParticipantTest(Participant participant)
         {
             var model = new ParticipantCollection();
@@ -28,7 +28,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.Contains(participant).Should().BeTrue();
         }
 
-        [Theory, AutoData]
+        [Theory, AutoParticipantData]
         public void AddTwoTimesOneParticipantTest(Participant participant)
         {
             var model = new ParticipantCollection();
@@ -38,7 +38,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             action.Should().Throw<ArgumentException>();
         }
 
-        [Theory, AutoData]
+        [Theory, AutoParticipantData]
         public void GetParticipantByIDTest(Participant participant)
         {
             var model = new ParticipantCollection();
@@ -48,7 +48,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.GetParticipantByID(participant.ParticipantId).Should().Be(participant);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoParticipantData]
         public void GetParticipantWithComesUpTest(Participant participant)
         {
             var model = new ParticipantCollection();
@@ -58,7 +58,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.GetParticipantWithComesUp().Should().Be(participant);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoParticipantData]
         public void GetParticipantWithNextTest(Participant participant)
         {
             var model = new ParticipantCollection();
@@ -68,7 +68,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.GetParticipantWithNext().Should().Be(participant);
         }
 
-        [Theory, AutoData]
+        [Theory, AutoParticipantData]
         public void IsSnatchTest(Participant participant)
         {
             var model = new ParticipantCollection();
@@ -116,17 +116,23 @@ namespace WeightliftingManagment.Domain.Model.Tests
         [Theory, AutoParticipantCollectionData]
         public void SetAttemptStatusToGoodLiftForParticipantIdTest(ParticipantCollection participantCollection)
         {
-            var participantId = participantCollection[0].ParticipantId;
-            participantCollection.SetAttemptStatusToGoodLiftForParticipantId(participantId, 0, true);
-            participantCollection.GetParticipantByID(participantId).Snatchs[0].StatusIsGoodLift().Should().BeTrue();
+            for (var i = 0; i < participantCollection.Count; i++)
+            {
+                var participantId = participantCollection[i].ParticipantId;
+                participantCollection.SetAttemptStatusToGoodLiftForParticipantId(participantId, 0, true);
+                participantCollection.GetParticipantByID(participantId).Snatchs[0].StatusIsGoodLift().Should().BeTrue(); 
+            }
         }
 
         [Theory, AutoParticipantCollectionData]
         public void SetAttemptStatusToNoLiftForParticipantIdTest(ParticipantCollection participantCollection)
         {
-            var participantId = participantCollection[0].ParticipantId;
-            participantCollection.SetAttemptStatusToNoLiftForParticipantId(participantId, 0, true);
-            participantCollection.GetParticipantByID(participantId).Snatchs[0].StatusIsNoLift().Should().BeTrue();
+            for (var i = 0; i < participantCollection.Count; i++)
+            {
+                var participantId = participantCollection[i].ParticipantId;
+                participantCollection.SetAttemptStatusToNoLiftForParticipantId(participantId, 0, true);
+                participantCollection.GetParticipantByID(participantId).Snatchs[0].StatusIsNoLift().Should().BeTrue();
+            }
         }
 
     }

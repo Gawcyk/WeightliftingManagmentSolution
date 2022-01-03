@@ -6,6 +6,7 @@ using System.Linq;
 using FluentAssertions;
 
 using Xunit;
+using WeightliftingManagment.MvvmSupport.Collections;
 
 namespace WeightliftingManagment.Domain.Model.Tests
 {
@@ -20,12 +21,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
                 Club = "KPC Hejnał Kęty",
                 YearOfBirth = 2020,
                 BodyWeight = 113,
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.Declared)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.Declared)
@@ -38,7 +39,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void Max_Rwanie_test(int val1, AttemptStatus result1, int val2, AttemptStatus result2, int val3, AttemptStatus result3, int exp, int exp2)
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                 {
                     new Attempt(val1,result1),
                     new Attempt(val2,result2),
@@ -58,7 +59,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void Max_Podrzut_test(int val1, AttemptStatus result1, int val2, AttemptStatus result2, int val3, AttemptStatus result3, int exp, int exp2)
         {
             var model = new Participant {
-                CleanJerks = new Attempt[]
+                CleanJerks = new FullyObservableCollection<Attempt>
                 {
                     new Attempt(val1,result1),
                     new Attempt(val2,result2),
@@ -102,7 +103,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void ClearAttemptResignation_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                 {
                     new Attempt { Value = 120, Status = AttemptStatus.Resignation },
                     new Attempt { Value = 220, Status = AttemptStatus.Resignation },
@@ -127,7 +128,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttemptValueFromLastAttemptValue_throw_exception_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                     new Attempt { Value = 120, Status = AttemptStatus.Declared },
                     new Attempt(),
@@ -148,7 +149,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttemptValueFromLastAttemptValue_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                     new Attempt { Value = 120, Status = AttemptStatus.GoodLift },
                     new Attempt{ Value = 5, Status = AttemptStatus.Declared },
@@ -165,7 +166,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_1_2_zaliczone_test()
         {
             var model = new Participant {
-                CleanJerks = new Attempt[]
+                CleanJerks = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -186,7 +187,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_2_3_zaliczone_test()
         {
             var model = new Participant {
-                CleanJerks = new Attempt[]
+                CleanJerks = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -206,7 +207,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_1_2_spalone_test()
         {
             var model = new Participant {
-                CleanJerks = new Attempt[]
+                CleanJerks = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -226,7 +227,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_2_3_spalone_test()
         {
             var model = new Participant {
-                CleanJerks = new Attempt[]
+                CleanJerks = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -246,7 +247,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_1_2_zaliczone_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -270,7 +271,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_2_3_zaliczone_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -290,7 +291,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_1_2_spalone_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -310,7 +311,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_2_3_spalone_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                     new Attempt(),
                     new Attempt(),
@@ -330,12 +331,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_RwanieNr3_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.ComesUp)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.GoodLift),
                 new Attempt(210, AttemptStatus.GoodLift),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -349,12 +350,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_PodrzutNr3_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.ComesUp)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.GoodLift),
                 new Attempt(210, AttemptStatus.GoodLift),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -368,12 +369,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetRezygnacja_Rwanie_1_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -387,12 +388,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetRezygnacja_Rwanie_2_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -407,12 +408,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetRezygnacja_Rwanie_3_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -428,12 +429,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetRezygnacja_Podrzut_1_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -447,12 +448,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetRezygnacja_Podrzut_2_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -467,12 +468,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetRezygnacja_Podrzut_3_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -488,12 +489,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void CzyszczenieNastepny_podchodzi_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -515,12 +516,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetAttemptWeightOfNumber_test(bool isrwanie, int number, int expected)
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100),
                 new Attempt(110),
                 new Attempt(120)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200),
                 new Attempt(210),
                 new Attempt(220)
@@ -546,12 +547,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetNumerAnnonsu_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, result1),
                 new Attempt(110, result2),
                 new Attempt(120, result3)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, result1),
                 new Attempt(210, result2),
                 new Attempt(220, result3)
@@ -577,12 +578,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetAnnonsWeight_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, result1),
                 new Attempt(110, result2),
                 new Attempt(120, result3)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, result1),
                 new Attempt(210, result2),
                 new Attempt(220, result3)
@@ -608,12 +609,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetAnnons_Test_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, result1),
                 new Attempt(110, result2),
                 new Attempt(120, result3)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, result1),
                 new Attempt(210, result2),
                 new Attempt(220, result3)
@@ -671,12 +672,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetNumerPodchodzi_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100, result1),
                 new Attempt(110, result2),
                 new Attempt(120, result3)
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, result1),
                 new Attempt(210, result2),
                 new Attempt(220, result3)
@@ -691,12 +692,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void IsRwanieAnnons_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100),
                 new Attempt(),
                 new Attempt()
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200),
                 new Attempt(),
                 new Attempt()
@@ -710,12 +711,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void IsNotRwanieAnnons_test()
         {
             var model = new Participant {
-                Snatchs = new Attempt[] {
+                Snatchs = new FullyObservableCollection<Attempt> {
                 new Attempt(100,AttemptStatus.GoodLift),
                 new Attempt(100,AttemptStatus.GoodLift),
                 new Attempt(100,AttemptStatus.GoodLift),
                 },
-                CleanJerks = new Attempt[] {
+                CleanJerks = new FullyObservableCollection<Attempt> {
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(),
                 new Attempt()
@@ -747,13 +748,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void CountPromiseTotal_Test(int snatch, int cleanJerk, int promiseTotal)
         {
             var model = new Participant {
-                Snatchs = new Attempt[]
+                Snatchs = new FullyObservableCollection<Attempt>
                {
                    new Attempt(snatch),
                    new Attempt(),
                    new Attempt(),
                },
-                CleanJerks = new Attempt[]
+                CleanJerks = new FullyObservableCollection<Attempt>
                {
                    new Attempt(cleanJerk),
                    new Attempt(),
@@ -778,7 +779,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory]
         [MemberData(nameof(DataToComesUpValue))]
-        public void GetComesUpValue_Test(Attempt[] snatches, Attempt[] cleanJerks, int value)
+        public void GetComesUpValue_Test(FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks, int value)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -791,7 +792,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory]
         [MemberData(nameof(DataToSetComesUp))]
-        public void SetComesUpTest(bool isRwanie, Attempt[] snatches, Attempt[] cleanJerks)
+        public void SetComesUpTest(bool isRwanie, FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -804,7 +805,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory()]
         [MemberData(nameof(DataToGetNextValue))]
-        public void GetNextValueTest(Attempt[] snatches, Attempt[] cleanJerks, int value)
+        public void GetNextValueTest(FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks, int value)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -815,7 +816,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory]
         [MemberData(nameof(DataToSetNext))]
-        public void SetNextTest(bool isRwanie, Attempt[] snatches, Attempt[] cleanJerks)
+        public void SetNextTest(bool isRwanie, FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -832,13 +833,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             new object[]
             {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.ComesUp),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -848,13 +849,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.ComesUp),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -864,13 +865,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.ComesUp)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -880,13 +881,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.ComesUp),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -896,13 +897,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.ComesUp),
@@ -912,13 +913,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
@@ -928,13 +929,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.GoodLift),
@@ -949,13 +950,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             new object[]
             {
                 true,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.ComesUp),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -965,13 +966,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                true,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.ComesUp),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -981,13 +982,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                true,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.ComesUp)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -997,13 +998,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                false,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.ComesUp),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1013,13 +1014,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                false,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.ComesUp),
@@ -1029,13 +1030,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                false,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
@@ -1049,13 +1050,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             new object[]
             {
                 true,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Next),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1065,13 +1066,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                true,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.Next),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1081,13 +1082,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                true,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Next)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1097,13 +1098,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                false,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Next),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1113,13 +1114,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                false,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.Next),
@@ -1129,13 +1130,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
            new object[]
            {
                false,
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
@@ -1148,13 +1149,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             new object[]
             {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Next),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1164,13 +1165,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.Next),
                     new Attempt(120, AttemptStatus.NoDeclared)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1180,13 +1181,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Next)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1196,13 +1197,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Next),
                     new Attempt(210, AttemptStatus.NoDeclared),
@@ -1212,13 +1213,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.Next),
@@ -1228,13 +1229,13 @@ namespace WeightliftingManagment.Domain.Model.Tests
             },
            new object[]
            {
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
                 },
-                new Attempt[]
+                new FullyObservableCollection<Attempt>
                 {
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),

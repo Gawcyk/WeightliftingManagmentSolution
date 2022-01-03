@@ -2,6 +2,7 @@
 using Prism.Services.Dialogs;
 
 using WeightliftingManagment.Core.Constans;
+using WeightliftingManagment.Domain.Model;
 
 namespace WeightliftingManagment.Core.Dialogs
 {
@@ -23,12 +24,17 @@ namespace WeightliftingManagment.Core.Dialogs
             return resultBool;
         }
 
-        public static void ShowAddParticipant(this IDialogService dialogService, string title) => dialogService.ShowDialog(DialogName.AddParticipant, new DialogParameters($"Title={title}"), (result) => {
-            if (result.Result == ButtonResult.Yes)
-            {
-                return;
-            }
-        });
+        public static Participant ShowAddParticipant(this IDialogService dialogService, string title)
+        {
+            var participant = new Participant();
+            dialogService.ShowDialog(DialogName.AddParticipant, new DialogParameters($"Title={title}"), (result) => {
+                if (result.Result == ButtonResult.OK)
+                {
+                    participant = result.Parameters.GetValue<Participant>("NewParticipant");
+                }
+            });
+            return participant;
+        }
 
         public static string ShowColorDialog(this IDialogService dialogService)
         {

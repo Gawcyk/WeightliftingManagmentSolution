@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Diagnostics;
+using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Media;
 
@@ -8,6 +9,7 @@ using MahApps.Metro.Theming;
 
 using WeightliftingManagment.Core.Contracts;
 using WeightliftingManagment.Core.Models;
+using WeightliftingManagment.Core.Models.Config;
 
 namespace WeightliftingManagment.Services
 {
@@ -15,13 +17,26 @@ namespace WeightliftingManagment.Services
     {
         private const string HcDarkTheme = "pack://application:,,,/Styles/Themes/HC.Dark.Blue.xaml";
         private const string HcLightTheme = "pack://application:,,,/Styles/Themes/HC.Light.Blue.xaml";
-        private const string DefaultAccentColor = "#FF0078D7";
+        private readonly ThemeConfig _themeConfig;
         private string _accent;
         private AppTheme _theme;
-        public ThemeSelectorService()
+        public ThemeSelectorService(ThemeConfig themeConfig)
         {
+            _themeConfig = themeConfig;
             InitializeTheme();
         }
+
+        public void UpdateInternalConfig(ThemeConfig themeConfig)
+        {
+            if (themeConfig == null)
+                return;
+            _themeConfig.Theme = themeConfig.Theme;
+            _themeConfig.AccentHex = themeConfig.AccentHex;
+            _theme = GetCurrentTheme();
+            _accent = GetCurrentAccent();
+            SetThemeAndAccent(_theme, _accent);
+        }
+
         public void InitializeTheme()
         {
             // TODO WTS: Mahapps.Metro supports syncronization with high contrast but you have to provide custom high contrast themes
@@ -57,7 +72,7 @@ namespace WeightliftingManagment.Services
 
             _theme = GetCurrentTheme();
             _accent = GetCurrentAccent();
-            SetTheme(_theme);
+            SetThemeAndAccent(_theme,_accent);
         }
 
         private string GetNameOfAccent(string accentHex)
@@ -89,8 +104,8 @@ namespace WeightliftingManagment.Services
                 ThemeManager.Current.ChangeTheme(Application.Current, $"{theme}.{GetNameOfAccent(accent)}", SystemParameters.HighContrast);
             }
 
-            Application.Current.Properties["Theme"] = theme.ToString();
-            Application.Current.Properties["Accent"] = accent;
+            _themeConfig.Theme = theme.ToString();
+            _themeConfig.AccentHex = accent;
             _theme = theme;
             _accent = accent;
         }
@@ -103,25 +118,24 @@ namespace WeightliftingManagment.Services
             return accents;
         }
 
-        public string GetCurrentAccent()
-        {
-            if (Application.Current.Properties.Contains("Accent"))
-            {
-                return Application.Current.Properties["Accent"].ToString();
-            }
+        public string GetCurrentAccent() =>
+            //if (Application.Current.Properties.Contains("Accent"))
+            //{
+            //    return Application.Current.Properties["Accent"].ToString();
+            //}
 
-            return DefaultAccentColor;
-        }
-        public AppTheme GetCurrentTheme()
-        {
-            if (Application.Current.Properties.Contains("Theme"))
-            {
-                var themeName = Application.Current.Properties["Theme"].ToString();
-                Enum.TryParse(themeName, out AppTheme theme);
-                return theme;
-            }
+            //return DefaultAccentColor;
+            _themeConfig.AccentHex;
+        public AppTheme GetCurrentTheme() => Enum.Parse<AppTheme>( _themeConfig.Theme);
+        //{
+        //    //if (Application.Current.Properties.Contains("Theme"))
+        //    //{
+        //    //    var themeName = Application.Current.Properties["Theme"].ToString();
+        //    //    Enum.TryParse(themeName, out AppTheme theme);
+        //    //    return theme;
+        //    //}
 
-            return AppTheme.Default;
-        }
+        //    //return AppTheme.Default;
+        //}
     }
 }
