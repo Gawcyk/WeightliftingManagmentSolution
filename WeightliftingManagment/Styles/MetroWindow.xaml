@@ -7,15 +7,19 @@
         x:Key="WLM.MetroWindow.Custom"
         TargetType="{x:Type controls:MetroWindow}"
         BasedOn="{StaticResource {x:Type controls:MetroWindow}}">
-        <Setter Property="Height" Value="450" />
-        <Setter Property="MinHeight" Value="350" />
-        <Setter Property="MinWidth" Value="500" />
+        <Setter Property="Width" Value="1280" />
+        <Setter Property="Height" Value="800" />
+        <Setter Property="MinWidth" Value="850" />
+        <Setter Property="MinHeight" Value="450" />
         <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
         <Setter Property="ShowTitleBar" Value="True" />
         <Setter Property="TryToBeFlickerFree" Value="True" />
-        <Setter Property="Width" Value="800" />
         <Setter Property="WindowState" Value="Normal" />
         <Setter Property="ShowSystemMenuOnRightClick" Value="False" />
+        <Setter Property="TextElement.FontSize" Value="{StaticResource WLM.FontSize.Medium}" />
+        <Setter Property="TextElement.FontWeight" Value="Regular" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <Setter Property="TextOptions.TextRenderingMode" Value="Auto" />
     </Style>
 
     <Style x:Key="WLM.MetroWindow.Dialog" BasedOn="{StaticResource {x:Type controls:MetroWindow}}" TargetType="{x:Type controls:MetroWindow}">

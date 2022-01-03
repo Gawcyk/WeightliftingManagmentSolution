@@ -1,190 +1,316 @@
 ﻿using WeightliftingManagment.MvvmSupport.BindableBase;
+using WeightliftingManagment.MvvmSupport.Collections;
 
 namespace WeightliftingManagment.Domain.Model
 {
     public class Participant : BindableObject
     {
+        /// <summary>
+        /// New Participant
+        /// </summary>
         public Participant()
         {
-            Snatchs = new Attempt[] {
-                new Attempt(),
-                new Attempt(),
-                new Attempt()
+            Snatchs = new FullyObservableCollection<Attempt> {
+                new Attempt (),
+                new Attempt (),
+                new Attempt ()
             };
-            CleanJerks = new Attempt[] {
-                new Attempt(),
-                new Attempt(),
-                new Attempt()
+            CleanJerks = new FullyObservableCollection<Attempt> {
+                new Attempt (),
+                new Attempt (),
+                new Attempt ()
             };
         }
-        #region Property
+
+        /// <summary>
+        /// New Participant
+        /// </summary>
+        /// <param name="startNumber">Start number of the participant</param>
+        /// <param name="nameAndSurname">Name and Surname participant</param>
+        /// <param name="club">Name of Club the participant</param>
+        /// <param name="bodyWeight">Weight of Body participant</param>
+        /// <param name="yearOfBirth">The year of Birth participant</param>
+        /// <param name="gender">The gender of the participant</param>
+        /// <param name="snatch">The first attempt in Snatchs type of<see cref="Attempt"/></param>
+        /// <param name="cleanJerk">The first attempt in Clean&Jerk type of<see cref="Attempt"/></param>
+        /// <param name="group">Start group participant</param>
+        /// <param name="sinclairCoefficients">The Sinclaire Coefficient of the participant</param>
+        /// <param name="licenseNumber">License number participant</param>
+        /// <param name="category">Category participant</param>
+        public Participant(int startNumber, string? nameAndSurname, string? club, double bodyWeight, int yearOfBirth, Gender gender, Attempt snatch, Attempt cleanJerk, string? group, double sinclairCoefficients, string? licenseNumber,Category category)
+        {
+            StartNumber = startNumber;
+            NameAndSurname = nameAndSurname;
+            Club = club;
+            BodyWeight = bodyWeight;
+            YearOfBirth = yearOfBirth;
+            Gender = gender;
+            Snatchs = new FullyObservableCollection<Attempt> {
+               snatch,
+                new Attempt (),
+                new Attempt ()
+            };
+            CleanJerks = new FullyObservableCollection<Attempt> {
+                cleanJerk,
+                new Attempt (),
+                new Attempt ()
+            };
+            Group = group;
+            SinclairCoefficients = sinclairCoefficients;
+            LicenseNumber = licenseNumber;
+            Category = category;
+        }
+
+
+        /// <summary>
+        /// New Participant
+        /// </summary>
+        /// <param name="startNumber">Start number of the participant</param>
+        /// <param name="nameAndSurname">Name and Surname participant</param>
+        /// <param name="club">Name of Club the participant</param>
+        /// <param name="bodyWeight">Weight of Body participant</param>
+        /// <param name="yearOfBirth">The year of Birth participant</param>
+        /// <param name="gender">The gender of the participant</param>
+        /// <param name="snatch">The first attempt in Snatchs type of<see cref="int"/></param>
+        /// <param name="cleanJerk">The first attempt in Clean&Jerk type of<see cref="int"/></param>
+        /// <param name="group">Start group participant</param>
+        /// <param name="sinclairCoefficients">The Sinclaire Coefficient of the participant</param>
+        /// <param name="licenseNumber">License number participant</param>
+        /// <param name="category">Category participant</param>
+        public Participant(int startNumber, string? nameAndSurname, string? club, double bodyWeight, int yearOfBirth, Gender gender, int snatch, int cleanJerk, string? group, double sinclairCoefficients, string? licenseNumber, Category category)
+        {
+            StartNumber = startNumber;
+            NameAndSurname = nameAndSurname;
+            Club = club;
+            BodyWeight = bodyWeight;
+            YearOfBirth = yearOfBirth;
+            Gender = gender;
+            Snatchs = new FullyObservableCollection<Attempt> {
+               new Attempt(snatch),
+                new Attempt (),
+                new Attempt ()
+            };
+            CleanJerks = new FullyObservableCollection<Attempt> {
+                new Attempt(cleanJerk),
+                new Attempt (),
+                new Attempt ()
+            };
+            Group = group;
+            SinclairCoefficients = sinclairCoefficients;
+            LicenseNumber = licenseNumber;
+            Category = category;
+        }
+
+
+        public Participant(int participantId, int startNumber, string? nameAndSurname, string? club, double bodyWeight, int yearOfBirth, Gender gender, FullyObservableCollection<Attempt> snatchs, FullyObservableCollection<Attempt> cleanJerks, int bonusPoint, int total, string? group, int maxOfCleanJerk, int maxOfSnatch, bool next, int numberMaxOfCleanJerk, int numberMaxOfSnatch, bool comesUp, double points, double sinclairCoefficients, string? position, int promiseTotal, double promisePoint, string? licenseNumber, Category  category)
+        {
+            ParticipantId = participantId;
+            StartNumber = startNumber;
+            NameAndSurname = nameAndSurname;
+            Club = club;
+            BodyWeight = bodyWeight;
+            YearOfBirth = yearOfBirth;
+            Gender = gender;
+            Snatchs = snatchs;
+            CleanJerks = cleanJerks;
+            BonusPoint = bonusPoint;
+            Total = total;
+            Group = group;
+            MaxOfCleanJerk = maxOfCleanJerk;
+            MaxOfSnatch = maxOfSnatch;
+            Next = next;
+            NumberMaxOfCleanJerk = numberMaxOfCleanJerk;
+            NumberMaxOfSnatch = numberMaxOfSnatch;
+            ComesUp = comesUp;
+            Points = points;
+            SinclairCoefficients = sinclairCoefficients;
+            Position = position;
+            PromiseTotal = promiseTotal;
+            PromisePoint = promisePoint;
+            LicenseNumber = licenseNumber;
+            Category = category;
+        }
+
+        #region Fields
 
         private int _participantId;
+        private int _startNumber;
+        private string? _nameAndSurname;
+        private string? _club;
+        private double _bodyWeight;
+        private int _yearOfBirth;
+        private Gender _gender;
+        private FullyObservableCollection<Attempt> _snatchs = new() {new Attempt(),new Attempt(),new Attempt() };
+        private FullyObservableCollection<Attempt> _cleanJerks = new() { new Attempt(), new Attempt(), new Attempt() };
+        private int _bonusPoint;
+        private int _total;
+        private string? _group;
+        private int _maxOfCleanJerk;
+        private int _maxOfSnatch;
+        private bool _next;
+        private int _numberMaxOfCleanJerk;
+        private int _numberMaxOfSnatch;
+        private bool _comesUp;
+        private double _points;
+        private double _sinclairCoefficients;
+        private string? _position;
+        private int _promiseTotal;
+        private double _promisePoint;
+        private string? _licenseNumber;
+        private Category _category;
+
+        #endregion
+
+        #region Property
+
         public int ParticipantId
         {
             get => _participantId;
             set => SetProperty(ref _participantId, value);
         }
 
-        private int _startNumber;
         public int StartNumber
         {
             get => _startNumber;
             set => SetProperty(ref _startNumber, value);
         }
 
-        private string? _nameAndSurname;
         public string? NameAndSurname
         {
             get => _nameAndSurname;
             set => SetProperty(ref _nameAndSurname, value);
         }
 
-        private string? _club;
         public string? Club
         {
             get => _club;
             set => SetProperty(ref _club, value);
         }
 
-        private double _bodyWeight;
         public double BodyWeight
         {
             get => _bodyWeight;
             set => SetProperty(ref _bodyWeight, value);
         }
 
-        private int _yearOfBirth;
         public int YearOfBirth
         {
             get => _yearOfBirth;
             set => SetProperty(ref _yearOfBirth, value);
         }
 
-        private Gender _gender;
         public Gender Gender
         {
             get => _gender;
             set => SetProperty(ref _gender, value);
         }
 
-        private Attempt[] _snatchs = new Attempt[3];
-        public Attempt[] Snatchs
+        public FullyObservableCollection<Attempt> Snatchs
         {
             get => _snatchs;
             set => SetProperty(ref _snatchs, value);
         }
 
-        private Attempt[] _cleanJerks = new Attempt[3];
-        public Attempt[] CleanJerks
+        public FullyObservableCollection<Attempt> CleanJerks
         {
             get => _cleanJerks;
             set => SetProperty(ref _cleanJerks, value);
         }
 
-        private int _bonusPoint;
         public int BonusPoint
         {
             get => _bonusPoint;
             set => SetProperty(ref _bonusPoint, value);
         }
 
-        private int _total;
         public int Total
         {
             get => _total;
             set => SetProperty(ref _total, value);
         }
 
-        private string? _group;
         public string? Group
         {
             get => _group;
             set => SetProperty(ref _group, value);
         }
 
-        private int _maxOfCleanJerk;
         public int MaxOfCleanJerk
         {
             get => _maxOfCleanJerk;
             set => SetProperty(ref _maxOfCleanJerk, value);
         }
 
-        private int _maxOfSnatch;
         public int MaxOfSnatch
         {
             get => _maxOfSnatch;
             set => SetProperty(ref _maxOfSnatch, value);
         }
 
-        private bool _next;
         public bool Next
         {
             get => _next;
             set => SetProperty(ref _next, value);
         }
 
-        private int _numberMaxOfCleanJerk;
         public int NumberMaxOfCleanJerk
         {
             get => _numberMaxOfCleanJerk;
             set => SetProperty(ref _numberMaxOfCleanJerk, value);
         }
 
-        private int _numberMaxOfSnatch;
         public int NumberMaxOfSnatch
         {
             get => _numberMaxOfSnatch;
             set => SetProperty(ref _numberMaxOfSnatch, value);
         }
 
-        private bool _comesUp;
         public bool ComesUp
         {
             get => _comesUp;
             set => SetProperty(ref _comesUp, value);
         }
 
-        private double _points;
         public double Points
         {
             get => _points;
             set => SetProperty(ref _points, value);
         }
 
-        private double _sinclairCoefficients;
         public double SinclairCoefficients
         {
             get => _sinclairCoefficients;
             set => SetProperty(ref _sinclairCoefficients, value);
         }
 
-        private string? _position;
         public string? Position
         {
             get => _position;
             set => SetProperty(ref _position, value);
         }
 
-        private int _promiseTotal;
         public int PromiseTotal
         {
             get => _promiseTotal;
             set => SetProperty(ref _promiseTotal, value);
         }
 
-        private double _promisePoint;
         public double PromisePoint
         {
             get => _promisePoint;
             set => SetProperty(ref _promisePoint, value);
         }
 
-        private string? _licenseNumber;
         public string? LicenseNumber
         {
             get => _licenseNumber;
             set => SetProperty(ref _licenseNumber, value);
+        }
+
+        public Category Category
+        {
+            get => _category;
+            set => SetProperty(ref _category, value);
         }
 
         #endregion Property
@@ -265,9 +391,9 @@ namespace WeightliftingManagment.Domain.Model
             UpdateResignationArray(CleanJerks, numerPodejscia);
         }
 
-        private static void UpdateResignationArray(Attempt[] array, int numerPodejscia)
+        private static void UpdateResignationArray(FullyObservableCollection<Attempt> array, int numerPodejscia)
         {
-            for (var i = numerPodejscia; i <= array.Length; i++)
+            for (var i = numerPodejscia; i <= array.Count; i++)
             {
                 array[i - 1].SetStatus(AttemptStatus.Resignation);
             }

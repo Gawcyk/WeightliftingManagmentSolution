@@ -23,7 +23,7 @@ namespace WeightliftingManagment.Localization.LocalizationModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void RaisePropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         #endregion
 
@@ -64,19 +64,19 @@ namespace WeightliftingManagment.Localization.LocalizationModel
                 culture = CultureInfo.GetCultureInfo("en-US");
             }
             CurrentCulture = culture;
-            System.Threading.Thread.CurrentThread.CurrentUICulture = culture;
-            System.Threading.Thread.CurrentThread.CurrentCulture = culture;
+            Thread.CurrentThread.CurrentUICulture = culture;
+            Thread.CurrentThread.CurrentCulture = culture;
         }
 
-        public void RegisterLang(string pathToFile)
+        public void RegisterLang(string pathToFile, string fileName= "AppLocalization.csv")
         {
-            foreach (var lang in new CsvFileReader(pathToFile).GetEntries())
+            foreach (var lang in new CsvFileReader(pathToFile,fileName).GetEntries())
             {
                 _languageEntries.Add(lang.Key, lang.Value);
             }
         }
 
-        public string? GetValue(string key, bool nullWhenUnfound = true)
+        public string GetValue(string key, bool nullWhenUnfound = true)
         {
             if (_languageEntries == null || CurrentCulture == null)
                 return key;

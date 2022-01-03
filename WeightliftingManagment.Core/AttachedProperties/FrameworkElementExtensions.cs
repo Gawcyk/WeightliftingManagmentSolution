@@ -39,10 +39,9 @@ namespace WeightliftingManagment.Core.AttachedProperties
         {
             if (!_scopes.ContainsKey(scope)) return;
 
-            var list = _scopes[scope];
 
-            var maxWidth = list.Max(elem => elem.ActualWidth);
-            list.ForEach(elem => elem.Width = maxWidth);
+            var maxWidth = _scopes[scope].Max(elem => elem.ActualWidth);
+            _scopes[scope].ForEach(elem => elem.Width = maxWidth);
         }
 
         public static void SetWidthShareScope(DependencyObject element, string value) => element.SetValue(WidthShareScopeProperty, value);

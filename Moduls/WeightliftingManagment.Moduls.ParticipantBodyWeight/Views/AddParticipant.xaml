@@ -10,6 +10,13 @@
              xmlns:lex="clr-namespace:WeightliftingManagment.Localization.LocalizationModel;assembly=WeightliftingManagment.Localization"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <prism:Dialog.WindowStyle>
+        <Style TargetType="{x:Type controls:MetroWindow}">
+            <Setter Property="ShowMinButton" Value="False" />
+            <Setter Property="ShowMaxRestoreButton" Value="False" />
+            <Setter Property="ShowCloseButton" Value="False" />
+        </Style>
+    </prism:Dialog.WindowStyle>
     <UserControl.Resources>
         <Style TargetType="controls:MetroHeader" BasedOn="{StaticResource MahApps.Styles.MetroHeader}">
             <Setter Property="Margin" Value="{StaticResource WLM.Margin.Small.LeftTopRightBottom}"/>
@@ -36,7 +43,7 @@
         <controls:MetroHeader Grid.Column="1" Grid.Row="0" Header="{lex:Localize Key=FirstName}">
             <TextBox Text="{Binding FirstName}"/>
         </controls:MetroHeader>
-        <!--#endregion-->        
+        <!--#endregion-->
         <!--#region Row 1-->
         <controls:MetroHeader Grid.Column="0" Grid.Row="1" Header="{lex:Localize Key=Gender}">
             <TextBox Text="{Binding Gender}"/>
@@ -58,12 +65,12 @@
             <TextBox Text="{Binding BodyWeight}"/>
         </controls:MetroHeader>
         <controls:MetroHeader Grid.Column="1" Grid.Row="3" Header="{lex:Localize Key=Snatch}">
-            <TextBox Text="{Binding Snatch}"/>
+            <TextBox Text="{Binding Snatch.Value}"/>
         </controls:MetroHeader>
         <!--#endregion-->
         <!--#region Row 4-->
         <controls:MetroHeader Grid.Column="0" Grid.Row="4" Header="{lex:Localize Key=CleanJerk}">
-            <TextBox Text="{Binding CleanJerk}"/>
+            <TextBox Text="{Binding CleanJerk.Value}"/>
         </controls:MetroHeader>
         <controls:MetroHeader Grid.Column="1" Grid.Row="4" Header="{lex:Localize Key=EntryTotal}">
             <TextBox Text="{Binding EntryTotal}"/>
@@ -71,16 +78,30 @@
         <!--#endregion-->
         <!--#region Row 5-->
         <controls:MetroHeader Grid.Column="0" Grid.Row="5" Header="{lex:Localize Key=Category}">
-            <TextBox Text="{Binding Category.Name}"/>
+            <ComboBox  SelectedItem="{Binding Category}" ItemsSource="{Binding Categories}"/>
         </controls:MetroHeader>
         <controls:MetroHeader Grid.Column="1" Grid.Row="5" Header="{lex:Localize Key=LicenseNumber}">
             <TextBox Text="{Binding LicenseNumber}"/>
         </controls:MetroHeader>
         <!--#endregion-->
-        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" LastChildFill="False">
-            <Button DockPanel.Dock="Right" Content="Atlete Card" ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
-            <Button DockPanel.Dock="Right" Content="Add" ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
-            <Button DockPanel.Dock="Right" Content="Close" ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
+        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" LastChildFill="False" Margin="{StaticResource WLM.Margin.Small.LeftRight}">
+            <Button DockPanel.Dock="Right" 
+                    Style="{DynamicResource WLM.Button.Square}" 
+                    Content="Close" 
+                    Command="{Binding CloseCommand}"
+                    ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
+            <Button DockPanel.Dock="Right" 
+                    Style="{DynamicResource WLM.Button.Square.Accent}" 
+                    Content="Add" 
+                    Margin="{StaticResource WLM.Margin.Small.Right}"
+                    ext:FrameworkElementExtensions.WidthShareScope="Scope" 
+                    Command="{Binding AddCommand}"/>
+            <Button DockPanel.Dock="Right" 
+                    Style="{DynamicResource WLM.Button.Square.CardPrint}" 
+                    Content="Atlete Card" 
+                    Margin="{StaticResource WLM.Margin.Small.Right}"
+                    Width="100"
+                    ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
         </DockPanel>
     </Grid>
 </UserControl>

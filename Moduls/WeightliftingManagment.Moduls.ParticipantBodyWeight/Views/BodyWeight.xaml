@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:ext="clr-namespace:WeightliftingManagment.Core.AttachedProperties;assembly=WeightliftingManagment.Core"
              xmlns:const="clr-namespace:WeightliftingManagment.Core.Constans;assembly=WeightliftingManagment.Core"
              mc:Ignorable="d" 
              xmlns:prism="http://prismlibrary.com/" 
@@ -16,11 +17,76 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <controls:Tile Title="Add" Command="{Binding OpenAddParticipantCommand}"/>
-            <controls:Tile Title="Notification" Command="{Binding NotificationCommand}"/>
-            <controls:Tile Title="Alert" Command="{Binding AlertCommand}"/>
-            <controls:Tile Title="Questions" Command="{Binding QuestionCommand}"/>
+            <controls:Tile Title="Add" 
+                           Style="{DynamicResource WLM.Tile.Square}"
+                           Command="{Binding OpenAddParticipantCommand}"/>
+            <controls:Tile Title="Notification"
+                           Style="{DynamicResource WLM.Tile.Square}"
+                           Command="{Binding NotificationCommand}"/>
+            <controls:Tile Title="Alert" 
+                           Style="{DynamicResource WLM.Tile.Square}"
+                           Command="{Binding AlertCommand}"/>
+            <controls:Tile Title="Questions" 
+                           Style="{DynamicResource WLM.Tile.Square}"
+                           Command="{Binding QuestionCommand}"/>
         </StackPanel>
-        <ContentControl prism:RegionManager.RegionName="{x:Static const:Regions.AddParticipantRegion}"/>
+        <DataGrid 
+            Grid.Row="1"
+            SnapsToDevicePixels="True"
+            ClipboardCopyMode="ExcludeHeader"
+            ScrollViewer.CanContentScroll="True"
+            ScrollViewer.VerticalScrollBarVisibility="Visible"
+            ScrollViewer.HorizontalScrollBarVisibility="Visible"
+            HorizontalContentAlignment="Center"
+            VerticalContentAlignment="Center"
+            AutoGenerateColumns="False"
+            CanUserAddRows="False"
+            CanUserDeleteRows="False"
+            CanUserSortColumns="False"
+            GridLinesVisibility="All"
+            HeadersVisibility="All"
+            Margin="{StaticResource WLM.Margin.XXSmall.LeftRight}"
+            CellStyle="{DynamicResource WLM.DataGridCell.ZeroIsTransparentCenter}"
+            ColumnHeaderStyle="{DynamicResource WLM.DataGridColumnHeader.Center}"
+            ItemsSource="{Binding Participants}">
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding StartNumber}"
+                                    Header="Nr Start" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding LicenseNumber}"
+                                    Header="Lic. Nr" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding Group}"
+                                    Header="Gr" />
+                <DataGridTextColumn Width="3*"
+                                    MinWidth="100"
+                                    Binding="{Binding NameAndSurname}"
+                                    Header="Imię i Nazwisko" />
+                <DataGridTextColumn Width="3*"
+                                    MinWidth="100"
+                                    Binding="{Binding Club}"
+                                    Header="Klub" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding YearOfBirth}"
+                                    Header="Rok Ur." />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding BodyWeight}"
+                                    Header="Waga" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding Snatchs[0].Value}"
+                                    Header="Rwanie" />
+                <DataGridTextColumn Width="*"
+                                    MinWidth="50"
+                                    Binding="{Binding CleanJerks[0].Value}"
+                                    Header="Podrzut" />
+            </DataGrid.Columns>
+        </DataGrid>
     </Grid>
 </UserControl>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 using WeightliftingManagment.Domain.Model;
 
-namespace WeightliftingManagment.Domain.Contracts
+namespace WeightliftingManagment.Core.Contracts
 {
     public interface ISinclaireCoefficientService
     {

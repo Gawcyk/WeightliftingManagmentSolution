@@ -21,6 +21,13 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.CommandLine" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
 		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
 	</ItemGroup>
 	<ItemGroup>
@@ -30,5 +37,10 @@
 		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.Settings\WeightliftingManagment.Moduls.Settings.csproj" />
 		<ProjectReference Include="..\WeightliftingManagment.Core\WeightliftingManagment.Core.csproj" />
 		<ProjectReference Include="..\WeightliftingManagment.Localization\WeightliftingManagment.Localization.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="AppSettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
 	</ItemGroup>
 </Project>
