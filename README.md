@@ -1,6 +1,6 @@
 # Weightlifting Managment
 ## Desktop application for Olympic Weightlifting 
 
-###RoadMap:
+### RoadMap:
 * Create weight protocol
 * Export competition protocol in PDF file, IMG file
