@@ -23,7 +23,7 @@ namespace WeightliftingManagment.Domain.Model
             Add(participant);
         }
 
-        public Participant GetParticipantByID(int participantId) => this.Single(item => item.ParticipantId == participantId);
+        public Participant GetParticipantByID(Guid participantId) => this.Single(item => item.ParticipantId == participantId);
 
         public Participant GetParticipantWithComesUp() => this.Single(item => item.ComesUp);
 
@@ -59,12 +59,12 @@ namespace WeightliftingManagment.Domain.Model
             list.ForEach(item => Add(item));
         }
 
-        private void SetAttemptStatusForParticipantId(int participantId, int attemptNumber, AttemptStatus attemptStatus, bool isRwanie) => GetParticipantByID(participantId).SetAttempt(attemptNumber, attemptStatus, isRwanie);
+        private void SetAttemptStatusForParticipantId(Guid participantId, int attemptNumber, AttemptStatus attemptStatus, bool isRwanie) => GetParticipantByID(participantId).SetAttempt(attemptNumber, attemptStatus, isRwanie);
 
-        public void SetAttemptStatusToGoodLiftForParticipantId(int participantId, int attemptNumber, bool isRwanie)
+        public void SetAttemptStatusToGoodLiftForParticipantId(Guid participantId, int attemptNumber, bool isRwanie)
             => SetAttemptStatusForParticipantId(participantId, attemptNumber, AttemptStatus.GoodLift, isRwanie);
 
-        public void SetAttemptStatusToNoLiftForParticipantId(int participantId, int attemptNumber, bool isRwanie)
+        public void SetAttemptStatusToNoLiftForParticipantId(Guid participantId, int attemptNumber, bool isRwanie)
              => SetAttemptStatusForParticipantId(participantId, attemptNumber, AttemptStatus.NoLift, isRwanie);
     }
 }

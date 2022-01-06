@@ -17,8 +17,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             var fixture = new Fixture();
             var model = fixture.Create<Participant>();
-            model.Snatchs = new FullyObservableCollection<Attempt>(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
-            model.CleanJerks = new FullyObservableCollection<Attempt>(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
+            model.Snatchs = new AttemptCollection(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
+            model.CleanJerks = new AttemptCollection(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
             fixture.Register(() => model);
             return fixture;
         }

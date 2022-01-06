@@ -24,13 +24,30 @@ namespace WeightliftingManagment.Core.Dialogs
             return resultBool;
         }
 
-        public static Participant ShowAddParticipant(this IDialogService dialogService, string title)
+        public static Participant? ShowAddParticipant(this IDialogService dialogService)
         {
-            var participant = new Participant();
-            dialogService.ShowDialog(DialogName.AddParticipant, new DialogParameters($"Title={title}"), (result) => {
+            Participant participant = null;
+            //Todo Localization
+            dialogService.ShowDialog(DialogName.ParticipantUI, new DialogParameters($"Title=Add Participant"), (result) => {
                 if (result.Result == ButtonResult.OK)
                 {
-                    participant = result.Parameters.GetValue<Participant>("NewParticipant");
+                    participant = result.Parameters.GetValue<Participant>("Participant");
+                }
+            });
+            return participant;
+        }
+
+        public static Participant ShowEditParticipant(this IDialogService dialogService, Participant participant)
+        {
+            //Todo Localization
+            var param = new DialogParameters {
+                { "Title", "Edit Participant" },
+                { "Participant", participant }
+            };
+            dialogService.ShowDialog(DialogName.ParticipantUI, param, (result) => {
+                if (result.Result == ButtonResult.OK)
+                {
+                    participant = result.Parameters.GetValue<Participant>("Participant");
                 }
             });
             return participant;

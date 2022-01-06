@@ -33,6 +33,7 @@
                 <!--  TODO WTS: Review the MenuItem headers in Resources.resx file for all of your views and place '_' before the letter that you want to use for menu keyboard usage  -->
                 <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuViewsMainCommand}" Header="{lex:Localize Key=MenuStartHeader}" />
                 <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding NavigationCommand}" CommandParameter="{x:Static const:PageKeys.BodyWeight}" Header="{lex:Localize Key=MenuBodyWeightHeader}" />
+                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding NavigationCommand}" CommandParameter="{x:Static const:PageKeys.CompetitionSettings}" Header="{lex:Localize Key=MenuCompetitionSettingsHeader}" />
             </MenuItem>
         </Menu>
         <ContentControl x:Name="menuContentControl" Grid.Row="1" prism:RegionManager.RegionName="{x:Static const:Regions.MainRegion}" />
