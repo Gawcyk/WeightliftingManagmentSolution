@@ -50,7 +50,7 @@
             <!--#endregion-->
 
             <!--#region Row3-->
-            <controls:MetroHeader Grid.Column="0" Grid.Row="1" Header="{lex:Localize Key=City}">
+            <controls:MetroHeader Grid.Column="0" Grid.Row="3" Header="{lex:Localize Key=City}">
                 <TextBox Text="{Binding City}"/>
             </controls:MetroHeader>
             <!--#endregion-->
