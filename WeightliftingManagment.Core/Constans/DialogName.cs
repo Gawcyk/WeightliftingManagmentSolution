@@ -13,6 +13,6 @@ namespace WeightliftingManagment.Core.Constans
         public const string Screen = nameof(Screen);
         public const string PrintPreview = nameof(PrintPreview);
         public const string Color = nameof(Color);
-        public const string AddParticipant = nameof(AddParticipant);
+        public const string ParticipantUI = nameof(ParticipantUI);
     }
 }

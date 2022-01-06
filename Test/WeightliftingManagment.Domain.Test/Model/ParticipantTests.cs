@@ -17,20 +17,20 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public ParticipantTests()
         {
             Model = new Participant {
-                NameAndSurname = "Paweł Gawęda",
+                PersonalData = PersonalData.FromString("Paweł Gawęda"),
                 Club = "KPC Hejnał Kęty",
                 YearOfBirth = 2020,
                 BodyWeight = 113,
-                Snatchs = new FullyObservableCollection<Attempt> {
+                Snatchs = new AttemptCollection(
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.Declared)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
+                ),
+                CleanJerks = new AttemptCollection(
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.Declared)
-                }
+                )
             };
         }
 
@@ -39,19 +39,19 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void Max_Rwanie_test(int val1, AttemptStatus result1, int val2, AttemptStatus result2, int val3, AttemptStatus result3, int exp, int exp2)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-                {
-                    new Attempt(val1,result1),
-                    new Attempt(val2,result2),
-                    new Attempt(val3,result3),
-                }
+                Snatchs = new AttemptCollection
+                (
+                    new Attempt(val1, result1),
+                    new Attempt(val2, result2),
+                    new Attempt(val3, result3)
+                )
             };
 
             model.DesignateMaxOfSnatch();
 
             model.MaxOfSnatch.Should().Be(exp);
             model.NumberMaxOfSnatch.Should().Be(exp2);
-            model.Snatchs.MaxBy(item => item.AttemptToInt())?.StatusIsMax().Should().BeTrue();
+            model.Snatchs.Collection.MaxBy(item => item.AttemptToInt())?.StatusIsMax().Should().BeTrue();
         }
 
         [Theory]
@@ -59,18 +59,18 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void Max_Podrzut_test(int val1, AttemptStatus result1, int val2, AttemptStatus result2, int val3, AttemptStatus result3, int exp, int exp2)
         {
             var model = new Participant {
-                CleanJerks = new FullyObservableCollection<Attempt>
-                {
-                    new Attempt(val1,result1),
-                    new Attempt(val2,result2),
-                    new Attempt(val3,result3),
-                }
+                CleanJerks = new AttemptCollection
+                (
+                    new Attempt(val1, result1),
+                    new Attempt(val2, result2),
+                    new Attempt(val3, result3)
+                )
             };
             model.DesignateMaxOfCleanJerk();
 
             model.MaxOfCleanJerk.Should().Be(exp);
             model.NumberMaxOfCleanJerk.Should().Be(exp2);
-            model.CleanJerks.MaxBy(item => item.AttemptToInt())?.StatusIsMax().Should().BeTrue();
+            model.CleanJerks.Collection.MaxBy(item => item.AttemptToInt())?.StatusIsMax().Should().BeTrue();
         }
 
         [Theory]
@@ -103,12 +103,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void ClearAttemptResignation_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-                {
+                Snatchs = new AttemptCollection
+                (
                     new Attempt { Value = 120, Status = AttemptStatus.Resignation },
                     new Attempt { Value = 220, Status = AttemptStatus.Resignation },
                     new Attempt { Value = 320, Status = AttemptStatus.Resignation }
-                }
+                )
             };
 
             model.ClearAttemptResignation(0, true);
@@ -128,12 +128,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttemptValueFromLastAttemptValue_throw_exception_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt { Value = 120, Status = AttemptStatus.Declared },
-                    new Attempt(),
-                    new Attempt()
-               }
+                Snatchs = new AttemptCollection(120, AttemptStatus.Declared)
             };
             var result = Assert.Throws<ArgumentException>(() => model.SetAttemptValueFromLastAttemptValue(5, true));
 
@@ -149,12 +144,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttemptValueFromLastAttemptValue_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
+                Snatchs = new AttemptCollection
+               (
                     new Attempt { Value = 120, Status = AttemptStatus.GoodLift },
-                    new Attempt{ Value = 5, Status = AttemptStatus.Declared },
+                    new Attempt { Value = 5, Status = AttemptStatus.Declared },
                     new Attempt()
-               }
+               )
             };
 
             model.SetAttemptValueFromLastAttemptValue(1, true);
@@ -166,17 +161,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_1_2_zaliczone_test()
         {
             var model = new Participant {
-                CleanJerks = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                CleanJerks = new()
             };
             model.CleanJerks[0].SetValue(100);
             model.CleanJerks[0].SetStatus(AttemptStatus.ComesUp);
             model.SetAttempt(0, AttemptStatus.GoodLift, false);
-            
+
             model.CleanJerks[0].StatusIsGoodLift().Should().BeTrue();
             model.CleanJerks[1].Value.Should().Be(101);
             model.CleanJerks[1].StatusIsDeclared().Should().BeTrue();
@@ -187,16 +177,11 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_2_3_zaliczone_test()
         {
             var model = new Participant {
-                CleanJerks = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                CleanJerks = new()
             };
             model.CleanJerks[1].SetValue(100);
             model.CleanJerks[1].SetStatus(AttemptStatus.ComesUp);
-            model.SetAttempt(1,  AttemptStatus.GoodLift, false);
+            model.SetAttempt(1, AttemptStatus.GoodLift, false);
 
             model.CleanJerks[1].StatusIsGoodLift().Should().BeTrue();
             model.CleanJerks[2].Value.Should().Be(101);
@@ -207,12 +192,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_1_2_spalone_test()
         {
             var model = new Participant {
-                CleanJerks = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                CleanJerks = new()
             };
             model.CleanJerks[0].SetValue(100);
             model.CleanJerks[0].SetStatus(AttemptStatus.ComesUp);
@@ -227,12 +207,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Podrzut_2_3_spalone_test()
         {
             var model = new Participant {
-                CleanJerks = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                CleanJerks = new()
             };
             model.CleanJerks[1].SetValue(100);
             model.CleanJerks[1].SetStatus(AttemptStatus.ComesUp);
@@ -247,12 +222,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_1_2_zaliczone_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                Snatchs = new()
             };
             model.Snatchs[0].SetValue(100);
             model.Snatchs[0].SetStatus(AttemptStatus.ComesUp);
@@ -271,12 +241,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_2_3_zaliczone_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                Snatchs = new()
             };
             model.Snatchs[1].SetValue(100);
             model.Snatchs[1].SetStatus(AttemptStatus.ComesUp);
@@ -291,12 +256,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_1_2_spalone_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                Snatchs = new()
             };
             model.Snatchs[0].SetValue(100);
             model.Snatchs[0].SetStatus(AttemptStatus.ComesUp);
@@ -311,17 +271,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_Rwanie_2_3_spalone_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
-                    new Attempt(),
-                    new Attempt(),
-                    new Attempt(),
-               }
+                Snatchs = new()
             };
             model.Snatchs[1].SetValue(100);
             model.Snatchs[1].SetStatus(AttemptStatus.ComesUp);
             model.SetAttempt(1, AttemptStatus.NoLift, true);
-            
+
             model.Snatchs[1].StatusIsNoLift().Should().BeTrue();
             model.Snatchs[2].Value.Should().Be(100);
             model.Snatchs[2].StatusIsDeclared().Should().BeTrue();
@@ -331,16 +286,16 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_RwanieNr3_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
+                Snatchs = new(
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.ComesUp)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
+                ),
+                CleanJerks = new(
                 new Attempt(200, AttemptStatus.GoodLift),
                 new Attempt(210, AttemptStatus.GoodLift),
                 new Attempt(220, AttemptStatus.ComesUp)
-                }
+                )
             };
             model.SetAttempt(AttemptStatus.GoodLift, true);
             model.Snatchs[2].StatusIsGoodLift().Should().BeTrue();
@@ -350,160 +305,86 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void SetAttempt_PodrzutNr3_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
+                Snatchs = new(
                 new Attempt(100, AttemptStatus.GoodLift),
                 new Attempt(110, AttemptStatus.GoodLift),
                 new Attempt(120, AttemptStatus.ComesUp)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
+                ),
+                CleanJerks = new(
                 new Attempt(200, AttemptStatus.GoodLift),
                 new Attempt(210, AttemptStatus.GoodLift),
                 new Attempt(220, AttemptStatus.ComesUp)
-                }
+      )
             };
             model.SetAttempt(AttemptStatus.GoodLift, false);
             model.CleanJerks[2].StatusIsGoodLift().Should().BeTrue();
         }
 
-        [Fact]
-        public void SetRezygnacja_Rwanie_1_test()
+        [Theory]
+        [InlineData(1,true,3)]
+        [InlineData(2,true,2)]
+        [InlineData(3,true,1)]
+        public void SetRezygnacjaRwanieTest(int numerPodejscia,bool flagRwanie, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
+                Snatchs = new (
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
+                ),
+                CleanJerks = new (
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
-                }
+                )
             };
-            model.SetAttemptResignation(1, true);
-            model.Snatchs.Count(i => i.StatusIsResignation()).Should().Be(3);
+            model.SetAttemptResignation(numerPodejscia, flagRwanie);
+            model.Snatchs.Collection.Count(i => i.StatusIsResignation()).Should().Be(expected);
         }
 
-        [Fact]
-        public void SetRezygnacja_Rwanie_2_test()
+        [Theory]
+        [InlineData(1, false, 3)]
+        [InlineData(2, false, 2)]
+        [InlineData(3, false, 1)]
+        public void SetRezygnacjaPodrzutTest(int numerPodejscia, bool flagRwanie, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
+                Snatchs = new(
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
+                ),
+                CleanJerks = new(
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
-                }
+                )
             };
-            model.SetAttemptResignation(2, true);
-            model.Snatchs[0].StatusIsResignation().Should().BeFalse();
-            model.Snatchs.Count(i => i.StatusIsResignation()).Should().Be(2);
+            model.SetAttemptResignation(numerPodejscia, flagRwanie);
+            model.CleanJerks.Collection.Count(i => i.StatusIsResignation()).Should().Be(expected);
         }
 
-        [Fact]
-        public void SetRezygnacja_Rwanie_3_test()
-        {
-            var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, AttemptStatus.Next),
-                new Attempt(110, AttemptStatus.ComesUp),
-                new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, AttemptStatus.ComesUp),
-                new Attempt(210, AttemptStatus.Next),
-                new Attempt(220, AttemptStatus.ComesUp)
-                }
-            };
-            model.SetAttemptResignation(3, true);
-            model.Snatchs[0].StatusIsResignation().Should().BeFalse();
-            model.Snatchs[1].StatusIsResignation().Should().BeFalse();
-            model.Snatchs.Count(i => i.StatusIsResignation()).Should().Be(1);
-        }
-
-        [Fact]
-        public void SetRezygnacja_Podrzut_1_test()
-        {
-            var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, AttemptStatus.Next),
-                new Attempt(110, AttemptStatus.ComesUp),
-                new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, AttemptStatus.ComesUp),
-                new Attempt(210, AttemptStatus.Next),
-                new Attempt(220, AttemptStatus.ComesUp)
-                }
-            };
-            model.SetAttemptResignation(1, false);
-            model.CleanJerks.Count(i => i.StatusIsResignation()).Should().Be(3);
-        }
-
-        [Fact]
-        public void SetRezygnacja_Podrzut_2_test()
-        {
-            var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, AttemptStatus.Next),
-                new Attempt(110, AttemptStatus.ComesUp),
-                new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, AttemptStatus.ComesUp),
-                new Attempt(210, AttemptStatus.Next),
-                new Attempt(220, AttemptStatus.ComesUp)
-                }
-            };
-            model.SetAttemptResignation(2, false);
-            model.CleanJerks[0].StatusIsResignation().Should().BeFalse();
-            model.CleanJerks.Count(i => i.StatusIsResignation()).Should().Be(2);
-        }
-
-        [Fact]
-        public void SetRezygnacja_Podrzut_3_test()
-        {
-            var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, AttemptStatus.Next),
-                new Attempt(110, AttemptStatus.ComesUp),
-                new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, AttemptStatus.ComesUp),
-                new Attempt(210, AttemptStatus.Next),
-                new Attempt(220, AttemptStatus.ComesUp)
-                }
-            };
-            model.SetAttemptResignation(3, false);
-            model.CleanJerks[0].StatusIsResignation().Should().BeFalse();
-            model.CleanJerks[1].StatusIsResignation().Should().BeFalse();
-            model.CleanJerks.Count(i => i.StatusIsResignation()).Should().Be(1);
-        }
+        
 
         [Fact]
         public void CzyszczenieNastepny_podchodzi_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
+                Snatchs = new(
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
+                ),
+                CleanJerks = new(
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
-                }
+                )
             };
             model.ClearNextAndComesUp();
 
-            model.Snatchs.Count(i => i.StatusIsDeclared()).Should().Be(3);
-            model.CleanJerks.Count(i => i.StatusIsDeclared()).Should().Be(3);
+            model.Snatchs.Collection.Count(i => i.StatusIsDeclared()).Should().Be(3);
+            model.CleanJerks.Collection.Count(i => i.StatusIsDeclared()).Should().Be(3);
         }
 
         [Theory]
@@ -516,16 +397,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetAttemptWeightOfNumber_test(bool isrwanie, int number, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100),
-                new Attempt(110),
-                new Attempt(120)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200),
-                new Attempt(210),
-                new Attempt(220)
-                }
+                Snatchs = new(new(100), new(110), new(120)),
+                CleanJerks = new(new(200), new(210), new(220))
             };
             model.GetAttemptWeightOfNumber(number, isrwanie).Should().Be(expected);
 
@@ -547,16 +420,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetNumerAnnonsu_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, result1),
-                new Attempt(110, result2),
-                new Attempt(120, result3)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, result1),
-                new Attempt(210, result2),
-                new Attempt(220, result3)
-                }
+                Snatchs = new( new (100, result1),new (110, result2),new (120, result3)),
+                CleanJerks = new (new (200, result1),new (210, result2),new (220, result3))
             };
 
             model.GetNumberOfDeclared(isrwanie).Should().Be(expected);
@@ -578,16 +443,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetAnnonsWeight_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, result1),
-                new Attempt(110, result2),
-                new Attempt(120, result3)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, result1),
-                new Attempt(210, result2),
-                new Attempt(220, result3)
-                }
+                Snatchs = new(new(100, result1), new(110, result2), new(120, result3)),
+                CleanJerks = new(new(200, result1), new(210, result2), new(220, result3))
             };
 
             model.GetDeclaredWeight(isrwanie).Should().Be(expected);
@@ -609,16 +466,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetAnnons_Test_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, result1),
-                new Attempt(110, result2),
-                new Attempt(120, result3)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, result1),
-                new Attempt(210, result2),
-                new Attempt(220, result3)
-                }
+                Snatchs = new(new(100, result1), new(110, result2), new(120, result3)),
+                CleanJerks = new(new(200, result1), new(210, result2), new(220, result3))
             };
             model.GetDeclared(isrwanie)?.Value.Should().Be(expected);
             model.GetDeclared(isrwanie)?.Status.Should().Be(AttemptStatus.Declared);
@@ -672,16 +521,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetNumerPodchodzi_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100, result1),
-                new Attempt(110, result2),
-                new Attempt(120, result3)
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, result1),
-                new Attempt(210, result2),
-                new Attempt(220, result3)
-                }
+                Snatchs = new(new(100, result1), new(110, result2), new(120, result3)),
+                CleanJerks = new(new(200, result1), new(210, result2), new(220, result3))
             };
 
             model.GetNumberOfComesUp(isrwanie).Should().Be(expected);
@@ -692,16 +533,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void IsRwanieAnnons_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100),
-                new Attempt(),
-                new Attempt()
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200),
-                new Attempt(),
-                new Attempt()
-                }
+                Snatchs = new(100),
+                CleanJerks = new (200)
             };
 
             model.IsSnatchDeclared().Should().BeTrue();
@@ -711,16 +544,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void IsNotRwanieAnnons_test()
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt(100,AttemptStatus.GoodLift),
-                new Attempt(100,AttemptStatus.GoodLift),
-                new Attempt(100,AttemptStatus.GoodLift),
-                },
-                CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(200, AttemptStatus.ComesUp),
-                new Attempt(),
-                new Attempt()
-                }
+                Snatchs = new(new(100, AttemptStatus.GoodLift), new(110, AttemptStatus.GoodLift), new(120, AttemptStatus.GoodLift)),
+                CleanJerks = new(new(200, AttemptStatus.ComesUp), new(), new())
             };
             model.IsSnatchDeclared().Should().BeFalse();
         }
@@ -748,18 +573,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void CountPromiseTotal_Test(int snatch, int cleanJerk, int promiseTotal)
         {
             var model = new Participant {
-                Snatchs = new FullyObservableCollection<Attempt>
-               {
-                   new Attempt(snatch),
-                   new Attempt(),
-                   new Attempt(),
-               },
-                CleanJerks = new FullyObservableCollection<Attempt>
-               {
-                   new Attempt(cleanJerk),
-                   new Attempt(),
-                   new Attempt(),
-               }
+                Snatchs = new(snatch),
+                CleanJerks = new(cleanJerk)
             };
             model.CountPromiseTotal();
             model.PromiseTotal.Should().Be(promiseTotal);
@@ -779,7 +594,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory]
         [MemberData(nameof(DataToComesUpValue))]
-        public void GetComesUpValue_Test(FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks, int value)
+        public void GetComesUpValue_Test(AttemptCollection snatches, AttemptCollection cleanJerks, int value)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -792,7 +607,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory]
         [MemberData(nameof(DataToSetComesUp))]
-        public void SetComesUpTest(bool isRwanie, FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks)
+        public void SetComesUpTest(bool isRwanie, AttemptCollection snatches, AttemptCollection cleanJerks)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -805,7 +620,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory()]
         [MemberData(nameof(DataToGetNextValue))]
-        public void GetNextValueTest(FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks, int value)
+        public void GetNextValueTest(AttemptCollection snatches, AttemptCollection cleanJerks, int value)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -816,7 +631,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         [Theory]
         [MemberData(nameof(DataToSetNext))]
-        public void SetNextTest(bool isRwanie, FullyObservableCollection<Attempt> snatches, FullyObservableCollection<Attempt> cleanJerks)
+        public void SetNextTest(bool isRwanie, AttemptCollection snatches, AttemptCollection cleanJerks)
         {
             var model = new Participant {
                 Snatchs = snatches,
@@ -833,114 +648,114 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             new object[]
             {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.ComesUp),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                 100
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.ComesUp),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                110
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.ComesUp)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                120
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.ComesUp),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                200
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.ComesUp),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                210
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
                     new Attempt(220, AttemptStatus.ComesUp)
-                },
+                ),
                220
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.GoodLift),
                     new Attempt(220, AttemptStatus.NoLift)
-                },
+                ),
                0
             },
         };
@@ -950,98 +765,98 @@ namespace WeightliftingManagment.Domain.Model.Tests
             new object[]
             {
                 true,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.ComesUp),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                true,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.ComesUp),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                true,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.ComesUp)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                false,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.ComesUp),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                false,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.ComesUp),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                false,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
                     new Attempt(220, AttemptStatus.ComesUp)
-                }
+                )
             }
         };
         public static IEnumerable<object[]> DataToSetNext =>
@@ -1050,98 +865,98 @@ namespace WeightliftingManagment.Domain.Model.Tests
             new object[]
             {
                 true,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Next),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                true,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.Next),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                true,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Next)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                false,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Next),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                false,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.Next),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                }
+                )
             },
            new object[]
            {
                false,
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
                     new Attempt(220, AttemptStatus.Next)
-                }
+                )
             }
         };
         public static IEnumerable<object[]> DataToGetNextValue =>
@@ -1149,98 +964,98 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             new object[]
             {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Next),
                     new Attempt(110, AttemptStatus.NoDeclared),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+               ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                 100
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.Next),
                     new Attempt(120, AttemptStatus.NoDeclared)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                110
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.Max),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Next)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Declared),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                120
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Next),
                     new Attempt(210, AttemptStatus.NoDeclared),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                200
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.Max),
                     new Attempt(210, AttemptStatus.Next),
                     new Attempt(220, AttemptStatus.NoDeclared)
-                },
+                ),
                210
             },
            new object[]
            {
-                new FullyObservableCollection<Attempt>
-                {
+                new AttemptCollection
+                (
                     new Attempt(100, AttemptStatus.GoodLift),
                     new Attempt(110, AttemptStatus.NoLift),
                     new Attempt(120, AttemptStatus.Max)
-                },
-                new FullyObservableCollection<Attempt>
-                {
+                ),
+                new AttemptCollection
+                (
                     new Attempt(200, AttemptStatus.GoodLift),
                     new Attempt(210, AttemptStatus.Max),
                     new Attempt(220, AttemptStatus.Next)
-                },
+                ),
                220
             }
         };

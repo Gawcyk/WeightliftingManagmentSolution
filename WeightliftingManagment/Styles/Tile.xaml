@@ -5,9 +5,21 @@
     <Style x:Key="WLM.Tile.Base" TargetType="{x:Type mah:Tile}">
         <Setter Property="mah:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
         <Setter Property="TitleFontSize" Value="{StaticResource WLM.FontSize.Medium}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
-    
-    
+
+    <Style x:Key="WLM.Tile.Base.Small" TargetType="{x:Type mah:Tile}">
+        <Setter Property="mah:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+        <Setter Property="TitleFontSize" Value="{StaticResource WLM.FontSize.Small}" />
+        <Setter Property="HorizontalContentAlignment" Value="Center" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
     <Style x:Key="WLM.Tile.Rectangle" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base}">
         <Setter Property="Width" Value="200" />
         <Setter Property="Height" Value="100" />
@@ -16,6 +28,16 @@
     <Style x:Key="WLM.Tile.Square" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base}">
         <Setter Property="Width" Value="100" />
         <Setter Property="Height" Value="100" />
+    </Style>
+
+    <Style x:Key="WLM.Tile.Rectangle.Small" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base.Small}">
+        <Setter Property="Width" Value="100" />
+        <Setter Property="Height" Value="50" />
+    </Style>
+
+    <Style x:Key="WLM.Tile.Square.Small" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base.Small}">
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="50" />
     </Style>
 
 </ResourceDictionary>

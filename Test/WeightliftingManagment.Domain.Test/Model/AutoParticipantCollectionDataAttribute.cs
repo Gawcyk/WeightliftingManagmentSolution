@@ -20,8 +20,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
             var data = fixture.CreateMany<Participant>(count: 10).ToList();
             foreach (var item in data)
             {
-                item.Snatchs = new FullyObservableCollection<Attempt>(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
-                item.CleanJerks = new FullyObservableCollection<Attempt>(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
+                item.Snatchs = new AttemptCollection(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
+                item.CleanJerks = new AttemptCollection(fixture.Build<Attempt>().With(x => x.Status, AttemptStatus.Declared).CreateMany(3).ToList());
             }
             fixture.Register(() => new ParticipantCollection(data));
             return fixture;

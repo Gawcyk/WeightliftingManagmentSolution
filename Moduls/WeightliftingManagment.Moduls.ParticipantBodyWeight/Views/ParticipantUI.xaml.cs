@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.Views
 {
     /// <summary>
-    /// Logika interakcji dla klasy AddParticipant.xaml
+    /// Logika interakcji dla klasy ParticipantUI.xaml
     /// </summary>
-    public partial class AddParticipant : UserControl
+    public partial class ParticipantUI : UserControl
     {
-        public AddParticipant()
+        public ParticipantUI()
         {
             InitializeComponent();
         }
