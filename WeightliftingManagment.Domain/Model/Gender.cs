@@ -3,6 +3,7 @@
     public enum Gender
     {
         Women,
-        Men
+        Men,
+        Undefine
     }
 }

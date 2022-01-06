@@ -36,35 +36,45 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
             //    part, part2, part3, part4
             //};
         }
-        
-        private ParticipantCollection _participants;
+
+        private ParticipantCollection _participants = new();
         public ParticipantCollection Participants
         {
             get => _participants;
             set => SetProperty(ref _participants, value);
         }
 
-        private DelegateCommand _alertCommand;
-        public DelegateCommand AlertCommand => _alertCommand ??= new DelegateCommand(ExecuteAlert);
+        //private DelegateCommand _alertCommand;
+        //public DelegateCommand AlertCommand => _alertCommand ??= new DelegateCommand(ExecuteAlert);
 
-        private void ExecuteAlert() => _dialogService.ShowAlert("Title", "message");
+        //private void ExecuteAlert() => _dialogService.ShowAlert("Title", "message");
 
-        private DelegateCommand _notificationCommand;
-        public DelegateCommand NotificationCommand => _notificationCommand ??= new DelegateCommand(ExecuteNotofocation);
+        //private DelegateCommand _notificationCommand;
+        //public DelegateCommand NotificationCommand => _notificationCommand ??= new DelegateCommand(ExecuteNotofocation);
 
-        private void ExecuteNotofocation() => _dialogService.ShowNotification("Title", "message");
+        //private void ExecuteNotofocation() => _dialogService.ShowNotification("Title", "message");
 
-        private DelegateCommand _questionCommand;
-        public DelegateCommand QuestionCommand => _questionCommand ??= new DelegateCommand(ExecuteQuestion);
+        //private DelegateCommand _questionCommand;
+        //public DelegateCommand QuestionCommand => _questionCommand ??= new DelegateCommand(ExecuteQuestion);
 
-        private void ExecuteQuestion() => _dialogService.ShowQuestion("Title", "messege");
+        //private void ExecuteQuestion() => _dialogService.ShowQuestion("Title", "messege");
 
-        private DelegateCommand _openAddParticipantCommand;
-        public DelegateCommand OpenAddParticipantCommand => _openAddParticipantCommand ??= new DelegateCommand(ExecuteOpenAddParticipant);
-        private void ExecuteOpenAddParticipant()
+        private DelegateCommand _addParticipantCommand;
+        public DelegateCommand AddParticipantCommand => _addParticipantCommand ??= new DelegateCommand(ExecuteAddParticipant);
+        private void ExecuteAddParticipant()
         {
-            var participant = _dialogService.ShowAddParticipant("Add Participant");
-            Participants.AddNewParticipant(participant);
+            var participant = _dialogService.ShowAddParticipant();
+            if (participant is not null)    
+                Participants.AddNewParticipant(participant);
+        }
+
+        private DelegateCommand<Participant> _editParticipantCommand;
+        public DelegateCommand<Participant> EditParticipantCommand => _editParticipantCommand ??= new DelegateCommand<Participant>(ExecuteEditParticipant);
+        private void ExecuteEditParticipant(Participant participant)
+        {
+            var particip = _dialogService.ShowEditParticipant(participant);
+            var oldParticipant = Participants.GetParticipantByID(participant.ParticipantId);
+            oldParticipant = particip;
         }
     }
 }

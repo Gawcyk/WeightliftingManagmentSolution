@@ -13,11 +13,11 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public IEnumerable GetErrors([CallerMemberName] string propertyName = null) => _propertyErrors.GetValueOrDefault(propertyName, null);
+        public IEnumerable GetErrors([CallerMemberName] string? propertyName = null) => _propertyErrors.GetValueOrDefault(propertyName, null);
 
-        public bool HasErrorsForPropertyName([CallerMemberName] string propertyName = null) => _propertyErrors.ContainsKey(propertyName);
+        public bool HasErrorsForPropertyName([CallerMemberName] string? propertyName = null) => _propertyErrors.ContainsKey(propertyName);
 
-        public bool Validate(bool conditional, string errMessage, [CallerMemberName] string propertyName = null)
+        public bool Validate(bool conditional, string errMessage, [CallerMemberName] string? propertyName = null)
         {
             ClearErrors(propertyName);
             if (conditional)
@@ -27,7 +27,7 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
             return HasErrorsForPropertyName(propertyName);
         }
 
-        public void AddError(string errorMessage, [CallerMemberName] string propertyName = null)
+        public void AddError(string errorMessage, [CallerMemberName] string? propertyName = null)
         {
             if (!_propertyErrors.ContainsKey(propertyName))
             {
@@ -38,7 +38,7 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
             OnErrorsChanged(propertyName);
         }
 
-        public void ClearErrors([CallerMemberName] string propertyName = null)
+        public void ClearErrors([CallerMemberName] string? propertyName = null)
         {
             if (_propertyErrors.Remove(propertyName))
             {
@@ -56,6 +56,6 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
         }
 
         private void OnErrorsChanged(string propertyName) => ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
-        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName) => throw new NotImplementedException();
+        IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName) => GetErrors(propertyName);
     }
 }

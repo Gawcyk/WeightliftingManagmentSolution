@@ -17,7 +17,7 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<BodyWeight, BodyWeightViewModel>(PageKeys.BodyWeight);
-            containerRegistry.RegisterDialog<AddParticipant>(DialogName.AddParticipant);
+            containerRegistry.RegisterDialog<ParticipantUI>(DialogName.ParticipantUI);
         }
     }
 }

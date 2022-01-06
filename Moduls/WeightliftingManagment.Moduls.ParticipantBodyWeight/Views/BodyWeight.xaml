@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mahIcon="http://metro.mahapps.com/winfx/xaml/iconpacks"
              xmlns:ext="clr-namespace:WeightliftingManagment.Core.AttachedProperties;assembly=WeightliftingManagment.Core"
              xmlns:const="clr-namespace:WeightliftingManagment.Core.Constans;assembly=WeightliftingManagment.Core"
              mc:Ignorable="d" 
@@ -16,21 +17,39 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" Orientation="Horizontal">
-            <controls:Tile Title="Add" 
-                           Style="{DynamicResource WLM.Tile.Square}"
-                           Command="{Binding OpenAddParticipantCommand}"/>
-            <controls:Tile Title="Notification"
-                           Style="{DynamicResource WLM.Tile.Square}"
-                           Command="{Binding NotificationCommand}"/>
-            <controls:Tile Title="Alert" 
-                           Style="{DynamicResource WLM.Tile.Square}"
-                           Command="{Binding AlertCommand}"/>
-            <controls:Tile Title="Questions" 
-                           Style="{DynamicResource WLM.Tile.Square}"
+        <Grid  Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition SharedSizeGroup="TileColumn" Width="Auto"/>
+                <ColumnDefinition SharedSizeGroup="TileColumn" Width="Auto"/>
+                <ColumnDefinition SharedSizeGroup="TileColumn" Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition SharedSizeGroup="TileColumn" Width="Auto"/>
+                <ColumnDefinition SharedSizeGroup="TileColumn" Width="Auto"/>
+                <ColumnDefinition SharedSizeGroup="TileColumn" Width="Auto"/>
+            </Grid.ColumnDefinitions>
+                <controls:Tile Content="{mahIcon:FontAwesome Kind=UserPlusSolid, Height=30, Width=30}"
+                           Grid.Column="0"
+                           Style="{DynamicResource WLM.Tile.Square.Small}"
+                           Command="{Binding AddParticipantCommand}"/>
+            <controls:Tile Content="{mahIcon:FontAwesome Kind=UserEditSolid, Height=30, Width=30}"
+                           Grid.Column="1"
+                           Style="{DynamicResource WLM.Tile.Square.Small}"
+                           Command="{Binding EditParticipantCommand}" CommandParameter="{Binding ElementName=ParticipantDataGrid, Path=SelectedItem}"/>
+            <controls:Tile Content="{mahIcon:FontAwesome Kind=UserTimesSolid, Height=30, Width=30}"
+                           Grid.Column="2"
+                           Style="{DynamicResource WLM.Tile.Square.Small}"
+                           Command="{Binding RemoveParticipantCommand}"/>
+            <controls:Tile Content="{mahIcon:FontAwesome Kind=FilePdfRegular, Height=30, Width=30}"
+                           Grid.Column="5"
+                           Style="{DynamicResource WLM.Tile.Square.Small}"
                            Command="{Binding QuestionCommand}"/>
-        </StackPanel>
+            <controls:Tile Content="{mahIcon:FontAwesome Kind=PrintSolid, Height=30, Width=30}"
+                           Grid.Column="6"
+                           Style="{DynamicResource WLM.Tile.Square.Small}"
+                           Command="{Binding QuestionCommand}"/>
+        </Grid>
         <DataGrid 
+            x:Name="ParticipantDataGrid"
             Grid.Row="1"
             SnapsToDevicePixels="True"
             ClipboardCopyMode="ExcludeHeader"
@@ -45,6 +64,8 @@
             CanUserSortColumns="False"
             GridLinesVisibility="All"
             HeadersVisibility="All"
+            SelectionMode="Single"
+            SelectionUnit="FullRow"
             Margin="{StaticResource WLM.Margin.XXSmall.LeftRight}"
             CellStyle="{DynamicResource WLM.DataGridCell.ZeroIsTransparentCenter}"
             ColumnHeaderStyle="{DynamicResource WLM.DataGridColumnHeader.Center}"
@@ -60,11 +81,11 @@
                                     Header="Lic. Nr" />
                 <DataGridTextColumn Width="*"
                                     MinWidth="50"
-                                    Binding="{Binding Group}"
+                                    Binding="{Binding Group, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                                     Header="Gr" />
                 <DataGridTextColumn Width="3*"
                                     MinWidth="100"
-                                    Binding="{Binding NameAndSurname}"
+                                    Binding="{Binding PersonalData.Display, Mode=OneWay, NotifyOnSourceUpdated=True}"
                                     Header="Imię i Nazwisko" />
                 <DataGridTextColumn Width="3*"
                                     MinWidth="100"

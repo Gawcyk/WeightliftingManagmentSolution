@@ -10,16 +10,10 @@ namespace WeightliftingManagment.Domain.Model
         /// </summary>
         public Participant()
         {
-            Snatchs = new FullyObservableCollection<Attempt> {
-                new Attempt (),
-                new Attempt (),
-                new Attempt ()
-            };
-            CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt (),
-                new Attempt (),
-                new Attempt ()
-            };
+            ParticipantId = Guid.NewGuid();
+            Snatchs = new AttemptCollection();
+            CleanJerks = new AttemptCollection();
+            Category = new Category();
         }
 
         /// <summary>
@@ -37,24 +31,17 @@ namespace WeightliftingManagment.Domain.Model
         /// <param name="sinclairCoefficients">The Sinclaire Coefficient of the participant</param>
         /// <param name="licenseNumber">License number participant</param>
         /// <param name="category">Category participant</param>
-        public Participant(int startNumber, string? nameAndSurname, string? club, double bodyWeight, int yearOfBirth, Gender gender, Attempt snatch, Attempt cleanJerk, string? group, double sinclairCoefficients, string? licenseNumber,Category category)
+        public Participant(int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, Attempt snatch, Attempt cleanJerk, string group, double sinclairCoefficients, string licenseNumber,Category category)
         {
+            ParticipantId = Guid.NewGuid();
             StartNumber = startNumber;
-            NameAndSurname = nameAndSurname;
+            PersonalData = PersonalData.FromString(nameAndSurname);
             Club = club;
             BodyWeight = bodyWeight;
             YearOfBirth = yearOfBirth;
             Gender = gender;
-            Snatchs = new FullyObservableCollection<Attempt> {
-               snatch,
-                new Attempt (),
-                new Attempt ()
-            };
-            CleanJerks = new FullyObservableCollection<Attempt> {
-                cleanJerk,
-                new Attempt (),
-                new Attempt ()
-            };
+            Snatchs = new AttemptCollection(snatch);
+            CleanJerks = new AttemptCollection(cleanJerk);
             Group = group;
             SinclairCoefficients = sinclairCoefficients;
             LicenseNumber = licenseNumber;
@@ -77,24 +64,17 @@ namespace WeightliftingManagment.Domain.Model
         /// <param name="sinclairCoefficients">The Sinclaire Coefficient of the participant</param>
         /// <param name="licenseNumber">License number participant</param>
         /// <param name="category">Category participant</param>
-        public Participant(int startNumber, string? nameAndSurname, string? club, double bodyWeight, int yearOfBirth, Gender gender, int snatch, int cleanJerk, string? group, double sinclairCoefficients, string? licenseNumber, Category category)
+        public Participant(int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, int snatch, int cleanJerk, string group, double sinclairCoefficients, string licenseNumber, Category category)
         {
+            ParticipantId = Guid.NewGuid();
             StartNumber = startNumber;
-            NameAndSurname = nameAndSurname;
+            PersonalData = PersonalData.FromString(nameAndSurname);
             Club = club;
             BodyWeight = bodyWeight;
             YearOfBirth = yearOfBirth;
             Gender = gender;
-            Snatchs = new FullyObservableCollection<Attempt> {
-               new Attempt(snatch),
-                new Attempt (),
-                new Attempt ()
-            };
-            CleanJerks = new FullyObservableCollection<Attempt> {
-                new Attempt(cleanJerk),
-                new Attempt (),
-                new Attempt ()
-            };
+            Snatchs = new AttemptCollection(snatch);
+            CleanJerks = new AttemptCollection(cleanJerk);
             Group = group;
             SinclairCoefficients = sinclairCoefficients;
             LicenseNumber = licenseNumber;
@@ -102,11 +82,11 @@ namespace WeightliftingManagment.Domain.Model
         }
 
 
-        public Participant(int participantId, int startNumber, string? nameAndSurname, string? club, double bodyWeight, int yearOfBirth, Gender gender, FullyObservableCollection<Attempt> snatchs, FullyObservableCollection<Attempt> cleanJerks, int bonusPoint, int total, string? group, int maxOfCleanJerk, int maxOfSnatch, bool next, int numberMaxOfCleanJerk, int numberMaxOfSnatch, bool comesUp, double points, double sinclairCoefficients, string? position, int promiseTotal, double promisePoint, string? licenseNumber, Category  category)
+        public Participant(Guid participantId, int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, AttemptCollection snatchs, AttemptCollection cleanJerks, int bonusPoint, int total, string group, int maxOfCleanJerk, int maxOfSnatch, bool next, int numberMaxOfCleanJerk, int numberMaxOfSnatch, bool comesUp, double points, double sinclairCoefficients, string position, int promiseTotal, double promisePoint, string licenseNumber, Category  category)
         {
             ParticipantId = participantId;
             StartNumber = startNumber;
-            NameAndSurname = nameAndSurname;
+            PersonalData = PersonalData.FromString(nameAndSurname);
             Club = club;
             BodyWeight = bodyWeight;
             YearOfBirth = yearOfBirth;
@@ -133,18 +113,18 @@ namespace WeightliftingManagment.Domain.Model
 
         #region Fields
 
-        private int _participantId;
+        private Guid _participantId;
         private int _startNumber;
-        private string? _nameAndSurname;
-        private string? _club;
+        private PersonalData _personalData = new();
+        private string _club = string.Empty;
         private double _bodyWeight;
         private int _yearOfBirth;
         private Gender _gender;
-        private FullyObservableCollection<Attempt> _snatchs = new() {new Attempt(),new Attempt(),new Attempt() };
-        private FullyObservableCollection<Attempt> _cleanJerks = new() { new Attempt(), new Attempt(), new Attempt() };
+        private AttemptCollection _snatchs = new();
+        private AttemptCollection _cleanJerks = new();
         private int _bonusPoint;
         private int _total;
-        private string? _group;
+        private string _group = string.Empty;
         private int _maxOfCleanJerk;
         private int _maxOfSnatch;
         private bool _next;
@@ -153,17 +133,17 @@ namespace WeightliftingManagment.Domain.Model
         private bool _comesUp;
         private double _points;
         private double _sinclairCoefficients;
-        private string? _position;
+        private string _position = string.Empty;
         private int _promiseTotal;
         private double _promisePoint;
-        private string? _licenseNumber;
-        private Category _category;
+        private string _licenseNumber = string.Empty;
+        private Category _category = new();
 
         #endregion
 
         #region Property
 
-        public int ParticipantId
+        public Guid ParticipantId
         {
             get => _participantId;
             set => SetProperty(ref _participantId, value);
@@ -175,13 +155,13 @@ namespace WeightliftingManagment.Domain.Model
             set => SetProperty(ref _startNumber, value);
         }
 
-        public string? NameAndSurname
+        public PersonalData PersonalData
         {
-            get => _nameAndSurname;
-            set => SetProperty(ref _nameAndSurname, value);
+            get => _personalData;
+            set => SetProperty(ref _personalData, value);
         }
 
-        public string? Club
+        public string Club
         {
             get => _club;
             set => SetProperty(ref _club, value);
@@ -205,13 +185,13 @@ namespace WeightliftingManagment.Domain.Model
             set => SetProperty(ref _gender, value);
         }
 
-        public FullyObservableCollection<Attempt> Snatchs
+        public AttemptCollection Snatchs
         {
             get => _snatchs;
             set => SetProperty(ref _snatchs, value);
         }
 
-        public FullyObservableCollection<Attempt> CleanJerks
+        public AttemptCollection CleanJerks
         {
             get => _cleanJerks;
             set => SetProperty(ref _cleanJerks, value);
@@ -229,7 +209,7 @@ namespace WeightliftingManagment.Domain.Model
             set => SetProperty(ref _total, value);
         }
 
-        public string? Group
+        public string Group
         {
             get => _group;
             set => SetProperty(ref _group, value);
@@ -283,7 +263,7 @@ namespace WeightliftingManagment.Domain.Model
             set => SetProperty(ref _sinclairCoefficients, value);
         }
 
-        public string? Position
+        public string Position
         {
             get => _position;
             set => SetProperty(ref _position, value);
@@ -301,7 +281,7 @@ namespace WeightliftingManagment.Domain.Model
             set => SetProperty(ref _promisePoint, value);
         }
 
-        public string? LicenseNumber
+        public string LicenseNumber
         {
             get => _licenseNumber;
             set => SetProperty(ref _licenseNumber, value);
@@ -391,9 +371,9 @@ namespace WeightliftingManagment.Domain.Model
             UpdateResignationArray(CleanJerks, numerPodejscia);
         }
 
-        private static void UpdateResignationArray(FullyObservableCollection<Attempt> array, int numerPodejscia)
+        private static void UpdateResignationArray(AttemptCollection array, int numerPodejscia)
         {
-            for (var i = numerPodejscia; i <= array.Count; i++)
+            for (var i = numerPodejscia; i <= array.Collection.Count; i++)
             {
                 array[i - 1].SetStatus(AttemptStatus.Resignation);
             }
@@ -425,17 +405,17 @@ namespace WeightliftingManagment.Domain.Model
         /// Czy dalej są podejscia w rwaniu
         /// </summary>
         /// <returns>Flaga True jeżeli jeszcze są annonse w rwaniu</returns>
-        public bool IsSnatchDeclared() => Snatchs.Any(item=>item.StatusIsDeclared());
+        public bool IsSnatchDeclared() => Snatchs.Collection.Any(item=>item.StatusIsDeclared());
 
         /// <summary>
         /// Wyznaczamy maksymalne podejcie w rwaniu
         /// </summary>
         public void DesignateMaxOfSnatch()
         {
-            var max = Snatchs.MaxBy(item => item.AttemptToInt());
+            var max = Snatchs.Collection.MaxBy(item => item.AttemptToInt());
             MaxOfSnatch = max.Value;
-            NumberMaxOfSnatch = Snatchs.ToList().IndexOf(max) + 1;
-            Snatchs.FirstOrDefault(item => item.StatusIsMax())?.SetStatus(AttemptStatus.GoodLift);
+            NumberMaxOfSnatch = Snatchs.Collection.ToList().IndexOf(max) + 1;
+            Snatchs.Collection.FirstOrDefault(item => item.StatusIsMax())?.SetStatus(AttemptStatus.GoodLift);
             max.SetStatus(AttemptStatus.Max);
         }
 
@@ -444,10 +424,10 @@ namespace WeightliftingManagment.Domain.Model
         /// </summary>
         public void DesignateMaxOfCleanJerk()
         {
-            var max = CleanJerks.MaxBy(item => item.AttemptToInt());
+            var max = CleanJerks.Collection.MaxBy(item => item.AttemptToInt());
             MaxOfCleanJerk = max.Value;
-            NumberMaxOfCleanJerk = CleanJerks.ToList().IndexOf(max) + 1;
-            CleanJerks.FirstOrDefault(item => item.StatusIsMax())?.SetStatus(AttemptStatus.GoodLift);
+            NumberMaxOfCleanJerk = CleanJerks.Collection.ToList().IndexOf(max) + 1;
+            CleanJerks.Collection.FirstOrDefault(item => item.StatusIsMax())?.SetStatus(AttemptStatus.GoodLift);
             max.SetStatus(AttemptStatus.Max);
         }
 
@@ -475,7 +455,7 @@ namespace WeightliftingManagment.Domain.Model
         /// <returns>Podejscia w którym <see cref="AttemptStatus"/> jest Annosns</returns>
         public Attempt? GetDeclared(bool isrwanie)
         {
-            var result = isrwanie ? Snatchs.First(item => item.StatusIsDeclared()) : CleanJerks.First(item => item.StatusIsDeclared());
+            var result = isrwanie ? Snatchs.Collection.First(item => item.StatusIsDeclared()) : CleanJerks.Collection.First(item => item.StatusIsDeclared());
             return result;
         }
 
@@ -486,7 +466,7 @@ namespace WeightliftingManagment.Domain.Model
         /// <returns>Numer podjeścia w boju</returns>
         public int GetNumberOfComesUp(bool isrwanie)
         {
-            var index = isrwanie ? Snatchs.ToList().IndexOf(Snatchs.First(item => item.StatusIsComesUp())) + 1 : CleanJerks.ToList().IndexOf(CleanJerks.First(item => item.StatusIsComesUp())) + 1;
+            var index = isrwanie ? Snatchs.Collection.ToList().IndexOf(Snatchs.Collection.First(item => item.StatusIsComesUp())) + 1 : CleanJerks.Collection.ToList().IndexOf(CleanJerks.Collection.First(item => item.StatusIsComesUp())) + 1;
             return index;
         }
 
@@ -497,7 +477,7 @@ namespace WeightliftingManagment.Domain.Model
         /// <returns></returns>
         public int GetNumberOfDeclared(bool isrwanie)
         {
-            var index = isrwanie ? Snatchs.ToList().IndexOf(Snatchs.First(item => item.StatusIsDeclared())) + 1 : CleanJerks.ToList().IndexOf(CleanJerks.First(item => item.StatusIsDeclared())) + 1;
+            var index = isrwanie ? Snatchs.Collection.ToList().IndexOf(Snatchs.Collection.First(item => item.StatusIsDeclared())) + 1 : CleanJerks.Collection.ToList().IndexOf(CleanJerks.Collection.First(item => item.StatusIsDeclared())) + 1;
             return index;
         }
 
@@ -514,8 +494,8 @@ namespace WeightliftingManagment.Domain.Model
         /// </summary>
         public void ClearNextAndComesUp()
         {
-            Snatchs.ToList().ForEach(item => ClearAttempt(item));
-            CleanJerks.ToList().ForEach(item => ClearAttempt(item));
+            Snatchs.Collection.ToList().ForEach(item => ClearAttempt(item));
+            CleanJerks.Collection.ToList().ForEach(item => ClearAttempt(item));
         }
 
         private static void ClearAttempt(Attempt item)
@@ -614,41 +594,41 @@ namespace WeightliftingManagment.Domain.Model
         /// </summary>
         /// <param name="isRwanie">Jeżeli isRwanie jest true to jest rwanie </param>
         public void SetComesUp(bool isRwanie) => ComesUp = isRwanie
-                ? Snatchs.First(item => item.StatusIsComesUp()).StatusIsComesUp()
-                : CleanJerks.First(item => item.StatusIsComesUp()).StatusIsComesUp();
+                ? Snatchs.Collection.First(item => item.StatusIsComesUp()).StatusIsComesUp()
+                : CleanJerks.Collection.First(item => item.StatusIsComesUp()).StatusIsComesUp();
 
         public int GetComesUpValue()
         {
-            var snatch = Snatchs.FirstOrDefault(item => item.StatusIsComesUp());
+            var snatch = Snatchs.Collection.FirstOrDefault(item => item.StatusIsComesUp());
             if (snatch != null) return snatch.Value;
-            var cleanJerk = CleanJerks.FirstOrDefault(item => item.StatusIsComesUp());
+            var cleanJerk = CleanJerks.Collection.FirstOrDefault(item => item.StatusIsComesUp());
             if (cleanJerk != null) return cleanJerk.Value;
             return 0;
         }
 
         public string GetComesUpPodejscie()
         {
-            if (Snatchs[0].StatusIsComesUp())
+            if (Snatchs.First.StatusIsComesUp())
             {
                 return "Rwanie : Podejscie 1";
             }
-            else if (Snatchs[1].StatusIsComesUp())
+            else if (Snatchs.Second.StatusIsComesUp())
             {
                 return "Rwanie : Podejscie 2";
             }
-            else if (Snatchs[2].StatusIsComesUp())
+            else if (Snatchs.Third.StatusIsComesUp())
             {
                 return "Rwanie : Podejscie 3";
             }
-            else if (CleanJerks[0].StatusIsComesUp())
+            else if (CleanJerks.First.StatusIsComesUp())
             {
                 return "Podrzut : Podejscie 1";
             }
-            else if (CleanJerks[1].StatusIsComesUp())
+            else if (CleanJerks.Second.StatusIsComesUp())
             {
                 return "Podrzut : Podejscie 2";
             }
-            else if (CleanJerks[2].StatusIsComesUp())
+            else if (CleanJerks.Third.StatusIsComesUp())
             {
                 return "Podrzut : Podejscie 3";
             }
@@ -660,36 +640,36 @@ namespace WeightliftingManagment.Domain.Model
 
         public int GetNextValue()
         {
-            var snatch = Snatchs.FirstOrDefault(item => item.StatusIsNext());
+            var snatch = Snatchs.Collection.FirstOrDefault(item => item.StatusIsNext());
             if (snatch != null) return snatch.Value;
-            var cleanJerk = CleanJerks.FirstOrDefault(item => item.StatusIsNext());
+            var cleanJerk = CleanJerks.Collection.FirstOrDefault(item => item.StatusIsNext());
             if (cleanJerk != null) return cleanJerk.Value;
             return 0;
         }
 
         public string GetNextPodejscie()
         {
-            if (Snatchs[0].StatusIsNext())
+            if (Snatchs.First.StatusIsNext())
             {
                 return "Rwanie : Podejscie 1";
             }
-            else if (Snatchs[1].StatusIsNext())
+            else if (Snatchs.Second.StatusIsNext())
             {
                 return "Rwanie : Podejscie 2";
             }
-            else if (Snatchs[2].StatusIsNext())
+            else if (Snatchs.Third.StatusIsNext())
             {
                 return "Rwanie : Podejscie 3";
             }
-            else if (CleanJerks[0].StatusIsNext())
+            else if (CleanJerks.First.StatusIsNext())
             {
                 return "Podrzut : Podejscie 1";
             }
-            else if (CleanJerks[1].StatusIsNext())
+            else if (CleanJerks.Second.StatusIsNext())
             {
                 return "Podrzut : Podejscie 2";
             }
-            else if (CleanJerks[2].StatusIsNext())
+            else if (CleanJerks.Third.StatusIsNext())
             {
                 return "Podrzut : Podejscie 3";
             }
@@ -704,8 +684,8 @@ namespace WeightliftingManagment.Domain.Model
         /// </summary>
         /// <param name="isRwanie">Jeżeli isRwanie jest true to jest rwanie </param>
         public void SetNext(bool isRwanie) => Next = isRwanie
-                ? Snatchs.First(item => item.StatusIsNext()).StatusIsNext()
-                : CleanJerks.First(item => item.StatusIsNext()).StatusIsNext();
+                ? Snatchs.Collection.First(item => item.StatusIsNext()).StatusIsNext()
+                : CleanJerks.Collection.First(item => item.StatusIsNext()).StatusIsNext();
 
         #endregion
 

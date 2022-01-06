@@ -35,7 +35,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Modu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagmentApp.Test", "Test\WeightliftingManagmentApp.Test\WeightliftingManagmentApp.Test.csproj", "{0F2B3EA8-EB11-4562-8227-88BF98530C0A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeightliftingManagment.Core.Test", "Test\WeightliftingManagment.Core.Test\WeightliftingManagment.Core.Test.csproj", "{EC97B992-ABB2-49AC-BD3C-9E529663B2A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WeightliftingManagment.Core.Test", "Test\WeightliftingManagment.Core.Test\WeightliftingManagment.Core.Test.csproj", "{EC97B992-ABB2-49AC-BD3C-9E529663B2A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WeightliftingManagment.Moduls.CompetitionSettings", "Moduls\WeightliftingManagment.Moduls.CompetitionSettings\WeightliftingManagment.Moduls.CompetitionSettings.csproj", "{30528B03-468A-4C3E-AB84-5F9217A5341B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -91,6 +93,10 @@ Global
 		{EC97B992-ABB2-49AC-BD3C-9E529663B2A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC97B992-ABB2-49AC-BD3C-9E529663B2A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC97B992-ABB2-49AC-BD3C-9E529663B2A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30528B03-468A-4C3E-AB84-5F9217A5341B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30528B03-468A-4C3E-AB84-5F9217A5341B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30528B03-468A-4C3E-AB84-5F9217A5341B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30528B03-468A-4C3E-AB84-5F9217A5341B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{E544853D-CF64-4EB7-A075-CDE050E836DB} = {27B23F9F-727A-4F64-960F-4E63ED3D854F}
 		{0F2B3EA8-EB11-4562-8227-88BF98530C0A} = {3E23D77F-C48E-40BF-BA60-7A84F0693013}
 		{EC97B992-ABB2-49AC-BD3C-9E529663B2A7} = {3E23D77F-C48E-40BF-BA60-7A84F0693013}
+		{30528B03-468A-4C3E-AB84-5F9217A5341B} = {27B23F9F-727A-4F64-960F-4E63ED3D854F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {39450B48-8A97-4AC4-9248-5CCBA0A2A465}
