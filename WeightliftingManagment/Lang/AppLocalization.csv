@@ -30,3 +30,14 @@ Name,Name,Nazwa
 Organizer,Organizer,Organizator
 Site,Site,Strona
 City,City,Miejscowość
+Federation,Federation,Związek
+FederationName,Federation Name,Nazwa Związku
+FederationEmail,Federation e-mail,E-mail Związku
+FederationAddress,Federation Address,Adres Związku
+FederationWebSite,Federation Web Site,Strona Internetowa Związku
+UseYearOnly,Use Birth Year Only,Używaj tylko roku urodzenia
+InitialTotalWeightRule,Apply initial total weight rule (IWF §6.6.5/Masters §2.4)?,Zastosuj regułę początkowej wagi całkowitej (IWF §6.6.5/Masters §2.4)?
+Masters,Masters,Masters
+AddParticipant,Add Participant,Dodaj Zawodnika
+EditParticipant,Edit Participant,Edytuj Zawodnika
+Options,Options,Opcje

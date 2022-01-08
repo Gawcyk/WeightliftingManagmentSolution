@@ -9,6 +9,8 @@ namespace WeightliftingManagment.Core.Dialogs
     public enum DialogType
     {
         Alert,
-        Information
+        Information,
+        AddParticipant,
+        EditParticipant
     }
 }

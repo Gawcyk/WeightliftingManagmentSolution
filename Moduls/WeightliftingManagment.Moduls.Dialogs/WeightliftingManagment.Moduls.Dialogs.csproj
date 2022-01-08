@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\WeightliftingManagment.Core\WeightliftingManagment.Core.csproj" />
+    <ProjectReference Include="..\..\WeightliftingManagment.Localization\WeightliftingManagment.Localization.csproj" />
   </ItemGroup>
 
 </Project>

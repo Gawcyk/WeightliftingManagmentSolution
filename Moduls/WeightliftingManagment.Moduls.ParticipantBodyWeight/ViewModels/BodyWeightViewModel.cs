@@ -44,15 +44,15 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
             set => SetProperty(ref _participants, value);
         }
 
-        //private DelegateCommand _alertCommand;
-        //public DelegateCommand AlertCommand => _alertCommand ??= new DelegateCommand(ExecuteAlert);
+        private DelegateCommand _alertCommand;
+        public DelegateCommand AlertCommand => _alertCommand ??= new DelegateCommand(ExecuteAlert);
 
-        //private void ExecuteAlert() => _dialogService.ShowAlert("Title", "message");
+        private void ExecuteAlert() => _dialogService.ShowAlert("Title", "message");
 
-        //private DelegateCommand _notificationCommand;
-        //public DelegateCommand NotificationCommand => _notificationCommand ??= new DelegateCommand(ExecuteNotofocation);
+        private DelegateCommand _notificationCommand;
+        public DelegateCommand NotificationCommand => _notificationCommand ??= new DelegateCommand(ExecuteNotofocation);
 
-        //private void ExecuteNotofocation() => _dialogService.ShowNotification("Title", "message");
+        private void ExecuteNotofocation() => _dialogService.ShowNotification("Title", "message");
 
         //private DelegateCommand _questionCommand;
         //public DelegateCommand QuestionCommand => _questionCommand ??= new DelegateCommand(ExecuteQuestion);

@@ -6,17 +6,20 @@ using Prism.Commands;
 using Prism.Services.Dialogs;
 
 using WeightliftingManagment.Core.Contracts;
+using WeightliftingManagment.Core.Dialogs;
 using WeightliftingManagment.Core.MvvmSupport.ViewModelsTypeBase;
 using WeightliftingManagment.Domain.Model;
+using WeightliftingManagment.Localization.LocalizationModel;
 
 namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
 {
     public class ParticipantUIViewModel : DialogViewModelBase
     {
-        
-        #region Fields
 
+        #region Fields
+        private DialogType _dialogType;
         private readonly ISinclaireCoefficientService _sinclaireCoefficient;
+        private readonly LocalizationService _localizationService;
         private int _participantId;
         private int _startNumber;
         private string _lastName = string.Empty;
@@ -33,14 +36,16 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         private string _licenseNumber = string.Empty;
         private ObservableCollection<Category> _categories = new();
         private Participant _participant = new();
+        
         #endregion
 
-        public ParticipantUIViewModel(ISinclaireCoefficientService sinclaireCoefficient)
+        public ParticipantUIViewModel(ISinclaireCoefficientService sinclaireCoefficient, LocalizationService localizationService)
         {
             Snatch = new Attempt();
             CleanJerk = new Attempt();
             Category = new Category();
             _sinclaireCoefficient = sinclaireCoefficient;
+            _localizationService = localizationService;
             InitilizeCollection();
         }
 
@@ -140,11 +145,11 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
 
         private void ExecuteOk()
         {
-            if (Title == "Add Participant")
+            if (_dialogType == DialogType.AddParticipant)
             {
                 _participant = new Participant(0, $"{FirstName} {LastName}", Club, BodyWeight, YearOfBirth, Gender, Snatch, CleanJerk, Group, _sinclaireCoefficient.Count(BodyWeight, Gender), LicenseNumber, Category);
             }
-            else if (Title == "Edit Participant")
+            else if (_dialogType == DialogType.EditParticipant)
             {
                 UpdateParticipantFromProperty();
             }
@@ -163,7 +168,12 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
 
         public override void OnDialogOpened(IDialogParameters parameters)
         {
-            Title = parameters.GetValue<string>("Title");
+            _dialogType = parameters.GetValue<DialogType>("DialogType");
+            Title = _dialogType switch {
+                DialogType.AddParticipant => _localizationService.GetValue("AddParticipant"),
+                DialogType.EditParticipant => _localizationService.GetValue("EditParticipant"),
+                _ => "Weightlifting Managment"
+            };
             var participant = parameters.GetValue<Participant>("Participant");
             UpdatePropertyFromParticipant(participant);
         }
