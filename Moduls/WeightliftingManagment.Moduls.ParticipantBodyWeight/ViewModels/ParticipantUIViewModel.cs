@@ -147,7 +147,20 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         {
             if (_dialogType == DialogType.AddParticipant)
             {
-                _participant = new Participant(0, $"{FirstName} {LastName}", Club, BodyWeight, YearOfBirth, Gender, Snatch, CleanJerk, Group, _sinclaireCoefficient.Count(BodyWeight, Gender), LicenseNumber, Category);
+                _participant = Participant.CreateBuilder()
+                    .WithStartNumber(0)
+                    .WithFirstAndLastName(FirstName, LastName)
+                    .WithClub(Club)
+                    .WithBodyWeight(BodyWeight)
+                    .WithYearOfBirth(YearOfBirth)
+                    .WithGender(Gender)
+                    .WithSnatch(Snatch)
+                    .WithCleanJerk(CleanJerk)
+                    .WithGroup(Group)
+                    .WithSinclaireCoefficient(_sinclaireCoefficient.Count(BodyWeight, Gender))
+                    .WithLicenseNumber(LicenseNumber)
+                    .WithCategory(Category)
+                    .Build();
             }
             else if (_dialogType == DialogType.EditParticipant)
             {

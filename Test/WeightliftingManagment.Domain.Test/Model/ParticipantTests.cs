@@ -497,7 +497,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             var model = new Participant {
                 Total = total,
-                SinclairCoefficients = wsp,
+                SinclairCoefficient = wsp,
                 BonusPoint = bonifikat
             };
             model.CountPoints();
@@ -585,7 +585,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             var model = new Participant {
                 PromiseTotal = 100,
-                SinclairCoefficients = 1.5,
+                SinclairCoefficient = 1.5,
                 BonusPoint = 30
             };
             model.CountPromisePoint();
