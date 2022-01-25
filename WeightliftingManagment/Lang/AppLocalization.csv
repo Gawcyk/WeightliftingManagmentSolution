@@ -1,10 +1,12 @@
 ﻿key,en-US,pl-PL
+Menu,Menu,Menu
 MenuFileHeader,File,Plik
+MenuAppSettingsHeader,App Settings,Ustawienia aplikacji
 MenuSettingsHeader,Settings,Ustawienia
 MenuViewHeader,View,Widok
 MenuStartHeader,Start View,Strona startowa
 MenuBodyWeightHeader,Weighing of players,Ważenie zawodników
-MenuCompetitionSettingsHeader,Competition Settings,Ustawienia zawodów
+MenuCompetitionSettingsHeader,Prepere Competition,Przygotowanie zawodów
 MenuExitHeader,Exit,Wyjście
 SettingsTitle,Settings,Ustawienia
 SettingsThemeTitle,Themes,Szata Graficzna
@@ -27,6 +29,7 @@ Category,Category,Kategoria
 LicenseNumber,License Number,Numer Licencji
 Competition,Competition,Zawody
 Name,Name,Nazwa
+Date,Date,Data
 Organizer,Organizer,Organizator
 Site,Site,Strona
 City,City,Miejscowość
@@ -41,3 +44,23 @@ Masters,Masters,Masters
 AddParticipant,Add Participant,Dodaj Zawodnika
 EditParticipant,Edit Participant,Edytuj Zawodnika
 Options,Options,Opcje
+Participant,Participant,Uczestnik
+SinclaireParameters,Sinclair`e Parameters,Parametry Sinclair`a
+WomenA,Women parameter A,Kobiety parametr A
+WomenB,Women parameter B,Kobiety parametr B
+MenA,Men parameter A,Mężczyźni parametr A
+MenB,Men parameter B,Mężczyźni parametr B
+AgeBonusPoints,Age bonus points,Punkty dodatkowe za wiek
+Age,Age,Wiek
+Points,Points,Punkty
+Add,Add,Dodaj
+Update,Update,Aktualizuj
+Edit,Edit,Edytuj
+Delete,Delete,Usuń
+Turnament,Turnament,Zawody
+EditGroupAgeAndCategories,Edit Group Age and Categories,Edycja Grup Wiekowych i Kategorii
+CompetitionType,Competition Type,Typ konkursu
+Active,Active,Aktywne
+MinimumAge,Minimum Age (incl.),Wiek min. (wliczając)
+MaximumAge,Maximum Age (incl.),Wiek maks. (wliczając)
+BodyweightCategories,Bodyweight Categories,Kategorie Masy Ciała

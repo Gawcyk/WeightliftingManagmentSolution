@@ -16,36 +16,23 @@ namespace WeightliftingManagment.Domain.Model.Tests
 
         public ParticipantTests()
         {
-            Model = new Participant {
-                PersonalData = PersonalData.FromString("Paweł Gawęda"),
-                Club = "KPC Hejnał Kęty",
-                YearOfBirth = 2020,
-                BodyWeight = 113,
-                Snatchs = new AttemptCollection(
-                new Attempt(100, AttemptStatus.GoodLift),
-                new Attempt(110, AttemptStatus.GoodLift),
-                new Attempt(120, AttemptStatus.Declared)
-                ),
-                CleanJerks = new AttemptCollection(
-                new Attempt(100, AttemptStatus.GoodLift),
-                new Attempt(110, AttemptStatus.GoodLift),
-                new Attempt(120, AttemptStatus.Declared)
-                )
-            };
+            Model = Participant.CreateBuilder()
+                .WithFirstAndLastName("Paweł", "Gawęda")
+                .WithClub("KPC Hejnał Kęty")
+                .WithYearOfBirth(2020)
+                .WithBodyWeight(113)
+                .WithSnatchs(new(new(100, AttemptStatus.GoodLift), new(110, AttemptStatus.GoodLift), new(120, AttemptStatus.Declared)))
+                .WithCleanJerks(new(new(100, AttemptStatus.GoodLift), new(110, AttemptStatus.GoodLift), new(120, AttemptStatus.Declared)))
+                .Build();
         }
 
         [Theory]
         [MemberData(nameof(DataToMaxTest))]
         public void Max_Rwanie_test(int val1, AttemptStatus result1, int val2, AttemptStatus result2, int val3, AttemptStatus result3, int exp, int exp2)
         {
-            var model = new Participant {
-                Snatchs = new AttemptCollection
-                (
-                    new Attempt(val1, result1),
-                    new Attempt(val2, result2),
-                    new Attempt(val3, result3)
-                )
-            };
+            var model = Participant.CreateBuilder()
+                .WithSnatchs(new(new(val1, result1), new(val2, result2), new(val3, result3)))
+                .Build();
 
             model.DesignateMaxOfSnatch();
 
@@ -58,14 +45,10 @@ namespace WeightliftingManagment.Domain.Model.Tests
         [MemberData(nameof(DataToMaxTest))]
         public void Max_Podrzut_test(int val1, AttemptStatus result1, int val2, AttemptStatus result2, int val3, AttemptStatus result3, int exp, int exp2)
         {
-            var model = new Participant {
-                CleanJerks = new AttemptCollection
-                (
-                    new Attempt(val1, result1),
-                    new Attempt(val2, result2),
-                    new Attempt(val3, result3)
-                )
-            };
+            var model = Participant.CreateBuilder()
+                .WithCleanJerks(new(new(val1, result1), new(val2, result2), new(val3, result3)))
+                .Build();
+
             model.DesignateMaxOfCleanJerk();
 
             model.MaxOfCleanJerk.Should().Be(exp);
@@ -102,16 +85,12 @@ namespace WeightliftingManagment.Domain.Model.Tests
         [Fact]
         public void ClearAttemptResignation_test()
         {
-            var model = new Participant {
-                Snatchs = new AttemptCollection
-                (
-                    new Attempt { Value = 120, Status = AttemptStatus.Resignation },
-                    new Attempt { Value = 220, Status = AttemptStatus.Resignation },
-                    new Attempt { Value = 320, Status = AttemptStatus.Resignation }
-                )
-            };
+            var model = Participant.CreateBuilder()
+                .WithSnatchs(new(new(100, AttemptStatus.Resignation), new(110, AttemptStatus.Resignation), new(120, AttemptStatus.Resignation)))
+                .Build();
 
             model.ClearAttemptResignation(0, true);
+
             model.Snatchs[0].StatusIsDeclared().Should().BeTrue();
             model.Snatchs[1].StatusIsNoDeclared().Should().BeTrue();
             model.Snatchs[2].StatusIsNoDeclared().Should().BeTrue();
@@ -143,14 +122,9 @@ namespace WeightliftingManagment.Domain.Model.Tests
         [Fact]
         public void SetAttemptValueFromLastAttemptValue_test()
         {
-            var model = new Participant {
-                Snatchs = new AttemptCollection
-               (
-                    new Attempt { Value = 120, Status = AttemptStatus.GoodLift },
-                    new Attempt { Value = 5, Status = AttemptStatus.Declared },
-                    new Attempt()
-               )
-            };
+            var model = Participant.CreateBuilder()
+                .WithSnatchs(new(new(120, AttemptStatus.GoodLift), new(5, AttemptStatus.Declared), new()))
+                .Build();
 
             model.SetAttemptValueFromLastAttemptValue(1, true);
             model.Snatchs[1].Value.Should().Be(125);
@@ -228,13 +202,11 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.Snatchs[0].SetStatus(AttemptStatus.ComesUp);
             model.SetAttempt(0, AttemptStatus.GoodLift, true);
 
-            model.Snatchs[0].StatusIsGoodLift().Should().BeTrue();
-            model.Snatchs[1].Value.Should().Be(101);
-            model.Snatchs[1].StatusIsDeclared().Should().BeTrue();
 
-            Assert.Equal(AttemptStatus.GoodLift, model.Snatchs[0].Status);
-            Assert.Equal(101, model.Snatchs[1].Value);
-            Assert.Equal(AttemptStatus.Declared, model.Snatchs[1].Status);
+
+            model.Snatchs.First.StatusIsGoodLift().Should().BeTrue();
+            model.Snatchs.Second.Value.Should().Be(101);
+            model.Snatchs.Second.StatusIsDeclared().Should().BeTrue();
         }
 
         [Fact]
@@ -321,18 +293,18 @@ namespace WeightliftingManagment.Domain.Model.Tests
         }
 
         [Theory]
-        [InlineData(1,true,3)]
-        [InlineData(2,true,2)]
-        [InlineData(3,true,1)]
-        public void SetRezygnacjaRwanieTest(int numerPodejscia,bool flagRwanie, int expected)
+        [InlineData(1, true, 3)]
+        [InlineData(2, true, 2)]
+        [InlineData(3, true, 1)]
+        public void SetRezygnacjaRwanieTest(int numerPodejscia, bool flagRwanie, int expected)
         {
             var model = new Participant {
-                Snatchs = new (
+                Snatchs = new(
                 new Attempt(100, AttemptStatus.Next),
                 new Attempt(110, AttemptStatus.ComesUp),
                 new Attempt(120, AttemptStatus.Next)
                 ),
-                CleanJerks = new (
+                CleanJerks = new(
                 new Attempt(200, AttemptStatus.ComesUp),
                 new Attempt(210, AttemptStatus.Next),
                 new Attempt(220, AttemptStatus.ComesUp)
@@ -364,7 +336,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
             model.CleanJerks.Collection.Count(i => i.StatusIsResignation()).Should().Be(expected);
         }
 
-        
+
 
         [Fact]
         public void CzyszczenieNastepny_podchodzi_test()
@@ -420,8 +392,8 @@ namespace WeightliftingManagment.Domain.Model.Tests
         public void GetNumerAnnonsu_test(bool isrwanie, AttemptStatus result1, AttemptStatus result2, AttemptStatus result3, int expected)
         {
             var model = new Participant {
-                Snatchs = new( new (100, result1),new (110, result2),new (120, result3)),
-                CleanJerks = new (new (200, result1),new (210, result2),new (220, result3))
+                Snatchs = new(new(100, result1), new(110, result2), new(120, result3)),
+                CleanJerks = new(new(200, result1), new(210, result2), new(220, result3))
             };
 
             model.GetNumberOfDeclared(isrwanie).Should().Be(expected);
@@ -534,7 +506,7 @@ namespace WeightliftingManagment.Domain.Model.Tests
         {
             var model = new Participant {
                 Snatchs = new(100),
-                CleanJerks = new (200)
+                CleanJerks = new(200)
             };
 
             model.IsSnatchDeclared().Should().BeTrue();

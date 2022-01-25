@@ -17,6 +17,7 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
     {
 
         #region Fields
+
         private DialogType _dialogType;
         private readonly ISinclaireCoefficientService _sinclaireCoefficient;
         private readonly LocalizationService _localizationService;
@@ -36,7 +37,7 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         private string _licenseNumber = string.Empty;
         private ObservableCollection<Category> _categories = new();
         private Participant _participant = new();
-        
+
         #endregion
 
         public ParticipantUIViewModel(ISinclaireCoefficientService sinclaireCoefficient, LocalizationService localizationService)
@@ -68,48 +69,48 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         public string LastName
         {
             get => _lastName;
-            set => SetProperty(ref _lastName, value, ()=>ValidateString(value));
+            set => SetProperty(ref _lastName, value, () => ValidateString(value));
         }
         public string FirstName
         {
             get => _firstName;
-            set => SetProperty(ref _firstName, value, ()=>ValidateString(value));
+            set => SetProperty(ref _firstName, value, () => ValidateString(value));
         }
 
         public string Club
         {
             get => _club;
-            set => SetProperty(ref _club, value, ()=>ValidateString(value));
+            set => SetProperty(ref _club, value, () => ValidateString(value));
         }
 
         public double BodyWeight
         {
             get => _bodyWeight;
-            set => SetProperty(ref _bodyWeight, value, ()=>ValidateDouble(value));
+            set => SetProperty(ref _bodyWeight, value, () => ValidateDouble(value));
         }
 
         public int YearOfBirth
         {
             get => _yearOfBirth;
-            set => SetProperty(ref _yearOfBirth, value,()=>ValidateInt(value));
+            set => SetProperty(ref _yearOfBirth, value, () => ValidateInt(value));
         }
 
         public Gender Gender
         {
             get => _gender;
-            set => SetProperty(ref _gender, value, ()=>ValidateGender(value));
+            set => SetProperty(ref _gender, value, () => ValidateGender(value));
         }
 
         public Attempt Snatch
         {
             get => _snatch;
-            set => SetProperty(ref _snatch, value,()=>ValidateAttempt(value));
+            set => SetProperty(ref _snatch, value, () => ValidateAttempt(value));
         }
 
         public Attempt CleanJerk
         {
             get => _cleanJerk;
-            set => SetProperty(ref _cleanJerk, value,()=>ValidateAttempt(value));
+            set => SetProperty(ref _cleanJerk, value, () => ValidateAttempt(value));
         }
 
         public int EntryTotal
@@ -127,7 +128,7 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         public string Group
         {
             get => _group;
-            set => SetProperty(ref _group, value, ()=>ValidateString(value));
+            set => SetProperty(ref _group, value, () => ValidateString(value));
         }
 
         public string LicenseNumber
@@ -139,9 +140,9 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
         #endregion Property
 
         private DelegateCommand _okCommand;
-        public DelegateCommand OkCommand => _okCommand ??= new DelegateCommand(ExecuteOk,CanExecuteOk);
+        public DelegateCommand OkCommand => _okCommand ??= new DelegateCommand(ExecuteOk, CanExecuteOk).ObservesProperty(() => IsValid);
 
-        private bool CanExecuteOk() => !HasErrors;
+        private bool CanExecuteOk() => !IsValid;
 
         private void ExecuteOk()
         {
@@ -173,7 +174,7 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
             RaiseRequestClose(ButtonResult.OK, param);
         }
 
-       
+
 
         private DelegateCommand _closeCommand;
         public DelegateCommand CloseCommand => _closeCommand ??= new DelegateCommand(ExecuteClose);
@@ -199,9 +200,9 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
             _participant.BodyWeight = BodyWeight;
             _participant.YearOfBirth = YearOfBirth;
             _participant.Gender = Gender;
-            _participant.Snatchs[0]=Snatch;
+            _participant.Snatchs[0] = Snatch;
             _participant.CleanJerks[0] = CleanJerk;
-            _participant.Group=Group;
+            _participant.Group = Group;
             _participant.LicenseNumber = LicenseNumber;
             _participant.Category = Category;
         }
@@ -225,47 +226,54 @@ namespace WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels
             }
         }
 
-        private void ValidateString(string value, [CallerMemberName]string? propertyName = null)
+        private bool _isValid = false;
+        public bool IsValid
         {
-            if (string.IsNullOrEmpty(value))
-                AddError($"{propertyName} is null or empty", propertyName);
+            get => _isValid;
+            set => SetProperty(ref _isValid, value);
+        }
+
+        private void ValidateString(string value, [CallerMemberName] string? propertyName = null)
+        {
+            Validate(string.IsNullOrEmpty(value), $"{propertyName} is null or empty", propertyName);
+            IsValid = HasErrors;
         }
 
         private void ValidateDouble(double value, [CallerMemberName] string? propertyName = null)
         {
-            if (value <= 0)
-                AddError($"{propertyName} must be greater than 0", propertyName);
+            Validate(value <= 0, $"{propertyName}  must be greater than 0", propertyName);
+            IsValid = HasErrors;
         }
 
         private void ValidateInt(int value, [CallerMemberName] string? propertyName = null)
         {
-            if (value <= 0)
-                AddError($"{propertyName} must be greater than 0", propertyName);
+            Validate(value <= 0, $"{propertyName}  must be greater than 0", propertyName);
+            IsValid = HasErrors;
         }
 
         private void ValidateGender(Gender value, [CallerMemberName] string? propertyName = null)
         {
-            if (value == Gender.Undefine)
-                AddError($"{propertyName} must be set", propertyName);
+            Validate(value == Gender.Undefine, $"{propertyName}  must be set", propertyName);
+            IsValid = HasErrors;
         }
 
         private void ValidateAttempt(Attempt value, [CallerMemberName] string? propertyName = null)
         {
-            if (!value.StatusIsDeclared())
-                AddError($"{propertyName} must be set", propertyName);
+            Validate(!value.StatusIsDeclared(), $"{propertyName}  must be set", propertyName);
+            IsValid = HasErrors;
         }
 
         private void InitilizeCollection() => _categories = new ObservableCollection<Category> {
-                new Category("M 55", 55, 0),
-                new Category("M 61", 61, 55.1),
-                new Category("M 67", 67, 61.1),
-                new Category("M 73", 73, 67.1),
-                new Category("M 81", 81, 73.1),
-                new Category("M 89", 89, 81.1),
-                new Category("M 96", 96, 89.1),
-                new Category("M 102", 102, 96.1),
-                new Category("M 109", 109, 102.1),
-                new Category("M +109", double.PositiveInfinity, 109.1)
+                new Category("M 55"),
+                new Category("M 61"),
+                new Category("M 67"),
+                new Category("M 73"),
+                new Category("M 81"),
+                new Category("M 89"),
+                new Category("M 96"),
+                new Category("M 102"),
+                new Category("M 109"),
+                new Category("M +109")
             };
     }
 }

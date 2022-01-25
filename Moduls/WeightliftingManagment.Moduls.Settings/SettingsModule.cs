@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using Prism.Ioc;
 using Prism.Modularity;
 
 using WeightliftingManagment.Core.Constans;
 using WeightliftingManagment.Core.Contracts;
+using WeightliftingManagment.Moduls.Settings.ViewModels;
 using WeightliftingManagment.Moduls.Settings.Views;
 
 namespace WeightliftingManagment.Moduls.Settings
@@ -26,7 +22,8 @@ namespace WeightliftingManagment.Moduls.Settings
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-
+            containerRegistry.RegisterForNavigation<ApplicationSettings, ApplicationSettingsViewModel>(PageKeys.AppSettings);
+            containerRegistry.RegisterForNavigation<CompetitionSettings, CompetitionSettingsViewModel>(PageKeys.CompetitionSettings);
         }
     }
 }

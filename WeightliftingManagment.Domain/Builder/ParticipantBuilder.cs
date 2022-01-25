@@ -24,6 +24,8 @@ namespace WeightliftingManagment.Domain.Builder
         private double? _sinclairCoefficient = null;
         private string? _licenseNumber = null;
         private Category? _category = null;
+        private AttemptCollection _snatchs;
+        private AttemptCollection _cleanJerks;
         #endregion
 
 
@@ -44,8 +46,12 @@ namespace WeightliftingManagment.Domain.Builder
                 model.Gender = _gender.Value;
             if (_snatch is not null)
                 model.Snatchs = new AttemptCollection(_snatch);
+            if (_snatchs is not null && _snatchs.Collection.Count > 0)
+                model.Snatchs = _snatchs;
             if (_cleanJerk is not null)
                 model.CleanJerks = new AttemptCollection (_cleanJerk);
+            if (_cleanJerks is not null && _cleanJerks.Collection.Count > 0)
+                model.CleanJerks = _cleanJerks;
             if (_group is not null)
                 model.Group = _group;
             if (_licenseNumber is not null)
@@ -106,14 +112,27 @@ namespace WeightliftingManagment.Domain.Builder
             return this;
         }
 
+        public ParticipantBuilder WithSnatchs(AttemptCollection attempts)
+        {
+            _snatchs = attempts;
+            return this;
+        }
+
         public ParticipantBuilder WithCleanJerk(Attempt cleanJerk)
         {
             _cleanJerk = cleanJerk;
             return this;
         }
+
         public ParticipantBuilder WithCleanJerk(int cleanJerk)
         {
             _cleanJerk = Attempt.CreateBuilder().WithValue(cleanJerk).Build();
+            return this;
+        }
+
+        public ParticipantBuilder WithCleanJerks(AttemptCollection attempts)
+        {
+            _cleanJerks = attempts;
             return this;
         }
 

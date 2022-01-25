@@ -1,6 +1,10 @@
 ﻿
 using MahApps.Metro.Controls;
 
+using Prism.Regions;
+
+using WeightliftingManagment.Core.Constans;
+
 namespace WeightliftingManagment.Views
 {
     /// <summary>
@@ -8,9 +12,11 @@ namespace WeightliftingManagment.Views
     /// </summary>
     public partial class ShellWindow : MetroWindow
     {
-        public ShellWindow()
+        public ShellWindow(IRegionManager regionManager)
         {
             InitializeComponent();
+            RegionManager.SetRegionName(hamburgerMenuContentControl, Regions.MainRegion);
+            RegionManager.SetRegionManager(hamburgerMenuContentControl, regionManager);
         }
     }
 }

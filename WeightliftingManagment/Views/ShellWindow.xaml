@@ -1,41 +1,119 @@
-﻿<controls:MetroWindow x:Class="WeightliftingManagment.Views.ShellWindow"
-                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-                      xmlns:prism="http://prismlibrary.com/"
-                      xmlns:const="clr-namespace:WeightliftingManagment.Core.Constans;assembly=WeightliftingManagment.Core"
-                      xmlns:mycontrols="clr-namespace:WeightliftingManagment.FlyoutControlManager.Control"
-                      xmlns:lex="clr-namespace:WeightliftingManagment.Localization.LocalizationModel;assembly=WeightliftingManagment.Localization"
-                      Title="Weightlifting Managment"
-                      MinWidth="500"
-                      MinHeight="350"
-                      controls:DialogParticipation.Register="{Binding}"
-                      prism:ViewModelLocator.AutoWireViewModel="True"
-                      Style="{StaticResource WLM.MetroWindow.Custom}"
-                      mc:Ignorable="d">
+﻿<controls:MetroWindow
+    x:Class="WeightliftingManagment.Views.ShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:const="clr-namespace:WeightliftingManagment.Core.Constans;assembly=WeightliftingManagment.Core"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="clr-namespace:WeightliftingManagment.Localization.LocalizationModel;assembly=WeightliftingManagment.Localization"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:mycontrols="clr-namespace:WeightliftingManagment.FlyoutControlManager.Control"
+    xmlns:packIcon="http://metro.mahapps.com/winfx/xaml/iconpacks"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewmodels="clr-namespace:WeightliftingManagment.ViewModels"
+    Title="Weightlifting Managment"
+    MinWidth="500"
+    MinHeight="350"
+    controls:DialogParticipation.Register="{Binding}"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ShellWindowViewModel}"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource WLM.MetroWindow.Custom}"
+    TitleAlignment="Center"
+    TitleCharacterCasing="Normal"
+    mc:Ignorable="d">
+    <controls:MetroWindow.LeftWindowCommands>
+        <controls:WindowCommands>
+            <Menu
+                x:Name="menuApp"
+                Background="{Binding ElementName=hamburgerMenu, Path=PaneBackground}"
+                Focusable="False">
+                <MenuItem
+                    AutomationProperties.Name="{lex:Localize Key=MenuFileHeader}"
+                    Background="{Binding ElementName=menuApp, Path=Background}"
+                    Header="{lex:Localize Key=MenuFileHeader}"
+                    ToolTip="{lex:Localize Key=MenuFileHeader}">
+                    <MenuItem
+                        AutomationProperties.Name="{lex:Localize Key=MenuAppSettingsHeader}"
+                        Background="{Binding ElementName=menuApp, Path=Background}"
+                        Command="{Binding NavigationCommand}"
+                        CommandParameter="{x:Static const:FlyoutKeys.ThemeFlyout}"
+                        Header="{lex:Localize Key=MenuAppSettingsHeader}"
+                        ToolTip="{lex:Localize Key=MenuAppSettingsHeader}" />
+                    <MenuItem
+                        AutomationProperties.Name="{lex:Localize Key=MenuExitHeader}"
+                        Background="{Binding ElementName=menuApp, Path=Background}"
+                        Command="{Binding CloseCommand}"
+                        Header="{lex:Localize Key=MenuExitHeader}"
+                        ToolTip="{lex:Localize Key=MenuExitHeader}" />
+                </MenuItem>
+            </Menu>
+        </controls:WindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
     <controls:MetroWindow.Flyouts>
         <mycontrols:FlyoutContainer prism:RegionManager.RegionName="{x:Static const:Regions.FlyoutRegion}" />
     </controls:MetroWindow.Flyouts>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Menu Grid.Row="0" Focusable="False">
-            <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Header="{lex:Localize Key=MenuFileHeader}">
-                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding OpenFlyoutCommand}" CommandParameter="{x:Static const:FlyoutKeys.ThemeFlyout}" Header="{lex:Localize Key=MenuSettingsHeader}" />
-                <Separator />
-                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuFileExitCommand}" Header="{lex:Localize Key=MenuExitHeader}" />
-            </MenuItem>
-            <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Header="{lex:Localize Key=MenuViewHeader}">
-                <!--  TODO WTS: Review the MenuItem headers in Resources.resx file for all of your views and place '_' before the letter that you want to use for menu keyboard usage  -->
-                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding MenuViewsMainCommand}" Header="{lex:Localize Key=MenuStartHeader}" />
-                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding NavigationCommand}" CommandParameter="{x:Static const:PageKeys.BodyWeight}" Header="{lex:Localize Key=MenuBodyWeightHeader}" />
-                <MenuItem AutomationProperties.Name="{Binding Header, RelativeSource={RelativeSource Self}}" Command="{Binding NavigationCommand}" CommandParameter="{x:Static const:PageKeys.CompetitionSettings}" Header="{lex:Localize Key=MenuCompetitionSettingsHeader}" />
-            </MenuItem>
-        </Menu>
-        <ContentControl x:Name="menuContentControl" Grid.Row="1" prism:RegionManager.RegionName="{x:Static const:Regions.MainRegion}" />
-    </Grid>
+    <controls:MetroWindow.Resources>
+        <DataTemplate x:Key="MenuItemTemplate" DataType="{x:Type controls:HamburgerMenuIconItem}">
+            <Grid Height="48">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type controls:HamburgerMenu}}, Path=CompactPaneLength, Mode=OneWay}" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <ContentControl
+                    Grid.Column="0"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Content="{Binding Icon}"
+                    Focusable="False"
+                    ToolTip="{Binding Label}" />
+                <TextBlock
+                    Grid.Column="1"
+                    VerticalAlignment="Center"
+                    FontSize="16"
+                    Text="{Binding Label}" />
+            </Grid>
+        </DataTemplate>
+    </controls:MetroWindow.Resources>
+    <controls:HamburgerMenu
+        x:Name="hamburgerMenu"
+        DisplayMode="CompactInline"
+        HamburgerButtonName="Menu"
+        IsPaneOpen="False"
+        ItemCommand="{Binding NavigationCommand}"
+        ItemCommandParameter="{Binding ElementName=hamburgerMenu, Path=SelectedItem.Tag}"
+        ItemTemplate="{StaticResource MenuItemTemplate}"
+        OptionsItemCommand="{Binding NavigationCommand}"
+        OptionsItemCommandParameter="{Binding ElementName=hamburgerMenu, Path=SelectedOptionsItem.Tag}"
+        OptionsItemTemplate="{StaticResource MenuItemTemplate}"
+        PaneBackground="{DynamicResource MahApps.Brushes.Accent2}">
+        <controls:HamburgerMenu.ItemsSource>
+            <controls:HamburgerMenuItemCollection>
+                <controls:HamburgerMenuIconItem
+                    AutomationProperties.Name="{lex:Localize Key=MenuCompetitionSettingsHeader}"
+                    Icon="{packIcon:FontAwesome Kind=UserFriendsSolid}"
+                    Label="{lex:Localize Key=MenuCompetitionSettingsHeader}"
+                    Tag="{x:Static const:PageKeys.CompetitionSettings}"
+                    ToolTip="{lex:Localize Key=MenuCompetitionSettingsHeader}" />
+                <controls:HamburgerMenuIconItem
+                    AutomationProperties.Name="{lex:Localize Key=MenuBodyWeightHeader}"
+                    Icon="{packIcon:FontAwesome Kind=UserFriendsSolid}"
+                    Label="{lex:Localize Key=MenuBodyWeightHeader}"
+                    Tag="{x:Static const:PageKeys.BodyWeight}"
+                    ToolTip="{lex:Localize Key=MenuBodyWeightHeader}" />
+            </controls:HamburgerMenuItemCollection>
+        </controls:HamburgerMenu.ItemsSource>
+        <controls:HamburgerMenu.OptionsItemsSource>
+            <controls:HamburgerMenuItemCollection>
+                <controls:HamburgerMenuIconItem
+                    AutomationProperties.Name="{lex:Localize Key=MenuSettingsHeader}"
+                    Icon="{packIcon:FontAwesome Kind=CogSolid}"
+                    Label="{lex:Localize Key=MenuSettingsHeader}"
+                    Tag="{x:Static const:PageKeys.AppSettings}"
+                    ToolTip="{lex:Localize Key=MenuSettingsHeader}" />
+            </controls:HamburgerMenuItemCollection>
+        </controls:HamburgerMenu.OptionsItemsSource>
+        <controls:HamburgerMenu.Content>
+            <ContentControl x:Name="hamburgerMenuContentControl" />
+        </controls:HamburgerMenu.Content>
+    </controls:HamburgerMenu>
 </controls:MetroWindow>

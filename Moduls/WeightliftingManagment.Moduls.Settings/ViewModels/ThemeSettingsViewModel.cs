@@ -51,6 +51,7 @@ namespace WeightliftingManagment.Moduls.Settings.ViewModels
             ListOfAccentColorHexString = new ObservableCollection<string>(_themeSelectorService.GetAccents());
             AppTheme = _themeSelectorService.GetCurrentTheme();
             Accent = _themeSelectorService.GetCurrentAccent();
+            Header = _localizationService.GetValue("SettingsTitle");
         }
 
         protected override void OnOpening(FlyoutParameters flyoutParameters)
@@ -58,6 +59,9 @@ namespace WeightliftingManagment.Moduls.Settings.ViewModels
             base.OnOpening(flyoutParameters);
             AvailableCultures = _localizationService.AvailableCultures;
             SelectedLang = _localizationService.CurrentCulture;
+            AppTheme = _themeSelectorService.GetCurrentTheme();
+            Accent = _themeSelectorService.GetCurrentAccent();
+            Header = _localizationService.GetValue("SettingsTitle");
         }
 
         private List<CultureInfo> _availableCultures;

@@ -13,13 +13,11 @@ using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
-using WeightliftingManagment.Core.Constans;
 using WeightliftingManagment.Core.Contracts;
 using WeightliftingManagment.Core.Models.Config;
 using WeightliftingManagment.FlyoutControlManager;
 using WeightliftingManagment.Helpers;
 using WeightliftingManagment.Localization.LocalizationModel;
-using WeightliftingManagment.Moduls.CompetitionSettings;
 using WeightliftingManagment.Moduls.Dialogs;
 using WeightliftingManagment.Moduls.Judge;
 using WeightliftingManagment.Moduls.ParticipantBodyWeight;
@@ -43,7 +41,7 @@ namespace WeightliftingManagment
         }
 
         protected override async void OnInitialized()
-        { 
+        {
             var restoreService = Container.Resolve<IPersistAndRestoreService>();
             await restoreService.RestoreDataAsync().ConfigureAwait(true);
 
@@ -60,7 +58,7 @@ namespace WeightliftingManagment
 
             var appConfig = Container.Resolve<AppConfig>();
             var localization = Container.Resolve<LocalizationService>();
-            localization.RegisterLang(appConfig.LanguageFolder,appConfig.LanguageFileName);
+            localization.RegisterLang(appConfig.LanguageFolder, appConfig.LanguageFileName);
             localization.ChangeCulture(CultureInfo.InstalledUICulture);
 
             await Task.CompletedTask;
@@ -73,7 +71,6 @@ namespace WeightliftingManagment
             moduleCatalog.AddModule<SettingsModule>();
             moduleCatalog.AddModule<DialogsModule>();
             moduleCatalog.AddModule<ParticipantBodyWeightModule>();
-            moduleCatalog.AddModule<CompetitionSettingsModule>();
             moduleCatalog.AddModule<JudgeModule>();
         }
 

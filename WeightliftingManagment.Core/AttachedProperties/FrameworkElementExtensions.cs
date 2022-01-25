@@ -4,7 +4,7 @@ namespace WeightliftingManagment.Core.AttachedProperties
 {
     public class FrameworkElementExtensions
     {
-        private static Dictionary<string, List<FrameworkElement>> _scopes = new();
+        private static readonly Dictionary<string, List<FrameworkElement>> _scopes = new();
 
         public static readonly DependencyProperty WidthShareScopeProperty = DependencyProperty.RegisterAttached(
             "WidthShareScope", typeof(string), typeof(FrameworkElementExtensions), new PropertyMetadata(default(string), PropertyChangedCallback));

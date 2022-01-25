@@ -16,7 +16,7 @@ namespace WeightliftingManagment.Domain.Test.Builder
 {
     public class AttemptBuilderTests
     {
-        private AttemptBuilder _builder;
+        private readonly AttemptBuilder _builder;
 
         public AttemptBuilderTests()
         {

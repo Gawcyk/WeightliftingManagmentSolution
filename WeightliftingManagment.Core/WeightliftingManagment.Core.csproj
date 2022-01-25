@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="AttachedProperties\FrameworkElementExtensions.cs~RF47ce1fab.TMP" />
+	<None Remove="AttachedProperties\FrameworkElementExtensions.cs~RF47ce1fab.TMP" />
   </ItemGroup>
 
   <ItemGroup>

@@ -13,7 +13,7 @@ namespace WeightliftingManagment.Domain.Builder.Tests
 {
     public class ParticipantBuilderTests
     {
-        private ParticipantBuilder _builder;
+        private readonly ParticipantBuilder _builder;
 
         public ParticipantBuilderTests()
         {
@@ -93,6 +93,32 @@ namespace WeightliftingManagment.Domain.Builder.Tests
             var participant = _builder.WithSnatch(value).Build();
             //Then
             participant.Snatchs[0].Should().Be(value);
+        }
+
+        [Fact]
+        public void WhenParticipantBuilderBuildWithSnatchCollection_ThenSnachCollection_IsSet()
+        {
+            var attempts = new AttemptCollection(
+                new (120,AttemptStatus.GoodLift),
+                new(130,AttemptStatus.GoodLift),
+                new(140,AttemptStatus.GoodLift));
+            //When
+            var participant = _builder.WithSnatchs(attempts).Build();
+            //Then
+            participant.Snatchs.Should().Be(attempts);
+        }
+
+        [Fact]
+        public void WhenParticipantBuilderBuildWithCleanJerkCollection_ThenCleanJerkCollection_IsSet()
+        {
+            var attempts = new AttemptCollection(
+                new(120, AttemptStatus.GoodLift),
+                new(130, AttemptStatus.GoodLift),
+                new(140, AttemptStatus.GoodLift));
+            //When
+            var participant = _builder.WithCleanJerks(attempts).Build();
+            //Then
+            participant.CleanJerks.Should().Be(attempts);
         }
 
         [Theory, AutoData]

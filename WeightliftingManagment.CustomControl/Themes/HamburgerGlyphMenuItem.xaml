@@ -1,0 +1,81 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:WeightliftingManagment.CustomControl">
+
+    <Style TargetType="local:HamburgerMenuItem">
+        <Style.Resources>
+            <ResourceDictionary>
+                <ResourceDictionary.MergedDictionaries>
+                    <ResourceDictionary Source="/WeightliftingManagment.CustomControl;component/Themes/ButtonStyle.xaml" />
+                </ResourceDictionary.MergedDictionaries>
+            </ResourceDictionary>
+        </Style.Resources>
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="local:HamburgerMenuItem">
+                    <Button
+                        x:Name="ListBoxItemButton"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Command="{TemplateBinding SelectionCommand}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="5" />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.ColumnSpan="2">
+                                <Grid
+                                    Width="300"
+                                    Margin="0"
+                                    Background="Transparent">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="45" />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Grid.Column="1">
+                                        <TextBlock
+                                            Margin="10,0,0,0"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Center"
+                                            FontFamily="Segoe UI Light"
+                                            FontSize="18"
+                                            Foreground="{TemplateBinding Foreground}"
+                                            Text="{TemplateBinding Text}"
+                                            TextWrapping="Wrap" />
+                                    </Grid>
+                                    <Grid Grid.Column="0">
+                                        <con
+                                        <Image Margin="10,5,5,5" Source="{TemplateBinding Icon}" />
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                            <Grid
+                                Name="ItemSelectedIndicator"
+                                Grid.Column="0"
+                                Background="{TemplateBinding SelectionIndicatorColor}"
+                                Visibility="Collapsed" />
+                        </Grid>
+                    </Button>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="ItemSelectedIndicator" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger SourceName="ListBoxItemButton" Property="IsPressed" Value="True">
+                            <Trigger.ExitActions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsSelected">
+                                            <DiscreteBooleanKeyFrame KeyTime="00:00:00" Value="True" />
+                                        </BooleanAnimationUsingKeyFrames>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+</ResourceDictionary>

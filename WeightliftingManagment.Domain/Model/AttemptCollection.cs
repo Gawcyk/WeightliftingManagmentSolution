@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using WeightliftingManagment.MvvmSupport.BindableBase;
 using WeightliftingManagment.MvvmSupport.Collections;
 
@@ -11,7 +6,7 @@ namespace WeightliftingManagment.Domain.Model
 {
     public class AttemptCollection : BindableObject
     {
-        private FullyObservableCollection<Attempt> _collections = new();
+        private readonly FullyObservableCollection<Attempt> _collections = new();
 
         public AttemptCollection()
         {
@@ -60,12 +55,12 @@ namespace WeightliftingManagment.Domain.Model
 
         public AttemptCollection(List<Attempt> attempts)
         {
-            _collections = new FullyObservableCollection<Attempt> (attempts);
+            _collections = new FullyObservableCollection<Attempt>(attempts);
         }
 
         public Attempt this[int i]
         {
-            get=> _collections[i];
+            get => _collections[i];
             set => _collections[i] = value;
         }
 

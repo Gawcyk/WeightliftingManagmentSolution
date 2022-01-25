@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
+﻿using System.Xml.Linq;
 
 using FluentAssertions;
 
@@ -70,7 +65,7 @@ namespace WeightliftingManagmentApp.Test.Convention
                           where include != null
                           where include.Value.EndsWith(".ttf")
                           select d;
-                
+
                 ttf.Where(x => x.Name.LocalName != "Content").Should().BeEmpty();
             }
         }

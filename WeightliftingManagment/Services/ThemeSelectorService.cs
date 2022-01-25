@@ -29,7 +29,12 @@ namespace WeightliftingManagment.Services
         public void UpdateInternalConfig(ThemeConfig themeConfig)
         {
             if (themeConfig == null)
-                return;
+            {
+                themeConfig = new ThemeConfig {
+                    Theme = "Default",
+                    AccentHex = "#FF0078D7"
+                };
+            }
             _themeConfig.Theme = themeConfig.Theme;
             _themeConfig.AccentHex = themeConfig.AccentHex;
             _theme = GetCurrentTheme();
@@ -75,7 +80,7 @@ namespace WeightliftingManagment.Services
             SetThemeAndAccent(_theme,_accent);
         }
 
-        private string GetNameOfAccent(string accentHex)
+        private static string GetNameOfAccent(string accentHex)
         {
             var colorHex = (Color)ColorConverter.ConvertFromString(accentHex);
             var colorName = ThemeManager.Current.Themes.Where(item => item.Name.StartsWith("Dark.") && item.PrimaryAccentColor == colorHex).Select(a => a.ColorScheme).FirstOrDefault();
@@ -110,7 +115,7 @@ namespace WeightliftingManagment.Services
             _accent = accent;
         }
 
-        private string ToHex(Color? color) => new ColorConverter().ConvertToString(color);
+        private static string ToHex(Color? color) => new ColorConverter().ConvertToString(color);
         public IEnumerable<string> GetAccents()
         {
             var accents = ThemeManager.Current.Themes.Where(item => item.Name.StartsWith("Dark.")).Select(x => x.PrimaryAccentColor.ToString()).ToList();
