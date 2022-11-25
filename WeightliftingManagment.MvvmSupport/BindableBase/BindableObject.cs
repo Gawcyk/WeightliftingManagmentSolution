@@ -20,8 +20,8 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
         /// </summary>
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
-            add { PropertyChanged += value; }
-            remove { PropertyChanged -= value; }
+            add => PropertyChanged += value;
+            remove => PropertyChanged -= value;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-        private event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Occurs when a property value is changing.

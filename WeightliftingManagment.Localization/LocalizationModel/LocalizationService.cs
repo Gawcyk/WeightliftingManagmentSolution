@@ -68,9 +68,9 @@ namespace WeightliftingManagment.Localization.LocalizationModel
             Thread.CurrentThread.CurrentCulture = culture;
         }
 
-        public void RegisterLang(string pathToFile, string fileName= "AppLocalization.csv")
+        public void RegisterLang(string pathToFile, string fileName = "AppLocalization.csv")
         {
-            foreach (var lang in new CsvFileReader(pathToFile,fileName).GetEntries())
+            foreach (var lang in new CsvFileReader(pathToFile, fileName).GetEntries())
             {
                 _languageEntries.Add(lang.Key, lang.Value);
             }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using Prism.Commands;
 using Prism.Regions;
 
 using WeightliftingManagment.Core.MvvmSupport.ViewModelsTypeBase;
@@ -112,6 +113,37 @@ namespace WeightliftingManagment.Moduls.Settings.ViewModels
         {
             get => _federationWebSite;
             set => SetProperty(ref _federationWebSite, value);
+        }
+
+        #endregion
+
+        #region Commands
+
+        private DelegateCommand _saveCommand;
+        public DelegateCommand SaveCommand => _saveCommand ??= new DelegateCommand(ExecuteSave);
+        private void ExecuteSave()
+        {
+
+        }
+
+
+
+        private DelegateCommand _clearCommand;
+        public DelegateCommand ClearCommand => _clearCommand ??= new DelegateCommand(ExecuteClear);
+        private void ExecuteClear()
+        {
+            Name = null;
+            Date = DateTime.UtcNow.Date;
+            City = null;
+            FederationAddress = null;
+            FederationEmail = null;
+            FederationName = null;
+            FederationWebSite = null;
+            Organizer = null;
+            Site = null;
+            IsInitialTotalWeightRule = false;
+            IsMasters = false;
+            IsUseYearOnly = true;
         }
 
         #endregion

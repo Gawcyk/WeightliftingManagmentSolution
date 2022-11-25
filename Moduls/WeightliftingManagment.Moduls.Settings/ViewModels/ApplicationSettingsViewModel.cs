@@ -22,27 +22,28 @@ namespace WeightliftingManagment.Moduls.Settings.ViewModels
         private int _editingBonusPoint = default;
         private ObservableCollection<BonusPoints> _bonusPoints;
         private ObservableCollection<Category> _category;
+        private bool _isEditingBonusPoint;
 
         #endregion
 
         public ApplicationSettingsViewModel(IRegionManager regionManager) : base(regionManager)
         {
             BonusPointsCollection = LoadBonusPoints();
+            IsEditingBonusPoint = false;
         }
 
         private static ObservableCollection<BonusPoints> LoadBonusPoints()
         {
             var bonusPoints = new ObservableCollection<BonusPoints> {
-                new BonusPoints(15, 30),
-                new BonusPoints(18, 25),
-                new BonusPoints(20, 10)
+                new (15, 30),
+                new (18, 25),
+                new (20, 10)
             };
 
             return bonusPoints;
         }
 
         #region Property
-        private bool _isEditingBonusPoint;
         public bool IsEditingBonusPoint
         {
             get => _isEditingBonusPoint;

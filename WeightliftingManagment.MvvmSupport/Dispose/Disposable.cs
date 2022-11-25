@@ -47,10 +47,7 @@ namespace WeightliftingManagment.MvvmSupport.Dispose
                 }
                 else
                 {
-                    if (_whenDisposedSubject == null)
-                    {
-                        _whenDisposedSubject = new Subject<Unit>();
-                    }
+                    _whenDisposedSubject ??= new Subject<Unit>();
                     return _whenDisposedSubject.AsObservable();
                 }
             }
