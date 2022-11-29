@@ -42,11 +42,11 @@
             <controls:Tile Content="{mahIcon:FontAwesome Kind=FilePdfRegular, Height=30, Width=30}"
                            Grid.Column="5"
                            Style="{DynamicResource WLM.Tile.Square.Small}"
-                           Command="{Binding QuestionCommand}"/>
+                           Command="{Binding NotificationCommand}"/>
             <controls:Tile Content="{mahIcon:FontAwesome Kind=PrintSolid, Height=30, Width=30}"
                            Grid.Column="6"
                            Style="{DynamicResource WLM.Tile.Square.Small}"
-                           Command="{Binding QuestionCommand}"/>
+                           Command="{Binding AlertCommand}"/>
         </Grid>
         <DataGrid 
             x:Name="ParticipantDataGrid"

@@ -5,8 +5,8 @@
 
     <Style
         x:Key="WLM.MetroWindow.Custom"
-        TargetType="{x:Type controls:MetroWindow}"
-        BasedOn="{StaticResource {x:Type controls:MetroWindow}}">
+        BasedOn="{StaticResource {x:Type controls:MetroWindow}}"
+        TargetType="{x:Type controls:MetroWindow}">
         <Setter Property="Width" Value="1280" />
         <Setter Property="Height" Value="800" />
         <Setter Property="MinWidth" Value="850" />
@@ -22,7 +22,10 @@
         <Setter Property="TextOptions.TextRenderingMode" Value="Auto" />
     </Style>
 
-    <Style x:Key="WLM.MetroWindow.Dialog" BasedOn="{StaticResource {x:Type controls:MetroWindow}}" TargetType="{x:Type controls:MetroWindow}">
+    <Style
+        x:Key="WLM.MetroWindow.Dialog"
+        BasedOn="{StaticResource {x:Type controls:MetroWindow}}"
+        TargetType="{x:Type controls:MetroWindow}">
         <Setter Property="TextElement.FontSize" Value="{StaticResource WLM.FontSize.Medium}" />
         <Setter Property="TextElement.FontWeight" Value="Regular" />
         <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />

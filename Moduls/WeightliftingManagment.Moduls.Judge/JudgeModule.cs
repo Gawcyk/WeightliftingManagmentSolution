@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-
-using Prism.Ioc;
+﻿using Prism.Ioc;
 using Prism.Modularity;
 using Prism.Regions;
 
@@ -19,6 +12,7 @@ namespace WeightliftingManagment.Moduls.Judge
         {
             _regionManager = regionManager;
         }
+
         public void OnInitialized(IContainerProvider containerProvider)
         {
 

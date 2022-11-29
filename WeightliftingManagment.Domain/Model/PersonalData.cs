@@ -58,7 +58,7 @@ namespace WeightliftingManagment.Domain.Model
         public static PersonalData FromString(string personality)
         {
             
-            if (!personality.Contains(" ")) return new();
+            if (!personality.Contains(' ')) return new();
             
             var firstName = personality.Split(" ")[0];
             var lastName = personality.Split(" ")[1];

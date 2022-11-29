@@ -15,7 +15,10 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
+        
+        <!--#region  Competition-->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
@@ -50,10 +53,67 @@
             <!--#endregion-->
 
             <!--#region Row3-->
-            <controls:MetroHeader Grid.Column="0" Grid.Row="1" Header="{lex:Localize Key=City}">
+            <controls:MetroHeader Grid.Column="0" Grid.Row="3" Header="{lex:Localize Key=City}">
                 <TextBox Text="{Binding City}"/>
             </controls:MetroHeader>
             <!--#endregion-->
         </Grid>
+        <!--#endregion-->
+        
+        <!--#region  Federation-->
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <!--#region  Row0-->
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{lex:Localize Key=Federation}"/>
+            <!--#endregion-->
+
+            <!--#region Row1-->
+            <controls:MetroHeader Grid.Column="0" Grid.Row="1" Header="{lex:Localize Key=FederationName}">
+                <TextBox Text="{Binding FederationName}"/>
+            </controls:MetroHeader>
+            <controls:MetroHeader Grid.Column="1" Grid.Row="1" Header="{lex:Localize Key=FederationAddress}">
+                <TextBox Text="{Binding FederationAddress}"/>
+            </controls:MetroHeader>
+            <!--#endregion-->
+
+            <!--#region Row2-->
+            <controls:MetroHeader Grid.Column="0" Grid.Row="2" Header="{lex:Localize Key=FederationEmail}">
+                <TextBox Text="{Binding FederationEmail}"/>
+            </controls:MetroHeader>
+            <controls:MetroHeader Grid.Column="1" Grid.Row="2" Header="{lex:Localize Key=FederationWebSite}">
+                <TextBox Text="{Binding FederationWebSite}"/>
+            </controls:MetroHeader>
+            <!--#endregion-->
+
+        </Grid>
+        <!--#endregion-->
+        
+        <!--#region Options-->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{lex:Localize Key=Options}"/>
+            <CheckBox Content="{lex:Localize Key=UseYearOnly}" Grid.Column="0" Grid.Row="1" IsChecked="{Binding IsUseYearOnly}"/>
+            <CheckBox Content="{lex:Localize Key=InitialTotalWeightRule}" Grid.Column="0" Grid.Row="2" IsChecked="{Binding IsInitialTotalWeightRule}"/>
+            <CheckBox Content="{lex:Localize Key=Masters}" Grid.Column="1" Grid.Row="1" IsChecked="{Binding IsMasters}"/>
+        </Grid>
+        <!--#endregion-->
+        
     </Grid>
 </UserControl>

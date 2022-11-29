@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 using Prism.Ioc;
 using Prism.Regions;
@@ -13,7 +8,7 @@ using WeightliftingManagment.Core.FlyoutManager;
 
 namespace WeightliftingManagment.Services
 {
-    public  class FlyoutService : IFlyoutService
+    public class FlyoutService : IFlyoutService
     {
         private readonly IDictionary<string, IFlyout> _flyouts;
         private readonly IContainerProvider _container;

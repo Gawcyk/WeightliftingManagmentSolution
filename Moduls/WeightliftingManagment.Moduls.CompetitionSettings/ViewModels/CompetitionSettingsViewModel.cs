@@ -19,8 +19,8 @@ namespace WeightliftingManagment.Moduls.CompetitionSettings.ViewModels
 
         #region Property
 
-        private string _name= string.Empty;
-        public string Name
+        private string? _name;
+        public string? Name
         {
             get => _name;
             set => SetProperty(ref _name, value);
@@ -32,25 +32,80 @@ namespace WeightliftingManagment.Moduls.CompetitionSettings.ViewModels
             get => _date;
             set => SetProperty(ref _date, value);
         }
-        private string _organizer = string.Empty;
-        public string Organizer
+        private string? _organizer;
+        public string? Organizer
         {
             get => _organizer;
             set => SetProperty(ref _organizer, value);
         }
 
-        private string _site = string.Empty;
-        public string Site
+        private string? _site;
+        public string? Site
         {
             get => _site;
             set => SetProperty(ref _site, value);
         }
 
-        private string _city = string.Empty;
-        public string City
+        private string? _city;
+        public string? City
         {
             get => _city;
             set => SetProperty(ref _city, value);
+        }
+
+        private bool? _isMasters;
+        public bool? IsMasters
+        {
+            get => _isMasters;
+            set => SetProperty(ref _isMasters, value);
+        }
+
+        private bool? _isUseYearOnly;
+
+        public bool? IsUseYearOnly
+        {
+            get => _isUseYearOnly;
+            set => SetProperty(ref _isUseYearOnly, value);
+        }
+
+        private bool? _isInitialTotalWeightRule;
+
+        public bool? IsInitialTotalWeightRule
+        {
+            get => _isInitialTotalWeightRule;
+            set => SetProperty(ref _isInitialTotalWeightRule, value);
+        }
+
+        private string? _federationName;
+
+        public string? FederationName
+        {
+            get => _federationName;
+            set => SetProperty(ref _federationName, value);
+        }
+
+        private string? _federationAddress;
+
+        public string? FederationAddress
+        {
+            get => _federationAddress;
+            set => SetProperty(ref _federationAddress, value);
+        }
+
+        private string? _federationEmail;
+
+        public string? FederationEmail
+        {
+            get => _federationEmail;
+            set => SetProperty(ref _federationEmail, value);
+        }
+
+        private string? _federationWebSite;
+
+        public string? FederationWebSite
+        {
+            get => _federationWebSite;
+            set => SetProperty(ref _federationWebSite, value);
         }
 
         #endregion

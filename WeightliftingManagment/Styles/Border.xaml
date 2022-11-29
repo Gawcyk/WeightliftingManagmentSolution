@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style x:Key="WLM.Border.Card" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}" />
+        <Setter Property="BorderThickness" Value="10" />
+    </Style>
+
+</ResourceDictionary>

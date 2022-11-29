@@ -16,10 +16,11 @@
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 		<Content Include="Lang\AppLocalization.csv">
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</Content>
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Common" Version="8.0.0" />
 		<PackageReference Include="MahApps.Metro" Version="2.4.9" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
@@ -31,7 +32,6 @@
 		<PackageReference Include="Prism.DryIoc" Version="8.1.97" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.CompetitionSettings\WeightliftingManagment.Moduls.CompetitionSettings.csproj" />
 		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.Dialogs\WeightliftingManagment.Moduls.Dialogs.csproj" />
 		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.Judge\WeightliftingManagment.Moduls.Judge.csproj" />
 		<ProjectReference Include="..\Moduls\WeightliftingManagment.Moduls.ParticipantBodyWeight\WeightliftingManagment.Moduls.ParticipantBodyWeight.csproj" />

@@ -194,3 +194,39 @@ dotnet_diagnostic.RCS1158.severity                                       = none
 
 # RCS1163: Unused parameter.
 dotnet_diagnostic.RCS1163.severity                                       = none
+
+# CS8618: Non-nullable field is uninitialized. Consider declaring as nullable.
+dotnet_diagnostic.CS8618.severity                                        = none
+
+# CS8632
+dotnet_diagnostic.CS8632.severity                                        = none
+
+# CS8602
+dotnet_diagnostic.CS8602.severity                                        = none
+
+# CS8603
+dotnet_diagnostic.CS8603.severity                                        = none
+
+# CS8769
+dotnet_diagnostic.CS8769.severity                                        = none
+
+# CS8622
+dotnet_diagnostic.CS8622.severity                                        = none
+
+# CS8625
+dotnet_diagnostic.CS8625.severity                                        = none
+
+# CS8612
+dotnet_diagnostic.CS8612.severity                                        = none
+
+# CS8615
+dotnet_diagnostic.CS8615.severity                                        = none
+
+# CS8619
+dotnet_diagnostic.CS8619.severity                                        = none
+
+# CS8620
+dotnet_diagnostic.CS8620.severity                                        = none
+
+# CS8604
+dotnet_diagnostic.CS8604.severity                                        = none

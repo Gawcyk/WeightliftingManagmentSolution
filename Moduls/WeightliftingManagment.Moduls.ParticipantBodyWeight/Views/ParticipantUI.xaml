@@ -1,15 +1,19 @@
-﻿<UserControl x:Class="WeightliftingManagment.Moduls.ParticipantBodyWeight.Views.ParticipantUI"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:ext="clr-namespace:WeightliftingManagment.Core.AttachedProperties;assembly=WeightliftingManagment.Core"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:prism="http://prismlibrary.com/"
-             prism:ViewModelLocator.AutoWireViewModel="True"
-             xmlns:lex="clr-namespace:WeightliftingManagment.Localization.LocalizationModel;assembly=WeightliftingManagment.Localization"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+﻿<UserControl
+    x:Class="WeightliftingManagment.Moduls.ParticipantBodyWeight.Views.ParticipantUI"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:ext="clr-namespace:WeightliftingManagment.Core.AttachedProperties;assembly=WeightliftingManagment.Core"
+    xmlns:lex="clr-namespace:WeightliftingManagment.Localization.LocalizationModel;assembly=WeightliftingManagment.Localization"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:viewmodels="clr-namespace:WeightliftingManagment.Moduls.ParticipantBodyWeight.ViewModels"
+    d:DataContext="{d:DesignInstance Type=viewmodels:ParticipantUIViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    mc:Ignorable="d">
     <prism:Dialog.WindowStyle>
         <Style TargetType="{x:Type controls:MetroWindow}">
             <Setter Property="ShowMinButton" Value="False" />
@@ -18,90 +22,134 @@
         </Style>
     </prism:Dialog.WindowStyle>
     <UserControl.Resources>
-        <Style TargetType="controls:MetroHeader" BasedOn="{StaticResource MahApps.Styles.MetroHeader}">
-            <Setter Property="Margin" Value="{StaticResource WLM.Margin.Small.LeftTopRightBottom}"/>
+        <Style BasedOn="{StaticResource MahApps.Styles.MetroHeader}" TargetType="controls:MetroHeader">
+            <Setter Property="Margin" Value="{StaticResource WLM.Margin.Small.LeftTopRightBottom}" />
         </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <!--#region Row 0-->
-        <controls:MetroHeader Grid.Column="0" Grid.Row="0" Header="{lex:Localize Key=LastName}">
-            <TextBox Text="{Binding LastName}"/>
+        <controls:MetroHeader
+            Grid.Row="0"
+            Grid.Column="0"
+            Header="{lex:Localize Key=LastName}">
+            <TextBox Text="{Binding LastName}" />
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="0" Header="{lex:Localize Key=FirstName}">
-            <TextBox Text="{Binding FirstName}"/>
+        <controls:MetroHeader
+            Grid.Row="0"
+            Grid.Column="1"
+            Header="{lex:Localize Key=FirstName}">
+            <TextBox Text="{Binding FirstName}" />
         </controls:MetroHeader>
         <!--#endregion-->
         <!--#region Row 1-->
-        <controls:MetroHeader Grid.Column="0" Grid.Row="1" Header="{lex:Localize Key=Gender}">
-            <TextBox Text="{Binding Gender}"/>
+        <controls:MetroHeader
+            Grid.Row="1"
+            Grid.Column="0"
+            Header="{lex:Localize Key=Gender}">
+            <TextBox Text="{Binding Gender}" />
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="1" Header="{lex:Localize Key=Team}">
-            <TextBox Text="{Binding Club}"/>
+        <controls:MetroHeader
+            Grid.Row="1"
+            Grid.Column="1"
+            Header="{lex:Localize Key=Team}">
+            <TextBox Text="{Binding Club}" />
         </controls:MetroHeader>
         <!--#endregion-->
         <!--#region Row 2-->
-        <controls:MetroHeader Grid.Column="0" Grid.Row="2" Header="{lex:Localize Key=YearOfBirth}">
-            <TextBox Text="{Binding YearOfBirth}"/>
+        <controls:MetroHeader
+            Grid.Row="2"
+            Grid.Column="0"
+            Header="{lex:Localize Key=YearOfBirth}">
+            <TextBox Text="{Binding YearOfBirth}" />
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="2" Header="{lex:Localize Key=Group}">
-            <TextBox Text="{Binding Group}"/>
+        <controls:MetroHeader
+            Grid.Row="2"
+            Grid.Column="1"
+            Header="{lex:Localize Key=Group}">
+            <TextBox Text="{Binding Group}" />
         </controls:MetroHeader>
         <!--#endregion-->
         <!--#region Row 3-->
-        <controls:MetroHeader Grid.Column="0" Grid.Row="3" Header="{lex:Localize Key=BodyWeight}">
-            <TextBox Text="{Binding BodyWeight}"/>
+        <controls:MetroHeader
+            Grid.Row="3"
+            Grid.Column="0"
+            Header="{lex:Localize Key=BodyWeight}">
+            <TextBox Text="{Binding BodyWeight}" />
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="3" Header="{lex:Localize Key=Snatch}">
-            <TextBox Text="{Binding Snatch.Value}"/>
+        <controls:MetroHeader
+            Grid.Row="3"
+            Grid.Column="1"
+            Header="{lex:Localize Key=Snatch}">
+            <TextBox Text="{Binding Snatch.Value}" />
         </controls:MetroHeader>
         <!--#endregion-->
         <!--#region Row 4-->
-        <controls:MetroHeader Grid.Column="0" Grid.Row="4" Header="{lex:Localize Key=CleanJerk}">
-            <TextBox Text="{Binding CleanJerk.Value}"/>
+        <controls:MetroHeader
+            Grid.Row="4"
+            Grid.Column="0"
+            Header="{lex:Localize Key=CleanJerk}">
+            <TextBox Text="{Binding CleanJerk.Value}" />
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="4" Header="{lex:Localize Key=EntryTotal}">
-            <TextBox Text="{Binding EntryTotal}"/>
+        <controls:MetroHeader
+            Grid.Row="4"
+            Grid.Column="1"
+            Header="{lex:Localize Key=EntryTotal}">
+            <TextBox Text="{Binding EntryTotal}" />
         </controls:MetroHeader>
         <!--#endregion-->
         <!--#region Row 5-->
-        <controls:MetroHeader Grid.Column="0" Grid.Row="5" Header="{lex:Localize Key=Category}">
-            <ComboBox  SelectedItem="{Binding Category}" ItemsSource="{Binding Categories}"/>
+        <controls:MetroHeader
+            Grid.Row="5"
+            Grid.Column="0"
+            Header="{lex:Localize Key=Category}">
+            <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding Category}" />
         </controls:MetroHeader>
-        <controls:MetroHeader Grid.Column="1" Grid.Row="5" Header="{lex:Localize Key=LicenseNumber}">
-            <TextBox Text="{Binding LicenseNumber}"/>
+        <controls:MetroHeader
+            Grid.Row="5"
+            Grid.Column="1"
+            Header="{lex:Localize Key=LicenseNumber}">
+            <TextBox Text="{Binding LicenseNumber}" />
         </controls:MetroHeader>
         <!--#endregion-->
-        <DockPanel Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="6" LastChildFill="False" Margin="{StaticResource WLM.Margin.Small.LeftRight}">
-            <Button DockPanel.Dock="Right" 
-                    Style="{DynamicResource WLM.Button.Square}" 
-                    Content="Close" 
-                    Command="{Binding CloseCommand}"
-                    ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
-            <Button DockPanel.Dock="Right" 
-                    Style="{DynamicResource WLM.Button.Square.Accent}" 
-                    Content="Add" 
-                    Margin="{StaticResource WLM.Margin.Small.Right}"
-                    ext:FrameworkElementExtensions.WidthShareScope="Scope" 
-                    Command="{Binding OkCommand}"/>
-            <Button DockPanel.Dock="Right" 
-                    Style="{DynamicResource WLM.Button.Square.CardPrint}" 
-                    Content="Atlete Card" 
-                    Margin="{StaticResource WLM.Margin.Small.Right}"
-                    Width="100"
-                    ext:FrameworkElementExtensions.WidthShareScope="Scope"/>
+        <DockPanel
+            Grid.Row="6"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            Margin="{StaticResource WLM.Margin.Small.LeftRight}"
+            LastChildFill="False">
+            <Button
+                ext:FrameworkElementExtensions.WidthShareScope="Scope"
+                Command="{Binding CloseCommand}"
+                Content="Close"
+                DockPanel.Dock="Right"
+                Style="{DynamicResource WLM.Button.Square}" />
+            <Button
+                Margin="{StaticResource WLM.Margin.Small.Right}"
+                ext:FrameworkElementExtensions.WidthShareScope="Scope"
+                Command="{Binding OkCommand}"
+                Content="Add"
+                DockPanel.Dock="Right"
+                Style="{DynamicResource WLM.Button.Square.Accent}" />
+            <Button
+                Width="100"
+                Margin="{StaticResource WLM.Margin.Small.Right}"
+                ext:FrameworkElementExtensions.WidthShareScope="Scope"
+                Content="Atlete Card"
+                DockPanel.Dock="Right"
+                Style="{DynamicResource WLM.Button.Square.CardPrint}" />
         </DockPanel>
     </Grid>
 </UserControl>

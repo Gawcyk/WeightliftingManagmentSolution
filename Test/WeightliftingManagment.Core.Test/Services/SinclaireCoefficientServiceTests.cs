@@ -22,45 +22,62 @@ namespace WeightliftingManagment.Core.Services.Tests
         }
 
         [Theory, AutoData]
-        public void CountForMenWeightGreaterParamBTest(SinclaireConfig sinclaireConfig)
+        public void WhenBodyWeightIsGreaterByMenParamB_ThenResultShouldBe1(SinclaireConfig sinclaireConfig)
         {
+            //Given
             var bodyWeight = sinclaireConfig.Men.ParamB + 1;
             var service = new SinclaireCoefficientService(sinclaireConfig);
-            service.Count(bodyWeight, Gender.Men).Should().Be(1);
+            //When
+            var result = service.Count(bodyWeight, Gender.Men);
+            //Then
+            result.Should().Be(1);
         }
 
         [Theory, AutoData]
-        public void CountForWomenWeightGreaterParamBTest(SinclaireConfig sinclaireConfig)
+        public void WhenBodyWeightIsGreaterByWomenParamB_ThenResultShouldBe1(SinclaireConfig sinclaireConfig)
         {
+            //Given
             var bodyWeight = sinclaireConfig.Women.ParamB + 1;
             var service = new SinclaireCoefficientService(sinclaireConfig);
-            service.Count(bodyWeight, Gender.Women).Should().Be(1);
+            //When
+            var result = service.Count(bodyWeight, Gender.Women);
+            //Then
+            result.Should().Be(1);
         }
 
         [Theory, AutoData]
-        public void CountForMenWeightSmallerParamBTest(SinclaireConfig sinclaireConfig)
+        public void WhenCountForMenWeightSmallerParamB_ThenResultShouldBeGreaterBy1(SinclaireConfig sinclaireConfig)
         {
+            //Given
             var bodyWeight = new Random().Next(0, (int)sinclaireConfig.Men.ParamB);
             var service = new SinclaireCoefficientService(sinclaireConfig);
-            var firstCount = service.Count(bodyWeight, Gender.Men);
-            service.Count(bodyWeight, Gender.Men).Should().Be(firstCount);
+            //When
+            var result = service.Count(bodyWeight, Gender.Men);
+            //Then
+            result.Should().BeGreaterThan(1);
         }
 
         [Theory, AutoData]
-        public void CountForWomenWeightSmallerParamBTest(SinclaireConfig sinclaireConfig)
+        public void WhenCountForWomenWeightSmallerParamB_ThenResultShouldBeGreaterBy1(SinclaireConfig sinclaireConfig)
         {
+            //Given
             var bodyWeight = new Random().Next(0, (int)sinclaireConfig.Women.ParamB);
             var service = new SinclaireCoefficientService(sinclaireConfig);
-            var firstCount = service.Count(bodyWeight, Gender.Men);
-            service.Count(bodyWeight, Gender.Men).Should().Be(firstCount);
+            //When
+            var result = service.Count(bodyWeight, Gender.Women);
+            //Then
+            result.Should().BeGreaterThan(1);
         }
 
         [Theory, AutoData]
-        public void CountTest(SinclaireConfig config, double bodyWeight,Gender gender)
+        public void WhenCountTwoTimesResult_ThenResultMustBeTheSame(SinclaireConfig config, double bodyWeight,Gender gender)
         {
+            //Given
             var sinclaireCoefficient = new SinclaireCoefficientService(config);
+            //When
             var count1 = sinclaireCoefficient.Count(bodyWeight, gender);
             var count2 = sinclaireCoefficient.Count(bodyWeight, gender);
+            //Then
             count1.Should().Be(count2);
         }
     }

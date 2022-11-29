@@ -1,0 +1,236 @@
+﻿<UserControl
+    x:Class="WeightliftingManagment.Moduls.Settings.Views.ApplicationSettings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+    xmlns:converter="clr-namespace:WeightliftingManagment.Core.Converters;assembly=WeightliftingManagment.Core"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:lex="clr-namespace:WeightliftingManagment.Localization.LocalizationModel;assembly=WeightliftingManagment.Localization"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:prism="http://prismlibrary.com/"
+    xmlns:vm="clr-namespace:WeightliftingManagment.Moduls.Settings.ViewModels"
+    d:DataContext="{d:DesignInstance Type=vm:ApplicationSettingsViewModel}"
+    d:DesignHeight="450"
+    d:DesignWidth="800"
+    prism:ViewModelLocator.AutoWireViewModel="True"
+    Style="{StaticResource WLM.UserControl.Base}"
+    mc:Ignorable="d">
+
+    <TabControl TabStripPlacement="Left">
+        <TabItem Header="{lex:Localize Key=Participant}">
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}" BorderThickness="10">
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Border
+                        Grid.Row="0"
+                        Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}"
+                        BorderThickness="0,0,0,10">
+                        <Grid Margin="{StaticResource WLM.Margin.Medium.LeftTopRightBottom}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
+                                Content="{lex:Localize Key=SinclaireParameters}" />
+                            <controls:MetroHeader
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Margin="10,10,5,5"
+                                Header="{lex:Localize Key=WomenA}">
+                                <TextBox Text="{Binding WomenParamA}" />
+                            </controls:MetroHeader>
+                            <controls:MetroHeader
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Margin="10,5,5,10"
+                                Header="{lex:Localize Key=WomenB}">
+                                <TextBox Text="{Binding WomenParamB}" />
+                            </controls:MetroHeader>
+                            <controls:MetroHeader
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="5,10,10,5"
+                                Header="{lex:Localize Key=MenA}">
+                                <TextBox Text="{Binding MenParamA}" />
+                            </controls:MetroHeader>
+                            <controls:MetroHeader
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Margin="5,5,10,10"
+                                Header="{lex:Localize Key=MenB}">
+                                <TextBox Text="{Binding MenParamB}" />
+                            </controls:MetroHeader>
+                        </Grid>
+                    </Border>
+
+                    <Border
+                        Grid.Row="1"
+                        Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}"
+                        BorderThickness="0,0,0,10">
+                        <Grid Margin="{StaticResource WLM.Margin.Medium.LeftTopRightBottom}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Label Grid.Row="0" Content="{lex:Localize Key=AgeBonusPoints}" />
+                            <Grid Grid.Row="1">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="{StaticResource WLM.Margin.Small.LeftRight}">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <controls:MetroHeader
+                                        Grid.Row="0"
+                                        Margin="{StaticResource WLM.Margin.Small.TopBottom}"
+                                        Header="{lex:Localize Key=Age}">
+                                        <TextBox Text="{Binding Age, Delay=5, UpdateSourceTrigger=PropertyChanged}" />
+                                    </controls:MetroHeader>
+                                    <controls:MetroHeader
+                                        Grid.Row="1"
+                                        Margin="{StaticResource WLM.Margin.Small.TopBottom}"
+                                        Header="{lex:Localize Key=Points}">
+                                        <TextBox Text="{Binding Point, Delay=5, UpdateSourceTrigger=PropertyChanged}" />
+                                    </controls:MetroHeader>
+                                    <Button
+                                        Grid.Row="2"
+                                        Margin="{StaticResource WLM.Margin.Small.TopBottom}"
+                                        Command="{Binding AddNewBonusPointCommand}"
+                                        Content="{lex:Localize Key=Add}"
+                                        Style="{DynamicResource WLM.Button.Square.Accent}"
+                                        Visibility="{Binding IsEditingBonusPoint, Converter={converter:BoolToVisibilityValueConverter}, ConverterParameter=inverse}" />
+                                    <Button
+                                        Grid.Row="2"
+                                        Margin="{StaticResource WLM.Margin.Small.TopBottom}"
+                                        Command="{Binding UpdateBonusPointsCommand}"
+                                        Content="{lex:Localize Key=Update}"
+                                        Style="{DynamicResource WLM.Button.Square.Accent}"
+                                        Visibility="{Binding IsEditingBonusPoint, Converter={converter:BoolToVisibilityValueConverter}}" />
+                                </Grid>
+                                <DataGrid
+                                    Grid.Column="1"
+                                    Margin="{StaticResource WLM.Margin.Small.LeftTopRightBottom}"
+                                    AutoGenerateColumns="False"
+                                    BorderBrush="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}"
+                                    BorderThickness="0,5,0,0"
+                                    CanUserAddRows="False"
+                                    CanUserDeleteRows="False"
+                                    CanUserReorderColumns="False"
+                                    CanUserResizeColumns="False"
+                                    CanUserResizeRows="False"
+                                    CanUserSortColumns="False"
+                                    HorizontalGridLinesBrush="{DynamicResource MahApps.Brushes.IdealForeground}"
+                                    ItemsSource="{Binding BonusPointsCollection}"
+                                    ScrollViewer.VerticalScrollBarVisibility="Visible"
+                                    VerticalGridLinesBrush="{DynamicResource MahApps.Brushes.IdealForeground}">
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn
+                                            Width="*"
+                                            Binding="{Binding Age}"
+                                            Header="{lex:Localize Key=Age}"
+                                            IsReadOnly="True" />
+                                        <DataGridTextColumn
+                                            Width="*"
+                                            Binding="{Binding Point}"
+                                            Header="{lex:Localize Key=Points}"
+                                            IsReadOnly="True" />
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.EditItemCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{lex:Localize Key=Edit}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                        <DataGridTemplateColumn>
+                                            <DataGridTemplateColumn.CellTemplate>
+                                                <DataTemplate>
+                                                    <Button
+                                                        Command="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=UserControl}, Path=DataContext.RemoveItemCommand}"
+                                                        CommandParameter="{Binding}"
+                                                        Content="{lex:Localize Key=Delete}" />
+                                                </DataTemplate>
+                                            </DataGridTemplateColumn.CellTemplate>
+                                        </DataGridTemplateColumn>
+                                    </DataGrid.Columns>
+                                </DataGrid>
+                            </Grid>
+                        </Grid>
+                    </Border>
+                </Grid>
+            </Border>
+        </TabItem>
+        <TabItem Header="{lex:Localize Key=Turnament}">
+            <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}" BorderThickness="10">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="{lex:Localize Key=EditGroupAgeAndCategories}" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button
+                            Margin="{StaticResource WLM.Margin.Small.LeftRight}"
+                            Padding="0"
+                            Content="{lex:Localize Key=Add}"
+                            Style="{DynamicResource WLM.Button.Square.Accent}" />
+                        <controls:FontIcon FontFamily="Segoe MDL2 Assets" Glyph="&#xE71E;" />
+                        <TextBox
+                            Width="150"
+                            Margin="{StaticResource WLM.Margin.Small.Right}"
+                            controls:TextBoxHelper.Watermark="{lex:Localize Key=Name}" />
+                        <ComboBox controls:TextBoxHelper.Watermark="{lex:Localize Key=CompetitionType}" />
+                        <CheckBox Margin="{StaticResource WLM.Margin.Small.LeftRight}" Content="{lex:Localize Key=Active}" />
+                    </StackPanel>
+                    <DataGrid
+                        Grid.Row="2"
+                        AutoGenerateColumns="False"
+                        BorderBrush="{DynamicResource MahApps.Brushes.Gray.SemiTransparent}"
+                        BorderThickness="0,5,0,0"
+                        CanUserAddRows="False"
+                        CanUserDeleteRows="False"
+                        CanUserReorderColumns="False"
+                        CanUserResizeColumns="False"
+                        CanUserResizeRows="False"
+                        CanUserSortColumns="False"
+                        HorizontalGridLinesBrush="{DynamicResource MahApps.Brushes.IdealForeground}"
+                        ItemsSource="{Binding CategoryCollection}"
+                        ScrollViewer.VerticalScrollBarVisibility="Visible"
+                        VerticalGridLinesBrush="{DynamicResource MahApps.Brushes.IdealForeground}">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn Binding="{Binding IsActive}" Header="{lex:Localize Key=Active}" />
+                            <DataGridTextColumn Binding="{Binding Name}" Header="{lex:Localize Key=Name}" />
+                            <DataGridTextColumn Binding="{Binding CompetitionType}" Header="{lex:Localize Key=CompetitionType}" />
+                            <DataGridTextColumn Binding="{Binding Gender}" Header="{lex:Localize Key=Gender}" />
+                            <DataGridTextColumn Binding="{Binding MinAge}" Header="{lex:Localize Key=MinimumAge}" />
+                            <DataGridTextColumn Binding="{Binding MaxAge}" Header="{lex:Localize Key=MaximumAge}" />
+                            <DataGridTextColumn Binding="{Binding BodyWeightCategories}" Header="{lex:Localize Key=BodyweightCategories}" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </Border>
+        </TabItem>
+    </TabControl>
+
+</UserControl>

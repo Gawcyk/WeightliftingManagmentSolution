@@ -27,8 +27,12 @@ namespace WeightliftingManagment.Core.Dialogs
         public static Participant? ShowAddParticipant(this IDialogService dialogService)
         {
             Participant participant = null;
-            //Todo Localization
-            dialogService.ShowDialog(DialogName.ParticipantUI, new DialogParameters($"Title=Add Participant"), (result) => {
+
+            var param = new DialogParameters {
+                { "DialogType", DialogType.AddParticipant }
+            };
+
+            dialogService.ShowDialog(DialogName.ParticipantUI, param, (result) => {
                 if (result.Result == ButtonResult.OK)
                 {
                     participant = result.Parameters.GetValue<Participant>("Participant");
@@ -39,9 +43,8 @@ namespace WeightliftingManagment.Core.Dialogs
 
         public static Participant ShowEditParticipant(this IDialogService dialogService, Participant participant)
         {
-            //Todo Localization
             var param = new DialogParameters {
-                { "Title", "Edit Participant" },
+                { "DialogType", DialogType.EditParticipant },
                 { "Participant", participant }
             };
             dialogService.ShowDialog(DialogName.ParticipantUI, param, (result) => {

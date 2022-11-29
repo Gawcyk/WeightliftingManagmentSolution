@@ -12,7 +12,7 @@ namespace WeightliftingManagment.Localization.LocalizationModel
 
         public string Key { get; set; } = string.Empty;
 
-        public Binding? KeySource { get; set; } = default;
+        public Binding? KeySource { get; set; }
 
         #endregion
 

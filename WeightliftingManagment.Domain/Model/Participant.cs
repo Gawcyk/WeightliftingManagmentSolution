@@ -1,5 +1,5 @@
-﻿using WeightliftingManagment.MvvmSupport.BindableBase;
-using WeightliftingManagment.MvvmSupport.Collections;
+﻿using WeightliftingManagment.Domain.Builder;
+using WeightliftingManagment.MvvmSupport.BindableBase;
 
 namespace WeightliftingManagment.Domain.Model
 {
@@ -31,7 +31,7 @@ namespace WeightliftingManagment.Domain.Model
         /// <param name="sinclairCoefficients">The Sinclaire Coefficient of the participant</param>
         /// <param name="licenseNumber">License number participant</param>
         /// <param name="category">Category participant</param>
-        public Participant(int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, Attempt snatch, Attempt cleanJerk, string group, double sinclairCoefficients, string licenseNumber,Category category)
+        public Participant(int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, Attempt snatch, Attempt cleanJerk, string group, double sinclairCoefficients, string licenseNumber, Category category)
         {
             ParticipantId = Guid.NewGuid();
             StartNumber = startNumber;
@@ -43,7 +43,39 @@ namespace WeightliftingManagment.Domain.Model
             Snatchs = new AttemptCollection(snatch);
             CleanJerks = new AttemptCollection(cleanJerk);
             Group = group;
-            SinclairCoefficients = sinclairCoefficients;
+            SinclairCoefficient = sinclairCoefficients;
+            LicenseNumber = licenseNumber;
+            Category = category;
+        }
+
+        /// <summary>
+        /// New Participant
+        /// </summary>
+        /// <param name="startNumber">Start number of the participant</param>
+        /// <param name="nameAndSurname">Name and Surname participant</param>
+        /// <param name="club">Name of Club the participant</param>
+        /// <param name="bodyWeight">Weight of Body participant</param>
+        /// <param name="yearOfBirth">The year of Birth participant</param>
+        /// <param name="gender">The gender of the participant</param>
+        /// <param name="snatch">The first attempt in Snatchs type of<see cref="Attempt"/></param>
+        /// <param name="cleanJerk">The first attempt in Clean&Jerk type of<see cref="Attempt"/></param>
+        /// <param name="group">Start group participant</param>
+        /// <param name="sinclairCoefficients">The Sinclaire Coefficient of the participant</param>
+        /// <param name="licenseNumber">License number participant</param>
+        /// <param name="category">Category participant</param>
+        public Participant(int startNumber, PersonalData nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, Attempt snatch, Attempt cleanJerk, string group, double sinclairCoefficients, string licenseNumber, Category category)
+        {
+            ParticipantId = Guid.NewGuid();
+            StartNumber = startNumber;
+            PersonalData = nameAndSurname;
+            Club = club;
+            BodyWeight = bodyWeight;
+            YearOfBirth = yearOfBirth;
+            Gender = gender;
+            Snatchs = new AttemptCollection(snatch);
+            CleanJerks = new AttemptCollection(cleanJerk);
+            Group = group;
+            SinclairCoefficient = sinclairCoefficients;
             LicenseNumber = licenseNumber;
             Category = category;
         }
@@ -76,13 +108,13 @@ namespace WeightliftingManagment.Domain.Model
             Snatchs = new AttemptCollection(snatch);
             CleanJerks = new AttemptCollection(cleanJerk);
             Group = group;
-            SinclairCoefficients = sinclairCoefficients;
+            SinclairCoefficient = sinclairCoefficients;
             LicenseNumber = licenseNumber;
             Category = category;
         }
 
 
-        public Participant(Guid participantId, int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, AttemptCollection snatchs, AttemptCollection cleanJerks, int bonusPoint, int total, string group, int maxOfCleanJerk, int maxOfSnatch, bool next, int numberMaxOfCleanJerk, int numberMaxOfSnatch, bool comesUp, double points, double sinclairCoefficients, string position, int promiseTotal, double promisePoint, string licenseNumber, Category  category)
+        public Participant(Guid participantId, int startNumber, string nameAndSurname, string club, double bodyWeight, int yearOfBirth, Gender gender, AttemptCollection snatchs, AttemptCollection cleanJerks, int bonusPoint, int total, string group, int maxOfCleanJerk, int maxOfSnatch, bool next, int numberMaxOfCleanJerk, int numberMaxOfSnatch, bool comesUp, double points, double sinclairCoefficients, string position, int promiseTotal, double promisePoint, string licenseNumber, Category category)
         {
             ParticipantId = participantId;
             StartNumber = startNumber;
@@ -103,13 +135,20 @@ namespace WeightliftingManagment.Domain.Model
             NumberMaxOfSnatch = numberMaxOfSnatch;
             ComesUp = comesUp;
             Points = points;
-            SinclairCoefficients = sinclairCoefficients;
+            SinclairCoefficient = sinclairCoefficients;
             Position = position;
             PromiseTotal = promiseTotal;
             PromisePoint = promisePoint;
             LicenseNumber = licenseNumber;
             Category = category;
         }
+
+        /// <summary>
+        /// Get Builder of Participant
+        /// </summary>
+        /// <returns>New instance of ParticipantBuilder</returns>
+        public static ParticipantBuilder CreateBuilder() => new();
+
 
         #region Fields
 
@@ -132,7 +171,7 @@ namespace WeightliftingManagment.Domain.Model
         private int _numberMaxOfSnatch;
         private bool _comesUp;
         private double _points;
-        private double _sinclairCoefficients;
+        private double _sinclairCoefficient;
         private string _position = string.Empty;
         private int _promiseTotal;
         private double _promisePoint;
@@ -257,10 +296,10 @@ namespace WeightliftingManagment.Domain.Model
             set => SetProperty(ref _points, value);
         }
 
-        public double SinclairCoefficients
+        public double SinclairCoefficient
         {
-            get => _sinclairCoefficients;
-            set => SetProperty(ref _sinclairCoefficients, value);
+            get => _sinclairCoefficient;
+            set => SetProperty(ref _sinclairCoefficient, value);
         }
 
         public string Position
@@ -309,7 +348,7 @@ namespace WeightliftingManagment.Domain.Model
 
         public void CountPromisePoint()
         {
-            var promisePoint = (PromiseTotal * SinclairCoefficients) + BonusPoint;
+            var promisePoint = (PromiseTotal * SinclairCoefficient) + BonusPoint;
             PromisePoint = promisePoint == 0 ? Points : promisePoint;
         }
 
@@ -345,7 +384,7 @@ namespace WeightliftingManagment.Domain.Model
             else
             {
                 oldAtt = CleanJerks[numerPodejcia];
-                newAtt = CleanJerks[numerPodejcia+1];
+                newAtt = CleanJerks[numerPodejcia + 1];
             }
 
             if (oldAtt.StatusIsDeclaredOrComesUpOrNext())
@@ -394,7 +433,7 @@ namespace WeightliftingManagment.Domain.Model
         /// <summary>
         /// Oblicza współczynnik korelacji sinclaira
         /// </summary>
-        public void SetSinclairCoefficients(double coefficient) => SinclairCoefficients = coefficient;
+        public void SetSinclairCoefficients(double coefficient) => SinclairCoefficient = coefficient;
 
         /// <summary>
         /// Oblicza bonifikate punktową według wieku
@@ -405,7 +444,7 @@ namespace WeightliftingManagment.Domain.Model
         /// Czy dalej są podejscia w rwaniu
         /// </summary>
         /// <returns>Flaga True jeżeli jeszcze są annonse w rwaniu</returns>
-        public bool IsSnatchDeclared() => Snatchs.Collection.Any(item=>item.StatusIsDeclared());
+        public bool IsSnatchDeclared() => Snatchs.Collection.Any(item => item.StatusIsDeclared());
 
         /// <summary>
         /// Wyznaczamy maksymalne podejcie w rwaniu
@@ -439,7 +478,7 @@ namespace WeightliftingManagment.Domain.Model
         /// <summary>
         /// Oblicza punkty zawodnika
         /// </summary>
-        public void CountPoints() => Points = Total > 0 ? (Total * SinclairCoefficients) + BonusPoint : 0;
+        public void CountPoints() => Points = Total > 0 ? (Total * SinclairCoefficient) + BonusPoint : 0;
 
         /// <summary>
         ///  Pobieram ciężar podejścia anonsowanego

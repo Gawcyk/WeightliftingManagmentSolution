@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Reactive.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
 
 using WeightliftingManagment.MvvmSupport.Dispose;
 
@@ -25,8 +20,8 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
         /// </summary>
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged
         {
-            add { PropertyChanged += value; }
-            remove { PropertyChanged -= value; }
+            add => PropertyChanged += value;
+            remove => PropertyChanged -= value;
         }
 
         /// <summary>
@@ -45,7 +40,7 @@ namespace WeightliftingManagment.MvvmSupport.BindableBase
         /// <summary>
         /// Occurs when a property value changes.
         /// </summary>
-        private event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
 
         /// <summary>
         /// Occurs when a property value is changing.

@@ -1,5 +1,6 @@
 ﻿
 
+using WeightliftingManagment.Domain.Builder;
 using WeightliftingManagment.MvvmSupport.BindableBase;
 
 namespace WeightliftingManagment.Domain.Model
@@ -34,6 +35,12 @@ namespace WeightliftingManagment.Domain.Model
             Value = value;
             Status = status;
         }
+
+        /// <summary>
+        /// Get Builder of Attempt
+        /// </summary>
+        /// <returns>New instance of AttemptBuilder</returns>
+        public static AttemptBuilder CreateBuilder() => new();
 
         #region Property
         private int _value;

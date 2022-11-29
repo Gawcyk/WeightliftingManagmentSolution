@@ -6,13 +6,13 @@ using Prism.Services.Dialogs;
 
 using WeightliftingManagment.Core.Dialogs;
 using WeightliftingManagment.Core.MvvmSupport.ViewModelsTypeBase;
+using WeightliftingManagment.Localization.LocalizationModel;
 
 namespace WeightliftingManagment.Moduls.Dialogs.ViewModels
 {
     public class NotificationDialogViewModel : DialogViewModelBase
     {
         private readonly DispatcherTimer _timer;
-
         private int _closeTime;
         public int CloseTime
         {
@@ -65,12 +65,7 @@ namespace WeightliftingManagment.Moduls.Dialogs.ViewModels
             Message = parameters.GetValue<string>("Message");
             CloseTime = parameters.GetValue<int>("CloseTime");
             TimeWindowClose = parameters.GetValue<int>("CloseTime");
-            var dialogType = parameters.GetValue<string>("DialogType");
-            DialogType = dialogType switch {
-                "Alert" => DialogType.Alert,
-                "Information" => DialogType.Information,
-                _ => throw new ArgumentNullException(paramName: dialogType, "Nie podano typu")
-            };
+            DialogType = parameters.GetValue<DialogType>("DialogType");
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls">
 
     <Style x:Key="WLM.Tile.Base" TargetType="{x:Type mah:Tile}">
         <Setter Property="mah:ControlsHelper.MouseOverBorderBrush" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
@@ -20,22 +21,34 @@
         <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="WLM.Tile.Rectangle" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base}">
+    <Style
+        x:Key="WLM.Tile.Rectangle"
+        BasedOn="{StaticResource WLM.Tile.Base}"
+        TargetType="{x:Type mah:Tile}">
         <Setter Property="Width" Value="200" />
         <Setter Property="Height" Value="100" />
     </Style>
 
-    <Style x:Key="WLM.Tile.Square" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base}">
+    <Style
+        x:Key="WLM.Tile.Square"
+        BasedOn="{StaticResource WLM.Tile.Base}"
+        TargetType="{x:Type mah:Tile}">
         <Setter Property="Width" Value="100" />
         <Setter Property="Height" Value="100" />
     </Style>
 
-    <Style x:Key="WLM.Tile.Rectangle.Small" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base.Small}">
+    <Style
+        x:Key="WLM.Tile.Rectangle.Small"
+        BasedOn="{StaticResource WLM.Tile.Base.Small}"
+        TargetType="{x:Type mah:Tile}">
         <Setter Property="Width" Value="100" />
         <Setter Property="Height" Value="50" />
     </Style>
 
-    <Style x:Key="WLM.Tile.Square.Small" TargetType="{x:Type mah:Tile}" BasedOn="{StaticResource WLM.Tile.Base.Small}">
+    <Style
+        x:Key="WLM.Tile.Square.Small"
+        BasedOn="{StaticResource WLM.Tile.Base.Small}"
+        TargetType="{x:Type mah:Tile}">
         <Setter Property="Width" Value="50" />
         <Setter Property="Height" Value="50" />
     </Style>
